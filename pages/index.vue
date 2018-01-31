@@ -16,7 +16,6 @@
 </template>
 <script>
 import SignIn from '../components/SignIn'
-import socket from '~/plugins/global.js'
 
 export default {
 	components: {
@@ -27,7 +26,6 @@ export default {
 	},
 	methods: {
 		send() {
-			socket.emit('send-message', 'kek')
 		}
 	}
 }
