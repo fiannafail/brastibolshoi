@@ -1015,7 +1015,7 @@ var start = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3() {
     var _this = this;
 
-    var app, host, port, config, nuxt, builder;
+    var app, host, port, config, nuxt, builder, server, io;
     return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -1114,10 +1114,24 @@ var start = function () {
               };
             }());
 
-            app.listen(port, host);
+            server = http.createServer(app.callback());
+            io = __WEBPACK_IMPORTED_MODULE_9_socket_io___default()(server);
+
+
+            io.sockets.on('connection', function (socket) {
+              console.log('a user connected');
+              socket.on('send-message', function (msg) {
+                console.log(msg);
+              });
+              socket.on('disconnect', function () {
+                console.log('user disconnected');
+              });
+            });
+
+            server.listen(port, host);
             debug('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-          case 18:
+          case 21:
           case 'end':
             return _context3.stop();
         }

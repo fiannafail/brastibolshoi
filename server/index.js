@@ -59,8 +59,20 @@ async function start () {
     })
   })
 
+  const server = http.createServer(app.callback())
+  const io = socket(server)
 
-  app.listen(port, host)
+  io.sockets.on('connection', (socket) => {
+    console.log('a user connected')
+    socket.on('send-message', (msg) => {
+      console.log(msg)
+    })
+    socket.on('disconnect', () => {
+      console.log('user disconnected')
+    })
+  })
+
+  server.listen(port, host)
   debug('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
 }
 
