@@ -14,9 +14,6 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono:500|Source+Sans+Pro:300,400,600,700&amp;subset=cyrillic' }
     ]
   },
-  plugins: [
-    { src: '~/plugins/global.js', ssr: false }
-  ],
   /*
   ** Global CSS
   */
@@ -33,7 +30,7 @@ module.exports = {
      ** Run ESLINT on save
      */
     extend (config, ctx) {
-      if (ctx.isClient || ctx.isServer) {
+      if (ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.js$/,

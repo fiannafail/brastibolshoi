@@ -59,9 +59,8 @@ async function start () {
     })
   })
 
-  const server = http.createServer(app.callback())
 
-  server.listen(port, host)
+  app.listen(port, host)
   debug('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
 }
 

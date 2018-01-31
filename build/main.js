@@ -326,7 +326,6 @@ module.exports = {
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: 'Nuxt.js project' }],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono:500|Source+Sans+Pro:300,400,600,700&amp;subset=cyrillic' }]
   },
-  plugins: [{ src: '~/plugins/global.js', ssr: false }],
   /*
   ** Global CSS
   */
@@ -343,7 +342,7 @@ module.exports = {
      ** Run ESLINT on save
      */
     extend: function extend(config, ctx) {
-      if (ctx.isClient || ctx.isServer) {
+      if (ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.js$/,
@@ -1016,7 +1015,7 @@ var start = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3() {
     var _this = this;
 
-    var app, host, port, config, nuxt, builder, server;
+    var app, host, port, config, nuxt, builder;
     return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -1115,13 +1114,10 @@ var start = function () {
               };
             }());
 
-            server = http.createServer(app.callback());
-
-
-            server.listen(port, host);
+            app.listen(port, host);
             debug('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-          case 19:
+          case 18:
           case 'end':
             return _context3.stop();
         }
