@@ -1119,6 +1119,9 @@ var start = function () {
             io = __WEBPACK_IMPORTED_MODULE_9_socket_io___default()(server);
 
 
+            io.set('origins', '*:*');
+            io.set('match origin protocol', true);
+
             io.sockets.on('connection', function (socket) {
               console.log('a user connected');
               socket.on('send-message', function (msg) {
@@ -1132,7 +1135,7 @@ var start = function () {
             server.listen(port, host);
             debug('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-          case 21:
+          case 23:
           case 'end':
             return _context3.stop();
         }
