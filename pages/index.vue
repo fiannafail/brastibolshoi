@@ -4,7 +4,6 @@
 		<h1 class="title">
 			Universal Vue.js Application Framework
 		</h1>
-		<sign-in></sign-in>
 		<button @click="send">signin</button>
 				<nuxt-link class="button" to="/article1">
 			About page
@@ -15,13 +14,9 @@
 	</section>
 </template>
 <script>
-import SignIn from '../components/SignIn'
 import socket from '~/plugins/global.js'
 
 export default {
-	components: {
-		SignIn
-	},
 	created() {
 
 	},
