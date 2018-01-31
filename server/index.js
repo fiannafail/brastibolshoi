@@ -61,10 +61,6 @@ async function start () {
 
   const server = http.createServer(app.callback())
   const io = socket(server)
-  
-  io.set('origins', '*:*');
-  io.set('match origin protocol', true);
-
 
   io.sockets.on('connection', (socket) => {
     console.log('a user connected')
