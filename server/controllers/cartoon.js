@@ -15,7 +15,12 @@ export default {
 	getAll: async (ctx, next) => {
 		debug('start getting')
 		const cartoons = await Cartoon.find({})
-		ctx.body = cartoons
+		if (cartoons) {
+			ctx.body = cartoons
+		} else {
+			ctx.body = 'Nothing was found'
+		}
+		
 		debug('finish getting')
 	},
 	getOne: async (ctx, next) => {
