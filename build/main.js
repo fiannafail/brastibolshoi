@@ -165,16 +165,10 @@ userSchema.statics.authenticate = function (username, password, done) {
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MONGO_URI; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_KEY; });
-var REDIS_KEY = void 0,
-    JWT_KEY = void 0,
-    MONGO_URI = void 0;
-if (false) {
-	MONGO_URI = 'mongodb://admin:irishlibertian28@46.101.221.53:27017';
-} else {
-	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
-	JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
-	REDIS_KEY = 'DRKlPeBHbgr0FUSs';
-}
+var MONGO_URI = 'mongodb://admin:password@46.101.221.53:27017/test?&authSource=test';
+var JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
+var REDIS_KEY = 'DRKlPeBHbgr0FUSs';
+
 
 
 /***/ },
@@ -606,7 +600,12 @@ var debug = __webpack_require__(0)('app:nuxt');
 						case 3:
 							cartoons = _context2.sent;
 
-							ctx.body = cartoons;
+							if (cartoons) {
+								ctx.body = cartoons;
+							} else {
+								ctx.body = 'Nothing was found';
+							}
+
 							debug('finish getting');
 
 						case 6:
