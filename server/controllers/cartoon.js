@@ -32,10 +32,10 @@ export default {
 	getRedis: async (ctx, next) => {
 		try {
 			const el = await getAsync(`cartoon`)
+			ctx.body = el
 		} catch(e) {
 			console.log(e)
 			ctx.body = e
 		}
-		ctx.body = el
 	}
 }
