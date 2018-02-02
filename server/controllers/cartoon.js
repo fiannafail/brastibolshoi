@@ -40,7 +40,7 @@ export default {
 	},
 	getMongo: async (ctx, next) => {
 		try {
-			const cartoon = await Cartoon.find({ _id: '5a73c2dcc7ee780cabfdbd21' })
+			const cartoon = await Cartoon.find({ _id: '5a74e75c180fa800bba8fe3e' })
 			ctx.body = cartoon
 		} catch(e) {
 			console.log(e)

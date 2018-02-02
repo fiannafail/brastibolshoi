@@ -710,7 +710,7 @@ var debug = __webpack_require__(0)('app:nuxt');
 						case 0:
 							_context5.prev = 0;
 							_context5.next = 3;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* default */].find({ _id: '5a73c2dcc7ee780cabfdbd21' });
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* default */].find({ _id: '5a74e75c180fa800bba8fe3e' });
 
 						case 3:
 							cartoon = _context5.sent;
