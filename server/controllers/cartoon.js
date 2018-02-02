@@ -30,7 +30,12 @@ export default {
 		ctx.body = cartoon
 	},
 	getRedis: async (ctx, next) => {
-		const el = await getAsync(`cartoon`)
+		try {
+			const el = await getAsync(`cartoon`)
+		} catch(e) {
+			console.log(e)
+			ctx.body = e
+		}
 		ctx.body = el
 	}
 }

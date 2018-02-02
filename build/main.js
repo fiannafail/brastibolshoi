@@ -669,25 +669,37 @@ var debug = __webpack_require__(0)('app:nuxt');
 	}(),
 	getRedis: function () {
 		var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
-			var el;
+			var _el;
+
 			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
 				while (1) {
 					switch (_context4.prev = _context4.next) {
 						case 0:
-							_context4.next = 2;
+							_context4.prev = 0;
+							_context4.next = 3;
 							return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__handlers_redis__["a" /* getAsync */])('cartoon');
 
-						case 2:
-							el = _context4.sent;
+						case 3:
+							_el = _context4.sent;
+							_context4.next = 10;
+							break;
 
+						case 6:
+							_context4.prev = 6;
+							_context4.t0 = _context4['catch'](0);
+
+							console.log(_context4.t0);
+							ctx.body = _context4.t0;
+
+						case 10:
 							ctx.body = el;
 
-						case 4:
+						case 11:
 						case 'end':
 							return _context4.stop();
 					}
 				}
-			}, _callee4, _this);
+			}, _callee4, _this, [[0, 6]]);
 		}));
 
 		function getRedis(_x7, _x8) {
