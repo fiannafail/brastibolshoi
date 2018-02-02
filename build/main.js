@@ -94,8 +94,16 @@ module.exports = __webpack_require__(29);
 
 
 
-var redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient('redis://46.101.221.53:6379', { no_ready_check: true });
-redisClient.auth(__WEBPACK_IMPORTED_MODULE_1__config__["b" /* REDIS_KEY */]);
+var redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient({
+	host: '127.0.0.1',
+	port: '6379',
+	no_ready_check: true,
+	password: __WEBPACK_IMPORTED_MODULE_1__config__["b" /* REDIS_KEY */]
+});
+
+redisClient.on("error", function (err) {
+	console.log("Error " + err);
+});
 
 var _require = __webpack_require__(30),
     promisify = _require.promisify;
