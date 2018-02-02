@@ -97,8 +97,7 @@ module.exports = __webpack_require__(29);
 var redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient({
 	host: '127.0.0.1',
 	port: '6379',
-	no_ready_check: true,
-	password: __WEBPACK_IMPORTED_MODULE_1__config__["b" /* REDIS_KEY */]
+	no_ready_check: true
 });
 
 redisClient.on("error", function (err) {
@@ -177,8 +176,8 @@ module.exports = require("redis");
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MONGO_URI; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_KEY; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return JWT_KEY; });
+/* unused harmony export REDIS_KEY */
 var MONGO_URI = 'mongodb://admin:password@46.101.221.53:27017/test?&authSource=test';
 var JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
 var REDIS_KEY = 'DRKlPeBHbgr0FUSs';
@@ -204,13 +203,13 @@ module.exports = require("koa-passport");
 
 /* harmony default export */ exports["a"] = {
   genToken: function genToken(data, expiration) {
-    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.sign(data, __WEBPACK_IMPORTED_MODULE_1__config__["c" /* JWT_KEY */], { expiresIn: expiration });
+    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.sign(data, __WEBPACK_IMPORTED_MODULE_1__config__["b" /* JWT_KEY */], { expiresIn: expiration });
   },
   verify: function verify(token) {
-    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["c" /* JWT_KEY */]);
+    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["b" /* JWT_KEY */]);
   },
   verifyNoExp: function verifyNoExp(token) {
-    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["c" /* JWT_KEY */], { ignoreExpiration: true });
+    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["b" /* JWT_KEY */], { ignoreExpiration: true });
   }
 };
 
