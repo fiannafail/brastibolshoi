@@ -94,7 +94,7 @@ module.exports = __webpack_require__(29);
 
 
 
-var redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient('redis://redis-19199.c2.eu-west-1-3.ec2.cloud.redislabs.com:19199', { no_ready_check: true });
+var redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient('redis://46.101.221.53:6379', { no_ready_check: true });
 redisClient.auth(__WEBPACK_IMPORTED_MODULE_1__config__["b" /* REDIS_KEY */]);
 
 var _require = __webpack_require__(30),
