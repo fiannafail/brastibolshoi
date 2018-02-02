@@ -11,10 +11,14 @@
 		<nuxt-link class="button" to="/about">
 			About page
 		</nuxt-link>
+		<div>
+			<button class="button" @click="redis">redis</button>
+		</div>
 	</section>
 </template>
 <script>
 import socket from '~/plugins/global.js'
+import axios from '~/plugins/axios'
 
 export default {
 	created() {
@@ -23,6 +27,10 @@ export default {
 	methods: {
 		send() {
 			socket.emit('send-message', 'kek')
+		},
+		redis () {
+			const { data } = axios.get('/redis')
+			console.log(data)
 		}
 	}
 }

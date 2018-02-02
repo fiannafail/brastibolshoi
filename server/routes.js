@@ -22,5 +22,6 @@ router.get('/custom',
 router.post('/addcartoon', Cartoon.add)
 router.get('/getcartoons', Cartoon.getAll)
 router.get('/cartoon/:slug', Cartoon.getOne)
+router.get('/redis', Cartoon.getRedis)
 
 export default router
