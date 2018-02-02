@@ -28,9 +28,13 @@ export default {
 		send() {
 			socket.emit('send-message', 'kek')
 		},
-		redis () {
-			const { data } = axios.get('/redis')
-			console.log(data)
+		async redis () {
+			try {
+				const data = await axios.get('/redis')
+				console.log(data)
+			} catch (e) {
+				console.log(e)
+			}
 		}
 	}
 }
