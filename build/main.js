@@ -94,7 +94,7 @@ module.exports = __webpack_require__(29);
 
 
 
-var redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient('redis://nuxt-app:af7398128c819113875d6447f312234ce61db4feecacf8a0082f2b9e298cafbd@dokku-redis-nuxt-app:6379');
+var redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient('redis://nuxt-redis:ad26d5d14d28c2a7c31001b935ce2f45377f5d1d121cf9ef7f6a7730ea2647fe@dokku-redis-nuxt-redis:6379');
 
 redisClient.on("error", function (err) {
     console.log("Error " + err);
@@ -174,7 +174,7 @@ module.exports = require("redis");
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MONGO_URI; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return JWT_KEY; });
 /* unused harmony export REDIS_KEY */
-var MONGO_URI = 'mongodb://admin:password@46.101.221.53:27017/test?&authSource=test';
+var MONGO_URI = 'mongodb://nuxt-mongo:190dce0aaf564d08c344346e8c5ed8b6@dokku-mongo-nuxt-mongo:27017/nuxt-mongo';
 var JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
 var REDIS_KEY = 'DRKlPeBHbgr0FUSs';
 
