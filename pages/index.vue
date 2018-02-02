@@ -13,6 +13,7 @@
 		</nuxt-link>
 		<div>
 			<button class="button" @click="redis">redis</button>
+			<button class="button" @click="mongo">mongo</button>
 		</div>
 	</section>
 </template>
@@ -31,6 +32,14 @@ export default {
 		async redis () {
 			try {
 				const data = await axios.get('/redis')
+				console.log(data)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		async mongo () {
+			try {
+				const data = await axios.get('/mongo')
 				console.log(data)
 			} catch (e) {
 				console.log(e)

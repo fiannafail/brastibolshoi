@@ -504,7 +504,7 @@ router.post('/addcartoon', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a
 router.get('/getcartoons', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getAll);
 router.get('/cartoon/:slug', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getOne);
 router.get('/redis', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getRedis);
-
+router.get('/mongo', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getMongo);
 /* harmony default export */ exports["a"] = router;
 
 /***/ },
@@ -700,6 +700,45 @@ var debug = __webpack_require__(0)('app:nuxt');
 		}
 
 		return getRedis;
+	}(),
+	getMongo: function () {
+		var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(ctx, next) {
+			var cartoon;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+				while (1) {
+					switch (_context5.prev = _context5.next) {
+						case 0:
+							_context5.prev = 0;
+							_context5.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* default */].find({ _id: '5a73c2dcc7ee780cabfdbd21' });
+
+						case 3:
+							cartoon = _context5.sent;
+
+							ctx.body = cartoon;
+							_context5.next = 11;
+							break;
+
+						case 7:
+							_context5.prev = 7;
+							_context5.t0 = _context5['catch'](0);
+
+							console.log(_context5.t0);
+							ctx.body = _context5.t0;
+
+						case 11:
+						case 'end':
+							return _context5.stop();
+					}
+				}
+			}, _callee5, _this, [[0, 7]]);
+		}));
+
+		function getMongo(_x9, _x10) {
+			return _ref5.apply(this, arguments);
+		}
+
+		return getMongo;
 	}()
 };
 
