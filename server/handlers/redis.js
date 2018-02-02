@@ -4,7 +4,8 @@ import { REDIS_KEY } from '../config'
 export const redisClient = redis.createClient({
 	host: '127.0.0.1',
 	port: '6379',
-	no_ready_check: true
+	no_ready_check: true,
+	password: REDIS_KEY
 });
 
 redisClient.on("error", function (err) {
