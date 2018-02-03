@@ -2,8 +2,8 @@
 import socket from 'socket.io'
 
 
-export default server => {
-	
+export default (server) => {
+
 const io = socket(server)
 
 io.sockets.on('connection', (socket) => {
