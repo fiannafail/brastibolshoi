@@ -175,11 +175,11 @@ module.exports = require("redis");
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_URL; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
 /* unused harmony export REDIS_KEY */
-var MONGO_URL = void 0,
+var MONGO_URI = void 0,
     REDIS_URL = void 0;
 
 if (false) {
-	MONGO_URL = process.env.MONGO_URL;
+	MONGO_URI = process.env.MONGO_URL;
 	REDIS_URL = process.env.REDIS_URL;
 } else {
 	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';

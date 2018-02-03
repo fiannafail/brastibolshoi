@@ -1,7 +1,7 @@
-let MONGO_URL, REDIS_URL
+let MONGO_URI, REDIS_URL
 
 if(process.env.NODE_ENV === 'production') {
-	MONGO_URL = process.env.MONGO_URL
+	MONGO_URI = process.env.MONGO_URL
 	REDIS_URL = process.env.REDIS_URL
 } else {
 	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin'
