@@ -175,12 +175,12 @@ module.exports = require("redis");
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_URL; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
 /* unused harmony export REDIS_KEY */
-var MONGO_URI = void 0,
+var MONGO_URL = void 0,
     REDIS_URL = void 0;
 
 if (false) {
-	MONGO_URI = 'mongodb://nuxt-mongo:190dce0aaf564d08c344346e8c5ed8b6@dokku-mongo-nuxt-mongo:27017/nuxt-mongo';
-	REDIS_URL = 'redis://nuxt-redis:ad26d5d14d28c2a7c31001b935ce2f45377f5d1d121cf9ef7f6a7730ea2647fe@dokku-redis-nuxt-redis:6379';
+	MONGO_URL = process.env.MONGO_URL;
+	REDIS_URL = process.env.REDIS_URL;
 } else {
 	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
 	REDIS_URL = 'redis://localhost:6379';
