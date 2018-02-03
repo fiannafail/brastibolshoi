@@ -1,4 +1,5 @@
 import Koa from 'koa'
+import http from 'http'
 import { Nuxt, Builder } from 'nuxt'
 import passport from 'koa-passport'
 import router from './routes'
@@ -7,9 +8,7 @@ import mongooseConnector from './mongoose-connection'
 import initHandlers from './handlers'
 import jwtHandler from './jwt'
 import { MONGO_URI, JWT_KEY } from './config'
-
-import socket from 'socket.io'
-var http    = require('http')
+import websockets from './services/socketio'
 
 async function start () {
   const app = new Koa()
@@ -59,19 +58,11 @@ async function start () {
     })
   })
 
+  // socket.io
   const server = http.createServer(app.callback())
-  const io = socket(server)
+  websockets(server)
 
-  io.sockets.on('connection', (socket) => {
-    console.log('a user connected')
-    socket.on('send-message', (msg) => {
-      console.log(msg)
-    })
-    socket.on('disconnect', () => {
-      console.log('user disconnected')
-    })
-  })
-
+  // listen
   server.listen(port, host)
   debug('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
 }

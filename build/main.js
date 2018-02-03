@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 31);
+/******/ 	return __webpack_require__(__webpack_require__.s = 32);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -94,13 +94,13 @@ module.exports = __webpack_require__(29);
 
 
 
-var redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient('redis://nuxt-redis:ad26d5d14d28c2a7c31001b935ce2f45377f5d1d121cf9ef7f6a7730ea2647fe@dokku-redis-nuxt-redis:6379');
+var redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient(__WEBPACK_IMPORTED_MODULE_1__config__["b" /* REDIS_URL */]);
 
 redisClient.on("error", function (err) {
     console.log("Error " + err);
 });
 
-var _require = __webpack_require__(30),
+var _require = __webpack_require__(31),
     promisify = _require.promisify;
 
 var getAsync = promisify(redisClient.get).bind(redisClient);
@@ -172,11 +172,21 @@ module.exports = require("redis");
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MONGO_URI; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return JWT_KEY; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_URL; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
 /* unused harmony export REDIS_KEY */
-var MONGO_URI = 'mongodb://nuxt-mongo:190dce0aaf564d08c344346e8c5ed8b6@dokku-mongo-nuxt-mongo:27017/nuxt-mongo';
-var JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
+var MONGO_URI = void 0,
+    REDIS_URL = void 0;
+
+if (false) {
+	MONGO_URI = 'mongodb://nuxt-mongo:190dce0aaf564d08c344346e8c5ed8b6@dokku-mongo-nuxt-mongo:27017/nuxt-mongo';
+	REDIS_URL = 'redis://nuxt-redis:ad26d5d14d28c2a7c31001b935ce2f45377f5d1d121cf9ef7f6a7730ea2647fe@dokku-redis-nuxt-redis:6379';
+} else {
+	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
+	REDIS_URL = 'redis://localhost:6379';
+}
 var REDIS_KEY = 'DRKlPeBHbgr0FUSs';
+var JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
 
 
 
@@ -199,13 +209,13 @@ module.exports = require("koa-passport");
 
 /* harmony default export */ exports["a"] = {
   genToken: function genToken(data, expiration) {
-    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.sign(data, __WEBPACK_IMPORTED_MODULE_1__config__["b" /* JWT_KEY */], { expiresIn: expiration });
+    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.sign(data, __WEBPACK_IMPORTED_MODULE_1__config__["c" /* JWT_KEY */], { expiresIn: expiration });
   },
   verify: function verify(token) {
-    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["b" /* JWT_KEY */]);
+    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["c" /* JWT_KEY */]);
   },
   verifyNoExp: function verifyNoExp(token) {
-    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["b" /* JWT_KEY */], { ignoreExpiration: true });
+    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["c" /* JWT_KEY */], { ignoreExpiration: true });
   }
 };
 
@@ -509,27 +519,46 @@ router.get('/mongo', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* d
 
 /***/ },
 /* 16 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = require("http");
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_socket_io__);
+
+
+
+/* harmony default export */ exports["a"] = function (server) {
+
+  var io = __WEBPACK_IMPORTED_MODULE_0_socket_io___default()(server);
+
+  io.sockets.on('connection', function (socket) {
+    console.log('a user connected');
+    socket.on('send-message', function (msg) {
+      console.log(msg);
+    });
+    socket.on('disconnect', function () {
+      console.log('user disconnected');
+    });
+  });
+};
 
 /***/ },
 /* 17 */
 /***/ function(module, exports) {
 
-module.exports = require("koa");
+module.exports = require("http");
 
 /***/ },
 /* 18 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa");
 
 /***/ },
 /* 19 */
 /***/ function(module, exports) {
 
-module.exports = require("socket.io");
+module.exports = require("nuxt");
 
 /***/ },
 /* 20 */
@@ -1078,36 +1107,43 @@ module.exports = require("regenerator-runtime");
 /* 30 */
 /***/ function(module, exports) {
 
-module.exports = require("util");
+module.exports = require("socket.io");
 
 /***/ },
 /* 31 */
+/***/ function(module, exports) {
+
+module.exports = require("util");
+
+/***/ },
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_passport__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mongoose_connection__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__handlers__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__jwt__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_socket_io__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_socket_io___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_socket_io__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_http___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_http__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_nuxt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_passport__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa_passport__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mongoose_connection__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__handlers__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__jwt__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_socketio__ = __webpack_require__(16);
 
 
 var start = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3() {
     var _this = this;
 
-    var app, host, port, config, nuxt, builder, server, io;
+    var app, host, port, config, nuxt, builder, server;
     return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -1123,7 +1159,7 @@ var start = function () {
             config.dev = !(app.env === 'production');
 
             // Instantiate nuxt.js
-            nuxt = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Nuxt"](config);
+            nuxt = new __WEBPACK_IMPORTED_MODULE_3_nuxt__["Nuxt"](config);
 
             // Build in development
 
@@ -1132,23 +1168,23 @@ var start = function () {
               break;
             }
 
-            builder = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt);
+            builder = new __WEBPACK_IMPORTED_MODULE_3_nuxt__["Builder"](nuxt);
             _context3.next = 10;
             return builder.build();
 
           case 10:
             //  Passport
-            app.use(__WEBPACK_IMPORTED_MODULE_3_koa_passport___default.a.initialize());
-            __webpack_require__(14).configure(__WEBPACK_IMPORTED_MODULE_3_koa_passport___default.a);
+            app.use(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a.initialize());
+            __webpack_require__(14).configure(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a);
 
             // Initial handlers
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__handlers__["a" /* default */])(app);
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__handlers__["a" /* default */])(app);
 
             // JWT Handler
             //  app.use(jwtHandler())
 
             // Mongoose
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_8__config__["a" /* MONGO_URI */]);
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_9__config__["a" /* MONGO_URI */]);
 
             // Router
             app.use(function () {
@@ -1158,7 +1194,7 @@ var start = function () {
                     switch (_context.prev = _context.next) {
                       case 0:
                         _context.next = 2;
-                        return __WEBPACK_IMPORTED_MODULE_4__routes__["a" /* default */].routes()(ctx, next);
+                        return __WEBPACK_IMPORTED_MODULE_5__routes__["a" /* default */].routes()(ctx, next);
 
                       case 2:
                       case 'end':
@@ -1206,24 +1242,16 @@ var start = function () {
               };
             }());
 
-            server = http.createServer(app.callback());
-            io = __WEBPACK_IMPORTED_MODULE_9_socket_io___default()(server);
+            // socket.io
+            server = __WEBPACK_IMPORTED_MODULE_2_http___default.a.createServer(app.callback());
 
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__services_socketio__["a" /* default */])(server);
 
-            io.sockets.on('connection', function (socket) {
-              console.log('a user connected');
-              socket.on('send-message', function (msg) {
-                console.log(msg);
-              });
-              socket.on('disconnect', function () {
-                console.log('user disconnected');
-              });
-            });
-
+            // listen
             server.listen(port, host);
             debug('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-          case 21:
+          case 20:
           case 'end':
             return _context3.stop();
         }
@@ -1242,14 +1270,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+
 var debug = __webpack_require__(0)('app:nuxt');
 
 
 
 
 
-
-var http = __webpack_require__(16);
 
 start();
 
