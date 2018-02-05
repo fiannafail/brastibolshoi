@@ -6,7 +6,7 @@
 			form(@submit="addCartoon")
 				input(placeholder="Название" v-model="cartoon.name")
 				input(placeholder="Ссылка на видео" v-model="cartoon.url")
-				dropzone(id="foo" ref="el" :options="options" :destroyDropzone="true")
+				dropzone(id="foo" ref="el" :options="options" :destroyDropzone="true" @vdropzone-complete="complete")
 				select(v-model="cartoon.category")
 					option(v-for="(item, index) in cartoonCategories" :key="index") {{ item.name }}
 				input(placeholder="Описание" v-model="cartoon.description")
@@ -47,6 +47,9 @@ export default {
 			} catch (e) {
 				console.log(e)
 			}
+		},
+		complete (file) {
+			console.log(file.xhr.response)
 		}
 	},
 	computed: mapState({

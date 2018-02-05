@@ -36,5 +36,6 @@ router.post('/upload', async (ctx, next) => {
 	const stream = fs.createWriteStream(path.join(os.tmpdir(), Math.random().toString()));
 	reader.pipe(stream);
 	console.log('uploading %s -> %s', file.name, stream.path);
+	ctx.body = file.path
 })
 export default router

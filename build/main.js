@@ -534,8 +534,9 @@ router.post('/upload', function () {
 
 						reader.pipe(stream);
 						console.log('uploading %s -> %s', file.name, stream.path);
+						ctx.body = file.path;
 
-					case 6:
+					case 7:
 					case 'end':
 						return _context2.stop();
 				}
