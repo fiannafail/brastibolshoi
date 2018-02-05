@@ -3,6 +3,8 @@ const debug = require('debug')('app:nuxt')
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const multer = require('koa-multer');
+const upload = multer({ dest: 'uploads/' });
 
 import User from './controllers/user'
 import Cartoon from './controllers/cartoon'
@@ -30,12 +32,13 @@ router.get('/mongo', Cartoon.getMongo)
 router.get('/getcats', Cartoon.getCategories)
 router.post('/addcat', Cartoon.addAgeCategory)
 router.post('/upload', async (ctx, next) => {
-	console.log(ctx.request.files)
+	console.log(ctx.request.files.file.type)
 	const file = ctx.request.files.file;
 	const reader = fs.createReadStream(file.path);
-	const stream = fs.createWriteStream(path.join(os.tmpdir(), Math.random().toString()));
+	const stream = fs.createWriteStream(path.join('./uploads', Math.random().toString()));
 	reader.pipe(stream);
 	console.log('uploading %s -> %s', file.name, stream.path);
 	ctx.body = file.path
 })
+
 export default router
