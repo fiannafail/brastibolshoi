@@ -1,9 +1,29 @@
 import redis from 'redis'
-import Cartoon from '../models/cartoon'
+import { Cartoon, AgeCategory } from '../models/cartoon'
 const debug = require('debug')('app:nuxt')
 import { redisClient, getAsync } from '../handlers/redis'
 
 export default {
+	addAgeCategory: async (ctx, next) => {
+		try {
+			const category = new AgeCategory(ctx.request.body)
+				// name: 'half',
+				// slug: 'half',
+				// description: 'halfdesc'
+			category.save()
+			ctx.body = category
+		} catch (e) {
+			console.log(e)
+		}
+	},
+	getCategories: async (ctx, next) => {
+		try {
+			const categories = await AgeCategory.find()
+			ctx.body = categories
+		} catch (e) {
+			console.log(e)
+		}
+	},
 	add: async (ctx, next) => {
 		try {
 			const cartoon = await new Cartoon(ctx.request.body)
