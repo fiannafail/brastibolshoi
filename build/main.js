@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,7 +78,7 @@ module.exports = require("debug");
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(29);
+module.exports = __webpack_require__(32);
 
 
 /***/ },
@@ -100,7 +100,7 @@ redisClient.on("error", function (err) {
     console.log("Error " + err);
 });
 
-var _require = __webpack_require__(31),
+var _require = __webpack_require__(34),
     promisify = _require.promisify;
 
 var getAsync = promisify(redisClient.get).bind(redisClient);
@@ -114,7 +114,7 @@ var getAsync = promisify(redisClient.get).bind(redisClient);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_bcrypt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__);
 
 
@@ -378,12 +378,12 @@ module.exports = {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_bodyparser__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_bodyparser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_bodyparser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa2_formidable__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa2_formidable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa2_formidable__);
 
 
 /* harmony default export */ exports["a"] = function (app) {
-  app.use(__WEBPACK_IMPORTED_MODULE_0_koa_bodyparser___default()());
+  app.use(__WEBPACK_IMPORTED_MODULE_0_koa2_formidable___default()());
 };
 
 /***/ },
@@ -419,7 +419,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_passport__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(3);
 
-var LocalStrategy = __webpack_require__(28);
+var LocalStrategy = __webpack_require__(30);
 
 
 var debug = __webpack_require__(0)('app:nuxt');
@@ -476,9 +476,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 var debug = __webpack_require__(0)('app:nuxt');
-var fs = __webpack_require__(33);
-var os = __webpack_require__(34);
-var path = __webpack_require__(35);
+var fs = __webpack_require__(25);
+var os = __webpack_require__(29);
+var path = __webpack_require__(31);
 
 
 
@@ -528,7 +528,7 @@ router.post('/upload', function () {
 				switch (_context2.prev = _context2.next) {
 					case 0:
 						console.log(ctx.request.files);
-						file = ctx.request.body.files.file;
+						file = ctx.request.files.file;
 						reader = fs.createReadStream(file.path);
 						stream = fs.createWriteStream(path.join(os.tmpdir(), Math.random().toString()));
 
@@ -554,7 +554,7 @@ router.post('/upload', function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_socket_io__);
 
 
@@ -1189,7 +1189,7 @@ module.exports = require("bcrypt");
 /* 25 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-bodyparser");
+module.exports = require("fs");
 
 /***/ },
 /* 26 */
@@ -1201,34 +1201,52 @@ module.exports = require("koa-router");
 /* 27 */
 /***/ function(module, exports) {
 
-module.exports = require("mongoose-unique-validator");
+module.exports = require("koa2-formidable");
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("mongoose-unique-validator");
 
 /***/ },
 /* 29 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("os");
 
 /***/ },
 /* 30 */
 /***/ function(module, exports) {
 
-module.exports = require("socket.io");
+module.exports = require("passport-local");
 
 /***/ },
 /* 31 */
 /***/ function(module, exports) {
 
-module.exports = require("util");
+module.exports = require("path");
 
 /***/ },
 /* 32 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+module.exports = require("socket.io");
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+module.exports = require("util");
+
+/***/ },
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1391,24 +1409,6 @@ var debug = __webpack_require__(0)('app:nuxt');
 
 
 start();
-
-/***/ },
-/* 33 */
-/***/ function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ },
-/* 34 */
-/***/ function(module, exports) {
-
-module.exports = require("os");
-
-/***/ },
-/* 35 */
-/***/ function(module, exports) {
-
-module.exports = require("path");
 
 /***/ }
 /******/ ]);

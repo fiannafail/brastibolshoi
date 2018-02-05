@@ -31,7 +31,7 @@ router.get('/getcats', Cartoon.getCategories)
 router.post('/addcat', Cartoon.addAgeCategory)
 router.post('/upload', async (ctx, next) => {
 	console.log(ctx.request.files)
-	const file = ctx.request.body.files.file;
+	const file = ctx.request.files.file;
 	const reader = fs.createReadStream(file.path);
 	const stream = fs.createWriteStream(path.join(os.tmpdir(), Math.random().toString()));
 	reader.pipe(stream);
