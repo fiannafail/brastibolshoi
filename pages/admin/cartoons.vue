@@ -129,7 +129,7 @@ Vue.use(VeeValidate)
 export default {
 	asyncData ({ store }) {
 		return Promise.all([
-			store.dispatch('getCartoonsCats'),
+			store.dispatch('getcartoonsCats'),
 			store.dispatch('getCartoonsTags')
 		])
 	},

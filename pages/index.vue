@@ -1,10 +1,6 @@
 <template lang="pug">
 	div(class="container")
-		header(class="main-header")
-			nav(class="main-navigation")
-				div Мультики
-				div Аудио
-				div Полезное
+		Header
 		main(class="main-section")
 			div(v-for="(item, index) in Cartoons" :key="index")
 				div(class="post-background" v-bind:style="{ backgroundImage: 'url(' + item.thumbnail + ')' }")
@@ -15,11 +11,11 @@ import { mapState } from 'vuex'
 import socket from '~/plugins/global.js'
 import axios from '~/plugins/axios'
 
+import Header from '../components/Header'
 export default {
 	asyncData ({ store }) {
 		return Promise.all([
-			store.dispatch('getCartoonsCats'),
-			store.dispatch('getCartoons')
+			store.dispatch('getcartoons')
 		])
 	},
 	created() {
@@ -48,9 +44,11 @@ export default {
 	},
 	computed: {
 		...mapState({
-			Cartoons: 'cartoons',
-			CartoonCategories: 'cartoonCategoriesArray'
+			Cartoons: 'cartoons'
 		})
+	},
+	components: {
+		Header
 	}
 }
 </script>
@@ -60,13 +58,7 @@ export default {
 .container
 	width 1150px
 	margin 0 auto
-.main-header 
-	width 100%
-.main-navigation
-	display flex
-	justify-content center
-	& > div
-		padding 10px 25px
+
 .main-section
 	display flex
 	flex-wrap wrap
