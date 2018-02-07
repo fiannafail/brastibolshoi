@@ -1,27 +1,27 @@
-<template>
-	<section class="container">
-		<img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-		<h1 class="title">
-			Universal Vue.js Application Framework
-		</h1>
-		<button @click="send">signin</button>
-				<nuxt-link class="button" to="/article1">
-			About page
-		</nuxt-link>
-		<nuxt-link class="button" to="/about">
-			About page
-		</nuxt-link>
-		<div>
-			<button class="button" @click="redis">redis</button>
-			<button class="button" @click="mongo">mongo</button>
-		</div>
-	</section>
+<template lang="pug">
+	div(class="container")
+		header(class="main-header")
+			nav(class="main-navigation")
+				div Мультики
+				div Аудио
+				div Полезное
+		main(class="main-section")
+			div(v-for="(item, index) in Cartoons" :key="index")
+				div(class="post-background" v-bind:style="{ backgroundImage: 'url(' + item.thumbnail + ')' }")
+					h1 {{ item.title }}
 </template>
 <script>
+import { mapState } from 'vuex'
 import socket from '~/plugins/global.js'
 import axios from '~/plugins/axios'
 
 export default {
+	asyncData ({ store }) {
+		return Promise.all([
+			store.dispatch('getCartoonsCats'),
+			store.dispatch('getCartoons')
+		])
+	},
 	created() {
 
 	},
@@ -45,14 +45,40 @@ export default {
 				console.log(e)
 			}
 		}
+	},
+	computed: {
+		...mapState({
+			Cartoons: 'cartoons',
+			CartoonCategories: 'cartoonCategoriesArray'
+		})
 	}
 }
 </script>
 
 
-<style scoped>
-.title {
-	margin: 50px 0;
-}
+<style lang="stylus" scoped>
+.container
+	width 1150px
+	margin 0 auto
+.main-header 
+	width 100%
+.main-navigation
+	display flex
+	justify-content center
+	& > div
+		padding 10px 25px
+.main-section
+	display flex
+	flex-wrap wrap
+	& > div
+		height 350px
+		margin 15px
+		border 1px solid #cccccc
+		width calc(100% / 3 - 34px)
+		&:first-child
+			width calc(100% / 3 * 2 - 34px)
+.post-background
+	width 100%
+	height 100%
 </style>
 

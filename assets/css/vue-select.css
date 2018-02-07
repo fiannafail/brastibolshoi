@@ -100,6 +100,7 @@ fieldset[disabled] .multiselect {
 }
 .multiselect__input::placeholder {
 	color: #3b8070;
+	font-size: 14px;
 }
 .multiselect__tag~.multiselect__input, .multiselect__tag~.multiselect__single {
     width: auto;
@@ -259,6 +260,9 @@ fieldset[disabled] .multiselect {
 }
 .multiselect__element {
     display: block;
+}
+.multiselect__option span {
+	font-size: 14px;
 }
 .multiselect__option {
     display: block;

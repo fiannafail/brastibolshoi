@@ -4,6 +4,7 @@ import axios from '~/plugins/axios'
 const createStore = () => {
 	return new Vuex.Store({
 		state: {
+			cartoons: [],
 			cartoonCategoriesArray: [],
 			cartoonCategoriesList: [],
 			cartoonTagsArray: []
@@ -14,6 +15,14 @@ const createStore = () => {
 			}
 		},
 		actions: {
+			async getCartoons ({ commit }) {
+				try {
+					const { data } = await axios.get('/getcartoons')
+					commit('set', { type: 'cartoons', items: data })
+				} catch (e) {
+					console.log(e)
+				}
+			},
 			async getCartoonsTags ({ commit }) {
 				const { data } = await axios.get('/gettags')
 				commit('set', { type: 'cartoonTagsArray', items: data })
