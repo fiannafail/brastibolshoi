@@ -383,6 +383,8 @@ var debug = __webpack_require__(0)('app:nuxt');
 var fs = __webpack_require__(27);
 var os = __webpack_require__(31);
 var path = __webpack_require__(33);
+var multer = __webpack_require__(38);
+var upload = multer({ dest: 'uploads/' });
 
 var cloudinary = __webpack_require__(26);
 
@@ -434,24 +436,15 @@ router.get('/getcats', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /*
 router.get('/gettags', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getTags);
 router.post('/addcat', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].addAgeCategory);
 router.post('/addtag', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].addTag);
-router.post('/upload', function () {
+router.post('/up', upload.single('file'), function () {
 	var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
-		var file, image;
 		return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
 			while (1) {
 				switch (_context2.prev = _context2.next) {
 					case 0:
-						file = ctx.request.files.file.path;
-						_context2.next = 3;
-						return cloudinary.uploader.upload(file);
+						console.log(ctx.request.files.file);
 
-					case 3:
-						image = _context2.sent;
-
-						console.log(image.secure_url);
-						ctx.body = image.secure_url;
-
-					case 6:
+					case 1:
 					case 'end':
 						return _context2.stop();
 				}
@@ -461,6 +454,35 @@ router.post('/upload', function () {
 
 	return function (_x3, _x4) {
 		return _ref2.apply(this, arguments);
+	};
+}());
+router.post('/upload', function () {
+	var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
+		var file, image;
+		return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+			while (1) {
+				switch (_context3.prev = _context3.next) {
+					case 0:
+						file = ctx.request.files.file.path;
+						_context3.next = 3;
+						return cloudinary.uploader.upload(file);
+
+					case 3:
+						image = _context3.sent;
+
+						console.log(image.secure_url);
+						ctx.body = image.secure_url;
+
+					case 6:
+					case 'end':
+						return _context3.stop();
+				}
+			}
+		}, _callee3, _this);
+	}));
+
+	return function (_x5, _x6) {
+		return _ref3.apply(this, arguments);
 	};
 }());
 
@@ -510,12 +532,7 @@ module.exports = require("koa");
 module.exports = require("nuxt");
 
 /***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-module.exports = require("sequelize");
-
-/***/ },
+/* 19 */,
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1353,17 +1370,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_http__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_http___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_http__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sequelize__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_nuxt__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_koa_passport__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_koa_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__routes__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mongoose_connection__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__handlers__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__config__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_socketio__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_nuxt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_passport__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa_passport__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mongoose_connection__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__handlers__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_socketio__ = __webpack_require__(15);
 
 
 var start = function () {
@@ -1386,7 +1401,7 @@ var start = function () {
 						config.dev = !(app.env === 'production');
 
 						// Instantiate nuxt.js
-						nuxt = new __WEBPACK_IMPORTED_MODULE_4_nuxt__["Nuxt"](config);
+						nuxt = new __WEBPACK_IMPORTED_MODULE_3_nuxt__["Nuxt"](config);
 
 						// Build in development
 
@@ -1395,23 +1410,23 @@ var start = function () {
 							break;
 						}
 
-						builder = new __WEBPACK_IMPORTED_MODULE_4_nuxt__["Builder"](nuxt);
+						builder = new __WEBPACK_IMPORTED_MODULE_3_nuxt__["Builder"](nuxt);
 						_context3.next = 10;
 						return builder.build();
 
 					case 10:
 						//  Passport
-						app.use(__WEBPACK_IMPORTED_MODULE_5_koa_passport___default.a.initialize());
-						__webpack_require__(13).configure(__WEBPACK_IMPORTED_MODULE_5_koa_passport___default.a);
+						app.use(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a.initialize());
+						__webpack_require__(13).configure(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a);
 
 						// Initial handlers
-						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__handlers__["a" /* default */])(app);
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__handlers__["a" /* default */])(app);
 
 						// JWT Handler
 						//  app.use(jwtHandler())
 
 						// Mongoose
-						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_9__config__["a" /* MONGO_URI */]);
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_8__config__["a" /* MONGO_URI */]);
 
 						// Router
 						app.use(function () {
@@ -1421,7 +1436,7 @@ var start = function () {
 										switch (_context.prev = _context.next) {
 											case 0:
 												_context.next = 2;
-												return __WEBPACK_IMPORTED_MODULE_6__routes__["a" /* default */].routes()(ctx, next);
+												return __WEBPACK_IMPORTED_MODULE_5__routes__["a" /* default */].routes()(ctx, next);
 
 											case 2:
 											case 'end':
@@ -1472,7 +1487,7 @@ var start = function () {
 						// socket.io
 						server = __WEBPACK_IMPORTED_MODULE_2_http___default.a.createServer(app.callback());
 
-						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__services_socketio__["a" /* default */])(server);
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__services_socketio__["a" /* default */])(server);
 
 						// listen
 						server.listen(port, host);
@@ -1498,7 +1513,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-
 var debug = __webpack_require__(0)('app:nuxt');
 
 
@@ -1506,6 +1520,12 @@ var debug = __webpack_require__(0)('app:nuxt');
 
 
 start();
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+module.exports = require("koa-multer");
 
 /***/ }
 /******/ ]);

@@ -3,6 +3,8 @@ const debug = require('debug')('app:nuxt')
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const multer = require('koa-multer');
+const upload = multer({ dest: 'uploads/' });
 
 var cloudinary = require('cloudinary');
 
@@ -39,8 +41,11 @@ router.get('/getcats', Cartoon.getCategories)
 router.get('/gettags', Cartoon.getTags)
 router.post('/addcat', Cartoon.addAgeCategory)
 router.post('/addtag', Cartoon.addTag)
+router.post('/up', upload.single('file'),  async (ctx, next) => {
+	console.log(ctx.request.files.file)
+})
 router.post('/upload', async (ctx, next) => {
-	const file = ctx.request.files.file.path;
+	const file = ctx.request.files.file.path
 	const image = await cloudinary.uploader.upload(file)
 	console.log(image.secure_url) 
 	ctx.body = image.secure_url

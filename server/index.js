@@ -1,6 +1,5 @@
 import Koa from 'koa'
 import http from 'http'
-import Sequelize from 'sequelize'
 import { Nuxt, Builder } from 'nuxt'
 import passport from 'koa-passport'
 import router from './routes'

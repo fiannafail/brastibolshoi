@@ -5,6 +5,9 @@ div
 		Aside
 		main(class="main-container")
 			nuxt-child
+			form(action="/up" method="post" enctype="multipart/form-data")
+				input(type="file" name="file" id="fileToUpload")
+				input(type="submit" value="Upload Image" name="submit")
 </template>
 <script>
 import Aside from '../components/admin/Aside'
