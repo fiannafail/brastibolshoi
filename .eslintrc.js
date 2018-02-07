@@ -26,7 +26,8 @@ module.exports = {
 		'switch-colon-spacing': 0,
 		'space-before-function-paren': 0,
 		'indent': [2, "tab"],
-		'no-tabs': 0
+		'no-tabs': 0,
+		'no-useless-escape': 0
 	},
 	globals: {}
 }

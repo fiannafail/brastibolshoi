@@ -1,9 +1,26 @@
 import redis from 'redis'
-import { Cartoon, AgeCategory } from '../models/cartoon'
+import { Cartoon, AgeCategory, Tag } from '../models/cartoon'
 const debug = require('debug')('app:nuxt')
 import { redisClient, getAsync } from '../handlers/redis'
 
 export default {
+	getTags: async (ctx, next) => {
+		try {
+			const tags = await Tag.find()
+			ctx.body = tags
+		} catch (e) {
+			console.log(e)
+		}
+	},
+	addTag: async (ctx, next) => {
+		try {
+			const tag = new Tag(ctx.request.body)
+			tag.save()
+			ctx.body = tag
+		} catch (e) {
+			console.log(e)
+		}
+	},
 	addAgeCategory: async (ctx, next) => {
 		try {
 			const category = new AgeCategory(ctx.request.body)
@@ -41,8 +58,7 @@ export default {
 			ctx.body = cartoons
 		} else {
 			ctx.body = 'Nothing was found'
-		}
-		
+		}	
 		debug('finish getting')
 	},
 	getOne: async (ctx, next) => {
@@ -53,7 +69,7 @@ export default {
 		try {
 			const el = await getAsync(`cartoon`)
 			ctx.body = el
-		} catch(e) {
+		} catch (e) {
 			console.log(e)
 			ctx.body = e
 		}
@@ -62,7 +78,7 @@ export default {
 		try {
 			const cartoon = await Cartoon.find({ _id: '5a74e75c180fa800bba8fe3e' })
 			ctx.body = cartoon
-		} catch(e) {
+		} catch (e) {
 			console.log(e)
 			ctx.body = e
 		}

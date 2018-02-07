@@ -89,8 +89,8 @@ module.exports = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_redis__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(5);
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return redisClient; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return getAsync; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return redisClient; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return getAsync; });
 
 
 
@@ -286,7 +286,7 @@ var debug = __webpack_require__(0)('app:nuxt');
 							debug('refresh token verified');
 							_context.prev = 12;
 							_context.next = 15;
-							return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__handlers_redis__["a" /* getAsync */])('token_' + username);
+							return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__handlers_redis__["b" /* getAsync */])('token_' + username);
 
 						case 15:
 							token = _context.sent;
@@ -338,7 +338,7 @@ module.exports = {
   head: {
     title: 'starter',
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: 'Nuxt.js project' }],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono:500|Source+Sans+Pro:300,400,600,700&amp;subset=cyrillic' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons|Roboto+Mono:500|Source+Sans+Pro:300,400,600,700&amp;subset=cyrillic' }]
   },
   /*
   ** Global CSS
@@ -476,11 +476,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 var debug = __webpack_require__(0)('app:nuxt');
-var fs = __webpack_require__(25);
+var fs = __webpack_require__(26);
 var os = __webpack_require__(30);
 var path = __webpack_require__(32);
-var multer = __webpack_require__(26);
-var upload = multer({ dest: 'uploads/' });
+
+var cloudinary = __webpack_require__(25);
+
+cloudinary.config({
+	cloud_name: 'rastibolshoi',
+	api_key: '374329698237239',
+	api_secret: 'Kax6e6xy_FakEfMUc61P_3XUS_I'
+});
 
 
 
@@ -521,24 +527,27 @@ router.get('/cartoon/:slug', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__[
 router.get('/redis', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getRedis);
 router.get('/mongo', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getMongo);
 router.get('/getcats', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getCategories);
+router.get('/gettags', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getTags);
 router.post('/addcat', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].addAgeCategory);
+router.post('/addtag', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].addTag);
 router.post('/upload', function () {
 	var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
-		var file, reader, stream;
+		var file, image;
 		return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
 			while (1) {
 				switch (_context2.prev = _context2.next) {
 					case 0:
-						console.log(ctx.request.files.file.type);
-						file = ctx.request.files.file;
-						reader = fs.createReadStream(file.path);
-						stream = fs.createWriteStream(path.join('./uploads', Math.random().toString()));
+						file = ctx.request.files.file.path;
+						_context2.next = 3;
+						return cloudinary.uploader.upload(file);
 
-						reader.pipe(stream);
-						console.log('uploading %s -> %s', file.name, stream.path);
-						ctx.body = file.path;
+					case 3:
+						image = _context2.sent;
 
-					case 7:
+						console.log(image.secure_url);
+						ctx.body = image.secure_url;
+
+					case 6:
 					case 'end':
 						return _context2.stop();
 				}
@@ -619,15 +628,83 @@ var debug = __webpack_require__(0)('app:nuxt');
 
 
 /* harmony default export */ exports["a"] = {
-	addAgeCategory: function () {
+	getTags: function () {
 		var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-			var category;
+			var tags;
 			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
 				while (1) {
 					switch (_context.prev = _context.next) {
 						case 0:
+							_context.prev = 0;
+							_context.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Tag */].find();
+
+						case 3:
+							tags = _context.sent;
+
+							ctx.body = tags;
+							_context.next = 10;
+							break;
+
+						case 7:
+							_context.prev = 7;
+							_context.t0 = _context['catch'](0);
+
+							console.log(_context.t0);
+
+						case 10:
+						case 'end':
+							return _context.stop();
+					}
+				}
+			}, _callee, _this, [[0, 7]]);
+		}));
+
+		function getTags(_x, _x2) {
+			return _ref.apply(this, arguments);
+		}
+
+		return getTags;
+	}(),
+	addTag: function () {
+		var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+			var tag;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+				while (1) {
+					switch (_context2.prev = _context2.next) {
+						case 0:
 							try {
-								category = new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* AgeCategory */](ctx.request.body);
+								tag = new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Tag */](ctx.request.body);
+
+								tag.save();
+								ctx.body = tag;
+							} catch (e) {
+								console.log(e);
+							}
+
+						case 1:
+						case 'end':
+							return _context2.stop();
+					}
+				}
+			}, _callee2, _this);
+		}));
+
+		function addTag(_x3, _x4) {
+			return _ref2.apply(this, arguments);
+		}
+
+		return addTag;
+	}(),
+	addAgeCategory: function () {
+		var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
+			var category;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+				while (1) {
+					switch (_context3.prev = _context3.next) {
+						case 0:
+							try {
+								category = new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* AgeCategory */](ctx.request.body);
 								// name: 'half',
 								// slug: 'half',
 								// description: 'halfdesc'
@@ -640,238 +717,237 @@ var debug = __webpack_require__(0)('app:nuxt');
 
 						case 1:
 						case 'end':
-							return _context.stop();
+							return _context3.stop();
 					}
 				}
-			}, _callee, _this);
+			}, _callee3, _this);
 		}));
 
-		function addAgeCategory(_x, _x2) {
-			return _ref.apply(this, arguments);
+		function addAgeCategory(_x5, _x6) {
+			return _ref3.apply(this, arguments);
 		}
 
 		return addAgeCategory;
 	}(),
 	getCategories: function () {
-		var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+		var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
 			var categories;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
 				while (1) {
-					switch (_context2.prev = _context2.next) {
+					switch (_context4.prev = _context4.next) {
 						case 0:
-							_context2.prev = 0;
-							_context2.next = 3;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* AgeCategory */].find();
+							_context4.prev = 0;
+							_context4.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* AgeCategory */].find();
 
 						case 3:
-							categories = _context2.sent;
+							categories = _context4.sent;
 
 							ctx.body = categories;
-							_context2.next = 10;
+							_context4.next = 10;
 							break;
 
 						case 7:
-							_context2.prev = 7;
-							_context2.t0 = _context2['catch'](0);
+							_context4.prev = 7;
+							_context4.t0 = _context4['catch'](0);
 
-							console.log(_context2.t0);
+							console.log(_context4.t0);
 
 						case 10:
 						case 'end':
-							return _context2.stop();
+							return _context4.stop();
 					}
 				}
-			}, _callee2, _this, [[0, 7]]);
+			}, _callee4, _this, [[0, 7]]);
 		}));
 
-		function getCategories(_x3, _x4) {
-			return _ref2.apply(this, arguments);
+		function getCategories(_x7, _x8) {
+			return _ref4.apply(this, arguments);
 		}
 
 		return getCategories;
 	}(),
 	add: function () {
-		var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
-			var cartoon;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
-				while (1) {
-					switch (_context3.prev = _context3.next) {
-						case 0:
-							_context3.prev = 0;
-							_context3.next = 3;
-							return new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Cartoon */](ctx.request.body);
-
-						case 3:
-							cartoon = _context3.sent;
-
-							cartoon.save();
-							ctx.body = cartoon;
-							_context3.next = 8;
-							return __WEBPACK_IMPORTED_MODULE_3__handlers_redis__["b" /* redisClient */].set('cartoon', cartoon._id.toString(), __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
-
-						case 8:
-							_context3.next = 13;
-							break;
-
-						case 10:
-							_context3.prev = 10;
-							_context3.t0 = _context3['catch'](0);
-
-							console.log(_context3.t0);
-
-						case 13:
-						case 'end':
-							return _context3.stop();
-					}
-				}
-			}, _callee3, _this, [[0, 10]]);
-		}));
-
-		function add(_x5, _x6) {
-			return _ref3.apply(this, arguments);
-		}
-
-		return add;
-	}(),
-	getAll: function () {
-		var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
-			var cartoons;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
-				while (1) {
-					switch (_context4.prev = _context4.next) {
-						case 0:
-							debug('start getting');
-							_context4.next = 3;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Cartoon */].find({});
-
-						case 3:
-							cartoons = _context4.sent;
-
-							if (cartoons) {
-								ctx.body = cartoons;
-							} else {
-								ctx.body = 'Nothing was found';
-							}
-
-							debug('finish getting');
-
-						case 6:
-						case 'end':
-							return _context4.stop();
-					}
-				}
-			}, _callee4, _this);
-		}));
-
-		function getAll(_x7, _x8) {
-			return _ref4.apply(this, arguments);
-		}
-
-		return getAll;
-	}(),
-	getOne: function () {
 		var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(ctx, next) {
 			var cartoon;
 			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
 				while (1) {
 					switch (_context5.prev = _context5.next) {
 						case 0:
-							_context5.next = 2;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Cartoon */].find({ slug: ctx.params.slug });
+							_context5.prev = 0;
+							_context5.next = 3;
+							return new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Cartoon */](ctx.request.body);
 
-						case 2:
+						case 3:
 							cartoon = _context5.sent;
 
+							cartoon.save();
 							ctx.body = cartoon;
+							_context5.next = 8;
+							return __WEBPACK_IMPORTED_MODULE_3__handlers_redis__["a" /* redisClient */].set('cartoon', cartoon._id.toString(), __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
 
-						case 4:
+						case 8:
+							_context5.next = 13;
+							break;
+
+						case 10:
+							_context5.prev = 10;
+							_context5.t0 = _context5['catch'](0);
+
+							console.log(_context5.t0);
+
+						case 13:
 						case 'end':
 							return _context5.stop();
 					}
 				}
-			}, _callee5, _this);
+			}, _callee5, _this, [[0, 10]]);
 		}));
 
-		function getOne(_x9, _x10) {
+		function add(_x9, _x10) {
 			return _ref5.apply(this, arguments);
 		}
 
-		return getOne;
+		return add;
 	}(),
-	getRedis: function () {
+	getAll: function () {
 		var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee6(ctx, next) {
-			var el;
+			var cartoons;
 			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee6$(_context6) {
 				while (1) {
 					switch (_context6.prev = _context6.next) {
 						case 0:
-							_context6.prev = 0;
+							debug('start getting');
 							_context6.next = 3;
-							return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__handlers_redis__["a" /* getAsync */])('cartoon');
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Cartoon */].find({});
 
 						case 3:
-							el = _context6.sent;
+							cartoons = _context6.sent;
 
-							ctx.body = el;
-							_context6.next = 11;
-							break;
+							if (cartoons) {
+								ctx.body = cartoons;
+							} else {
+								ctx.body = 'Nothing was found';
+							}
+							debug('finish getting');
 
-						case 7:
-							_context6.prev = 7;
-							_context6.t0 = _context6['catch'](0);
-
-							console.log(_context6.t0);
-							ctx.body = _context6.t0;
-
-						case 11:
+						case 6:
 						case 'end':
 							return _context6.stop();
 					}
 				}
-			}, _callee6, _this, [[0, 7]]);
+			}, _callee6, _this);
 		}));
 
-		function getRedis(_x11, _x12) {
+		function getAll(_x11, _x12) {
 			return _ref6.apply(this, arguments);
 		}
 
-		return getRedis;
+		return getAll;
 	}(),
-	getMongo: function () {
+	getOne: function () {
 		var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee7(ctx, next) {
 			var cartoon;
 			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
 				while (1) {
 					switch (_context7.prev = _context7.next) {
 						case 0:
-							_context7.prev = 0;
-							_context7.next = 3;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Cartoon */].find({ _id: '5a74e75c180fa800bba8fe3e' });
+							_context7.next = 2;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Cartoon */].find({ slug: ctx.params.slug });
 
-						case 3:
+						case 2:
 							cartoon = _context7.sent;
 
 							ctx.body = cartoon;
-							_context7.next = 11;
-							break;
 
-						case 7:
-							_context7.prev = 7;
-							_context7.t0 = _context7['catch'](0);
-
-							console.log(_context7.t0);
-							ctx.body = _context7.t0;
-
-						case 11:
+						case 4:
 						case 'end':
 							return _context7.stop();
 					}
 				}
-			}, _callee7, _this, [[0, 7]]);
+			}, _callee7, _this);
 		}));
 
-		function getMongo(_x13, _x14) {
+		function getOne(_x13, _x14) {
 			return _ref7.apply(this, arguments);
+		}
+
+		return getOne;
+	}(),
+	getRedis: function () {
+		var _ref8 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee8(ctx, next) {
+			var el;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee8$(_context8) {
+				while (1) {
+					switch (_context8.prev = _context8.next) {
+						case 0:
+							_context8.prev = 0;
+							_context8.next = 3;
+							return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__handlers_redis__["b" /* getAsync */])('cartoon');
+
+						case 3:
+							el = _context8.sent;
+
+							ctx.body = el;
+							_context8.next = 11;
+							break;
+
+						case 7:
+							_context8.prev = 7;
+							_context8.t0 = _context8['catch'](0);
+
+							console.log(_context8.t0);
+							ctx.body = _context8.t0;
+
+						case 11:
+						case 'end':
+							return _context8.stop();
+					}
+				}
+			}, _callee8, _this, [[0, 7]]);
+		}));
+
+		function getRedis(_x15, _x16) {
+			return _ref8.apply(this, arguments);
+		}
+
+		return getRedis;
+	}(),
+	getMongo: function () {
+		var _ref9 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee9(ctx, next) {
+			var cartoon;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee9$(_context9) {
+				while (1) {
+					switch (_context9.prev = _context9.next) {
+						case 0:
+							_context9.prev = 0;
+							_context9.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Cartoon */].find({ _id: '5a74e75c180fa800bba8fe3e' });
+
+						case 3:
+							cartoon = _context9.sent;
+
+							ctx.body = cartoon;
+							_context9.next = 11;
+							break;
+
+						case 7:
+							_context9.prev = 7;
+							_context9.t0 = _context9['catch'](0);
+
+							console.log(_context9.t0);
+							ctx.body = _context9.t0;
+
+						case 11:
+						case 'end':
+							return _context9.stop();
+					}
+				}
+			}, _callee9, _this, [[0, 7]]);
+		}));
+
+		function getMongo(_x17, _x18) {
+			return _ref9.apply(this, arguments);
 		}
 
 		return getMongo;
@@ -992,11 +1068,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 														refreshToken: refreshToken
 													};
 													_context2.next = 14;
-													return __WEBPACK_IMPORTED_MODULE_5__handlers_redis__["b" /* redisClient */].set('token_' + user.username, accessToken, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
+													return __WEBPACK_IMPORTED_MODULE_5__handlers_redis__["a" /* redisClient */].set('token_' + user.username, accessToken, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
 
 												case 14:
 													_context2.next = 16;
-													return __WEBPACK_IMPORTED_MODULE_5__handlers_redis__["b" /* redisClient */].set('refreshToken' + user.username, refreshToken, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
+													return __WEBPACK_IMPORTED_MODULE_5__handlers_redis__["a" /* redisClient */].set('refreshToken' + user.username, refreshToken, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
 
 												case 16:
 													return _context2.abrupt('return', ctx.login(user));
@@ -1089,7 +1165,7 @@ var debug = __webpack_require__(0)('app:nuxt');
 						case 15:
 							decoded = _context.sent;
 							_context.next = 18;
-							return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__handlers_redis__["a" /* getAsync */])('refreshToken' + decoded.username);
+							return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__handlers_redis__["b" /* getAsync */])('refreshToken' + decoded.username);
 
 						case 18:
 							confirmedRefreshToken = _context.sent;
@@ -1110,11 +1186,11 @@ var debug = __webpack_require__(0)('app:nuxt');
 						case 25:
 							newRefreshToken = _context.sent;
 							_context.next = 28;
-							return __WEBPACK_IMPORTED_MODULE_4__handlers_redis__["b" /* redisClient */].set('token_' + decoded.username, newAccessToken, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
+							return __WEBPACK_IMPORTED_MODULE_4__handlers_redis__["a" /* redisClient */].set('token_' + decoded.username, newAccessToken, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
 
 						case 28:
 							_context.next = 30;
-							return __WEBPACK_IMPORTED_MODULE_4__handlers_redis__["b" /* redisClient */].set('refreshToken' + decoded.username, newRefreshToken, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
+							return __WEBPACK_IMPORTED_MODULE_4__handlers_redis__["a" /* redisClient */].set('refreshToken' + decoded.username, newRefreshToken, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
 
 						case 30:
 							debug('token recieved');
@@ -1157,8 +1233,9 @@ var debug = __webpack_require__(0)('app:nuxt');
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return Cartoon; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AgeCategory; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Tag; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return Cartoon; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return AgeCategory; });
 
 
 var ageCategorySchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"]({
@@ -1166,20 +1243,23 @@ var ageCategorySchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"]({
 	slug: String,
 	description: String
 });
+var tagSchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"]({
+	name: { type: String }
+});
 
 var cartoonSchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"]({
 	title: { type: String },
 	slug: { type: String },
-	thumb: { type: String },
-	age: { type: String },
+	thumbnail: { type: String },
 	year: { type: Number },
 	video: { type: String },
-	tags: { type: Array },
+	tags: { type: [__WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"].Types.ObjectId], ref: 'Tag' },
 	author: { type: String },
 	unclear: { type: String },
 	category: { type: __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"].Types.ObjectId, ref: 'AgeCategory' }
 });
 
+var Tag = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('Tag', tagSchema, 'Tags');
 var Cartoon = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('Cartoon', cartoonSchema, 'Cartoons');
 var AgeCategory = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('AgeCategory', ageCategorySchema, 'Categories');
 
@@ -1193,13 +1273,13 @@ module.exports = require("bcrypt");
 /* 25 */
 /***/ function(module, exports) {
 
-module.exports = require("fs");
+module.exports = require("cloudinary");
 
 /***/ },
 /* 26 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-multer");
+module.exports = require("fs");
 
 /***/ },
 /* 27 */
@@ -1274,134 +1354,133 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mongoose_connection__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__handlers__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__jwt__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__config__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_socketio__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_socketio__ = __webpack_require__(16);
 
 
 var start = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3() {
-    var _this = this;
+	var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3() {
+		var _this = this;
 
-    var app, host, port, config, nuxt, builder, server;
-    return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            app = new __WEBPACK_IMPORTED_MODULE_1_koa___default.a();
-            host = process.env.HOST || '127.0.0.1';
-            port = process.env.PORT || 3000;
+		var app, host, port, config, nuxt, builder, server;
+		return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+			while (1) {
+				switch (_context3.prev = _context3.next) {
+					case 0:
+						app = new __WEBPACK_IMPORTED_MODULE_1_koa___default.a();
+						host = process.env.HOST || '127.0.0.1';
+						port = process.env.PORT || 3000;
 
-            // Import and Set Nuxt.js options
+						// Import and Set Nuxt.js options
 
-            config = __webpack_require__(11);
+						config = __webpack_require__(11);
 
-            config.dev = !(app.env === 'production');
+						config.dev = !(app.env === 'production');
 
-            // Instantiate nuxt.js
-            nuxt = new __WEBPACK_IMPORTED_MODULE_3_nuxt__["Nuxt"](config);
+						// Instantiate nuxt.js
+						nuxt = new __WEBPACK_IMPORTED_MODULE_3_nuxt__["Nuxt"](config);
 
-            // Build in development
+						// Build in development
 
-            if (!config.dev) {
-              _context3.next = 10;
-              break;
-            }
+						if (!config.dev) {
+							_context3.next = 10;
+							break;
+						}
 
-            builder = new __WEBPACK_IMPORTED_MODULE_3_nuxt__["Builder"](nuxt);
-            _context3.next = 10;
-            return builder.build();
+						builder = new __WEBPACK_IMPORTED_MODULE_3_nuxt__["Builder"](nuxt);
+						_context3.next = 10;
+						return builder.build();
 
-          case 10:
-            //  Passport
-            app.use(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a.initialize());
-            __webpack_require__(14).configure(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a);
+					case 10:
+						//  Passport
+						app.use(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a.initialize());
+						__webpack_require__(14).configure(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a);
 
-            // Initial handlers
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__handlers__["a" /* default */])(app);
+						// Initial handlers
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__handlers__["a" /* default */])(app);
 
-            // JWT Handler
-            //  app.use(jwtHandler())
+						// JWT Handler
+						//  app.use(jwtHandler())
 
-            // Mongoose
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_9__config__["a" /* MONGO_URI */]);
+						// Mongoose
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_8__config__["a" /* MONGO_URI */]);
 
-            // Router
-            app.use(function () {
-              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-                return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        _context.next = 2;
-                        return __WEBPACK_IMPORTED_MODULE_5__routes__["a" /* default */].routes()(ctx, next);
+						// Router
+						app.use(function () {
+							var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+								return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+									while (1) {
+										switch (_context.prev = _context.next) {
+											case 0:
+												_context.next = 2;
+												return __WEBPACK_IMPORTED_MODULE_5__routes__["a" /* default */].routes()(ctx, next);
 
-                      case 2:
-                      case 'end':
-                        return _context.stop();
-                    }
-                  }
-                }, _callee, _this);
-              }));
+											case 2:
+											case 'end':
+												return _context.stop();
+										}
+									}
+								}, _callee, _this);
+							}));
 
-              return function (_x, _x2) {
-                return _ref2.apply(this, arguments);
-              };
-            }());
+							return function (_x, _x2) {
+								return _ref2.apply(this, arguments);
+							};
+						}());
 
-            app.use(function () {
-              var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
-                return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-                  while (1) {
-                    switch (_context2.prev = _context2.next) {
-                      case 0:
-                        _context2.next = 2;
-                        return next();
+						app.use(function () {
+							var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+								return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+									while (1) {
+										switch (_context2.prev = _context2.next) {
+											case 0:
+												_context2.next = 2;
+												return next();
 
-                      case 2:
-                        ctx.status = 200; // koa defaults to 404 when it sees that status is unset
-                        return _context2.abrupt('return', new Promise(function (resolve, reject) {
-                          ctx.res.on('close', resolve);
-                          ctx.res.on('finish', resolve);
-                          nuxt.render(ctx.req, ctx.res, function (promise) {
-                            // nuxt.render passes a rejected promise into callback on error.
-                            promise.then(resolve).catch(reject);
-                          });
-                        }));
+											case 2:
+												ctx.status = 200; // koa defaults to 404 when it sees that status is unset
+												return _context2.abrupt('return', new Promise(function (resolve, reject) {
+													ctx.res.on('close', resolve);
+													ctx.res.on('finish', resolve);
+													nuxt.render(ctx.req, ctx.res, function (promise) {
+														// nuxt.render passes a rejected promise into callback on error.
+														promise.then(resolve).catch(reject);
+													});
+												}));
 
-                      case 4:
-                      case 'end':
-                        return _context2.stop();
-                    }
-                  }
-                }, _callee2, _this);
-              }));
+											case 4:
+											case 'end':
+												return _context2.stop();
+										}
+									}
+								}, _callee2, _this);
+							}));
 
-              return function (_x3, _x4) {
-                return _ref3.apply(this, arguments);
-              };
-            }());
+							return function (_x3, _x4) {
+								return _ref3.apply(this, arguments);
+							};
+						}());
 
-            // socket.io
-            server = __WEBPACK_IMPORTED_MODULE_2_http___default.a.createServer(app.callback());
+						// socket.io
+						server = __WEBPACK_IMPORTED_MODULE_2_http___default.a.createServer(app.callback());
 
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__services_socketio__["a" /* default */])(server);
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__services_socketio__["a" /* default */])(server);
 
-            // listen
-            server.listen(port, host);
-            debug('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
+						// listen
+						server.listen(port, host);
+						debug('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-          case 20:
-          case 'end':
-            return _context3.stop();
-        }
-      }
-    }, _callee3, this);
-  }));
+					case 20:
+					case 'end':
+						return _context3.stop();
+				}
+			}
+		}, _callee3, this);
+	}));
 
-  return function start() {
-    return _ref.apply(this, arguments);
-  };
+	return function start() {
+		return _ref.apply(this, arguments);
+	};
 }();
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1412,7 +1491,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 var debug = __webpack_require__(0)('app:nuxt');
-
 
 
 

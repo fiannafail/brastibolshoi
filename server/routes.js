@@ -3,8 +3,14 @@ const debug = require('debug')('app:nuxt')
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const multer = require('koa-multer');
-const upload = multer({ dest: 'uploads/' });
+
+var cloudinary = require('cloudinary');
+
+cloudinary.config({ 
+	cloud_name: 'rastibolshoi', 
+	api_key: '374329698237239', 
+	api_secret: 'Kax6e6xy_FakEfMUc61P_3XUS_I' 
+});
 
 import User from './controllers/user'
 import Cartoon from './controllers/cartoon'
@@ -30,15 +36,14 @@ router.get('/cartoon/:slug', Cartoon.getOne)
 router.get('/redis', Cartoon.getRedis)
 router.get('/mongo', Cartoon.getMongo)
 router.get('/getcats', Cartoon.getCategories)
+router.get('/gettags', Cartoon.getTags)
 router.post('/addcat', Cartoon.addAgeCategory)
+router.post('/addtag', Cartoon.addTag)
 router.post('/upload', async (ctx, next) => {
-	console.log(ctx.request.files.file.type)
-	const file = ctx.request.files.file;
-	const reader = fs.createReadStream(file.path);
-	const stream = fs.createWriteStream(path.join('./uploads', Math.random().toString()));
-	reader.pipe(stream);
-	console.log('uploading %s -> %s', file.name, stream.path);
-	ctx.body = file.path
+	const file = ctx.request.files.file.path;
+	const image = await cloudinary.uploader.upload(file)
+	console.log(image.secure_url) 
+	ctx.body = image.secure_url
 })
 
 export default router

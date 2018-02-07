@@ -3,7 +3,11 @@ html, body
   background-color: #fff;
   color: #2e2f30;
   letter-spacing: 0.5px;
-  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
   height: 100vh;
   margin: 0;
 }
