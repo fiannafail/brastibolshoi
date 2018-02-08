@@ -44,7 +44,7 @@ router.post('/addtag', Cartoon.addTag)
 router.post('/up', async (ctx, next) => {
 	const file = ctx.request.files.file
 	const reader = fs.createReadStream(file.path)
-	const stream = fs.createWriteStream(path.join('./uploads', Math.random().toString()))
+	const stream = fs.createWriteStream(path.join('./uploads', file.name))
 	reader.pipe(stream)
 	console.log('uploading %s -> %s', file.name, stream.path)
 })

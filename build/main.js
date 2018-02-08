@@ -112,7 +112,7 @@ var getAsync = promisify(redisClient.get).bind(redisClient);
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_bcrypt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__);
@@ -368,10 +368,10 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controllers_user__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__handlers_checkUser__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__jwt__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controllers_user__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__handlers_checkUser__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__jwt__ = __webpack_require__(22);
 
 
 var _this = this;
@@ -380,13 +380,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 var debug = __webpack_require__(0)('app:nuxt');
-var fs = __webpack_require__(27);
+var fs = __webpack_require__(26);
 var os = __webpack_require__(31);
 var path = __webpack_require__(33);
-var multer = __webpack_require__(38);
+var multer = __webpack_require__(27);
 var upload = multer({ dest: 'uploads/' });
 
-var cloudinary = __webpack_require__(26);
+var cloudinary = __webpack_require__(25);
 
 cloudinary.config({
 	cloud_name: 'rastibolshoi',
@@ -445,7 +445,7 @@ router.post('/up', function () {
 					case 0:
 						file = ctx.request.files.file;
 						reader = fs.createReadStream(file.path);
-						stream = fs.createWriteStream(path.join('./uploads', Math.random().toString()));
+						stream = fs.createWriteStream(path.join('./uploads', file.name));
 
 						reader.pipe(stream);
 						console.log('uploading %s -> %s', file.name, stream.path);
@@ -538,8 +538,7 @@ module.exports = require("koa");
 module.exports = require("nuxt");
 
 /***/ },
-/* 19 */,
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -547,7 +546,7 @@ module.exports = require("nuxt");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redis__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_cartoon__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_cartoon__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handlers_redis__ = __webpack_require__(2);
 
 
@@ -888,7 +887,7 @@ var debug = __webpack_require__(0)('app:nuxt');
 };
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1040,7 +1039,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 };
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1160,7 +1159,7 @@ var debug = __webpack_require__(0)('app:nuxt');
 };
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1256,7 +1255,7 @@ var debug = __webpack_require__(0)('app:nuxt');
 };
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1293,22 +1292,28 @@ var Cartoon = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('Cartoon', 
 var AgeCategory = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('AgeCategory', ageCategorySchema, 'Categories');
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports) {
 
 module.exports = require("cloudinary");
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports) {
 
 module.exports = require("fs");
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+module.exports = require("koa-multer");
 
 /***/ },
 /* 28 */
@@ -1526,12 +1531,6 @@ var debug = __webpack_require__(0)('app:nuxt');
 
 
 start();
-
-/***/ },
-/* 38 */
-/***/ function(module, exports) {
-
-module.exports = require("koa-multer");
 
 /***/ }
 /******/ ]);
