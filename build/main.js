@@ -436,15 +436,21 @@ router.get('/getcats', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /*
 router.get('/gettags', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getTags);
 router.post('/addcat', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].addAgeCategory);
 router.post('/addtag', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].addTag);
-router.post('/up', upload.single('file'), function () {
+router.post('/up', function () {
 	var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+		var file, reader, stream;
 		return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
 			while (1) {
 				switch (_context2.prev = _context2.next) {
 					case 0:
-						console.log(ctx.request.files.file);
+						file = ctx.request.files.file;
+						reader = fs.createReadStream(file.path);
+						stream = fs.createWriteStream(path.join('./uploads', Math.random().toString()));
 
-					case 1:
+						reader.pipe(stream);
+						console.log('uploading %s -> %s', file.name, stream.path);
+
+					case 5:
 					case 'end':
 						return _context2.stop();
 				}
