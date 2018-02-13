@@ -8,7 +8,7 @@ div
 			li
 				nuxt-link(to="/admin/audios") Аудио
 			li
-				nuxt-link(to="/admin/others") Полезности
+				nuxt-link(to="/admin/entries") Полезности
 </template>
 <script>
 export default {

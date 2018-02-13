@@ -7,6 +7,7 @@ const createStore = () => {
 			cartoons: null,
 			cartoonCategoriesArray: [],
 			cartoonCategoriesList: [],
+			cartoonMultiseries: [],
 			cartoonTagsArray: []
 		},
 		mutations: {
@@ -15,9 +16,17 @@ const createStore = () => {
 			}
 		},
 		actions: {
+			async getMultiseries ({ commit }) {
+				try {
+					const { data } = await axios.get('/getmultiseries')
+					commit('set', { type: 'cartoonMultiseries', items: data })
+				} catch (e) {
+					console.log(e)
+				}
+			},
 			async getcartoons ({ commit }) {
 				try {
-					const { data } = await axios.get('/getcartoons')
+					const { data } = await axios.get('/carts')
 					commit('set', { type: 'cartoons', items: data })
 				} catch (e) {
 					console.log(e)

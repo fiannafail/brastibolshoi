@@ -14,6 +14,9 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons|Roboto+Mono:500|Source+Sans+Pro:300,400,600,700&amp;subset=cyrillic' }
     ]
   },
+  plugins: [
+    { src: '~/plugins/vue-notifications.js', ssr: false }
+  ],
   /*
   ** Global CSS
   */
@@ -26,6 +29,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    vendor: ['vue-notifications'],
     /*
      ** Run ESLINT on save
      */

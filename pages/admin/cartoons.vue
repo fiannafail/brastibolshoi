@@ -10,17 +10,33 @@
 						input(
 							:class="{'input': true, 'is-danger': errors.has('title') }"
 							name="title"
+							type="text"
 							placeholder="Название" 
 							v-model="cartoon.title" 
 							v-validate="'min:20|required'"
 						)
 						div(v-show="errors.has('title')" class="help is-danger") {{ errors.first('title') }}
 				div(class="form-group")
+					label Родительская серия многосерийного мультика?
+					div
+						span Да
+						input(type="radio" :value="true" name="isMultiseries" v-model="cartoon.isMultiseries")
+						span Нет
+						input(type="radio" :value="false" name="isMultiseries" v-model="cartoon.isMultiseries")
+				div(
+					v-if="cartoon.isMultiseries === false"
+					)
+					label Мультик-родитель
+					select(v-model="cartoon.parentTitleId")
+						option(disabled selected value="") Если нет, то оставить пустым
+						option(v-for="(item, index) in cartoonMultiseries" :key="index" :value="item._id") {{ item.title }}
+				div(class="form-group")
 					label Видео
 					div
 						input(
 							:class="{'input': true, 'is-danger': errors.has('video') }"
 							name="video"
+							type="text"
 							v-validate="'url:https?|required'"
 							placeholder="Ссылка на видео"
 							v-model="cartoon.video"
@@ -32,6 +48,7 @@
 						input(
 							:class="{'input': true, 'is-danger': errors.has('author') }"
 							name="author"
+							type="text"
 							placeholder="Автор" 
 							v-validate="'required'"
 							v-model="cartoon.author")
@@ -42,6 +59,7 @@
 						input(
 							:class="{'input': true, 'is-danger': errors.has('year') }"
 							name="year"
+							type="text"
 							v-validate="'numeric|required'"
 							placeholder="Год" 
 							v-model="cartoon.year")
@@ -56,15 +74,16 @@
 						:taggable="true",
 						@tag="addTag",
 						label="name",
-						selectLabel="Нажмите, чтобы добавить"
+						selectLabel="Добавить"
 						selectedLabel="Выбрано"
-						deselectLabel="Нажмите, чтобы удалить"
+						deselectLabel="Удалить"
 						:options="cartoonTagsArray")
 				div(class="form-group")
 					label Изображение
 					div
 						input(
 							name="thumbnail"
+							type="text"
 							placeholder="Изображение"
 							:class="{'input': true, 'is-danger': errors.has('thumbnail') }"
 							v-validate="'url:https?|required'"
@@ -73,7 +92,7 @@
 						dropzone(
 							id="customdropzone"
 							ref="el" 
-							:options="options" 
+							:options="options"
 							:destroyDropzone="true" 
 							@vdropzone-complete="imageUploaded"
 							:include-styling="false")
@@ -94,6 +113,7 @@
 					div
 						textarea(
 							placeholder="Описание"
+							type="text"
 							:class="{'input': true, 'is-danger': errors.has('description') }"
 							v-validate="'required'"
 							name="description"
@@ -106,6 +126,7 @@
 						textarea(
 							placeholder="Глазами ребенка"
 							v-model="cartoon.unclear"
+							type="text"
 							:class="{'input': true, 'is-danger': errors.has('unclear') }"
 							v-validate="'required'"
 							name="unclear"
@@ -119,10 +140,11 @@ import VeeValidate from 'vee-validate'
 import { mapState } from 'vuex'
 import Multiselect from 'vue-multiselect'
 import Dropzone from 'nuxt-dropzone'
-import 'nuxt-dropzone/dropzone.css'
 import axios from '~/plugins/axios'
-import '~/assets/css/vue-select.css'
 import slugifier from 'slug-generator'
+import '~/assets/css/vue-select.css'
+import 'vue2-animate/dist/vue2-animate.min.css'
+import 'nuxt-dropzone/dropzone.css'
 
 Vue.use(VeeValidate)
 
@@ -130,13 +152,16 @@ export default {
 	asyncData ({ store }) {
 		return Promise.all([
 			store.dispatch('getcartoonsCats'),
-			store.dispatch('getCartoonsTags')
+			store.dispatch('getCartoonsTags'),
+			store.dispatch('getMultiseries')
 		])
 	},
 	data: () => ({
 		preTags: [],
 		cartoon: {
 			title: '',
+			isMultiseries: false,
+			parentTitleId: '',
 			video: '',
 			year: null,
 			tags: [],
@@ -152,28 +177,46 @@ export default {
 			maxFiles: 1
 		}
 	}),
+	notifications: {
+		showLoginError: { // You can have any name you want instead of 'showLoginError'
+			title: 'Ошибка отправки данных',
+			message: 'Заполнены не все поля',
+			type: 'error' // You also can use 'VueNotifications.types.error' instead of 'error'
+		}
+	},
 	mounted () {
 		const instance = this.$refs.el.dropzone
 		console.log(instance)
 	},
 	methods: {
-		addTag (tag) {
-			console.log(tag)
+		addTag (newTag) {
+			const tag = {
+				name: newTag,
+				_id: 'new',
+				description: ''
+			}
+			this.cartoonTagsArray.push(tag)
+			this.preTags.push(tag)
 		},
 		async addCartoon () {
 			this.$validator.validateAll().then(async (result) => {
 				if (result) {
 					try {
+						console.log(typeof this.cartoon.isMultiseries)
 						this.cartoon.slug = this.slugify
-						this.cartoon.tags = this.preTags.map(item => item._id)
-						const cartoon = await axios.post('/addcartoon', this.cartoon)
-						console.log(cartoon)
+						const tags = this.preTags.filter(item => item._id !== 'new')
+						const { data } =  await axios.post('/addtag', this.newTags)
+						this.cartoon.tags = [
+							...tags,
+							...data
+						]
+						await axios.post('/addcartoon', this.cartoon)
 						return
 					} catch (e) {
 						console.log(e)
 					}
 				}
-				alert('Correct them errors!')
+				this.showLoginError()
 			})
 		},
 		imageUploaded (file) {
@@ -181,13 +224,23 @@ export default {
 		}
 	},
 	computed: {
+		newTags () {
+			let tags = []
+			for (let i in this.preTags) {
+				if (this.preTags[i]._id === 'new') {
+					tags.push(this.preTags[i].name)
+				}
+			}
+			return tags
+		},
 		slugify () {
 			return slugifier(this.cartoon.title)
 		},
 		...mapState({
 			cartoonCategoriesArray: 'cartoonCategoriesArray',
 			cartoonCategoriesList: 'cartoonCategoriesList',
-			cartoonTagsArray: 'cartoonTagsArray'
+			cartoonTagsArray: 'cartoonTagsArray',
+			cartoonMultiseries: 'cartoonMultiseries'
 		})
 	},
 	components: {
@@ -200,6 +253,10 @@ export default {
 .form-group
 	margin 18px 0
 	display flex
+	span
+		font-size 14px
+		font-weight 500
+		padding 0 10px
 label
 	display inline-block
 	padding 10px
@@ -207,8 +264,9 @@ label
 	font-size 14px
 	font-weight 500
 	font-family: Roboto
-input, select, textarea
-	width 250px
+input[type="text"], select, textarea
+	width 300px
+	box-sizing border-box
 	background-color white
 	border 2px solid #3b8070
 	border-top none
@@ -243,6 +301,6 @@ select option
 	color #D50000
 	font-size 12px
 	font-weight 500
-	margin-top: 6px;
+	margin-top: 6px
 </style>
 

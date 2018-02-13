@@ -4,6 +4,7 @@
 		main(class="main-section")
 			div(v-for="(item, index) in Cartoons" :key="index")
 				div(class="post-background" v-bind:style="{ backgroundImage: 'url(' + item.thumbnail + ')' }")
+					p fdsfd
 					h1 {{ item.title }}
 </template>
 <script>
@@ -67,10 +68,18 @@ export default {
 		margin 15px
 		border 1px solid #cccccc
 		width calc(100% / 3 - 34px)
-		&:first-child
+		&:first-child, &:nth-child(7n)
 			width calc(100% / 3 * 2 - 34px)
 .post-background
 	width 100%
 	height 100%
+	display flex
+	flex-direction column
+	justify-content flex-end
+	h1, p
+		color white
+		margin 0
+		padding 20px
+		padding-top 0
 </style>
 

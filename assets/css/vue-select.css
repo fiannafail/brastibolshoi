@@ -47,7 +47,7 @@ fieldset[disabled] .multiselect {
 }
 .multiselect {
 	display: inline-block;
-    width: auto;
+    width: 300px;
     box-sizing: content-box;
     position: relative;
     min-height: 40px;

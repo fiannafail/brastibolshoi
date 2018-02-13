@@ -8,6 +8,7 @@ import mongooseConnector from './mongoose-connection'
 import initHandlers from './handlers'
 import { MONGO_URI } from './config'
 import websockets from './services/socketio'
+import sequelize from './postgres-connector'
 
 async function start () {
 	const app = new Koa()
@@ -38,6 +39,16 @@ async function start () {
 
 	// Mongoose
 	mongooseConnector(MONGO_URI)
+
+	// Postgres / Sequelize
+	sequelize
+	.authenticate()
+	.then(() => {
+		console.log('Connection has been established successfully.')
+	})
+	.catch(err => {
+		console.error('Unable to connect to the database:', err)
+	})
 
 	// Router
 	app.use(async (ctx, next) => {

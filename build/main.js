@@ -65,30 +65,30 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = require("debug");
+module.exports = __webpack_require__(40);
+
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-module.exports = __webpack_require__(34);
-
+module.exports = require("debug");
 
 /***/ },
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_redis__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(6);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return redisClient; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return getAsync; });
 
@@ -100,7 +100,7 @@ redisClient.on("error", function (err) {
     console.log("Error " + err);
 });
 
-var _require = __webpack_require__(36),
+var _require = __webpack_require__(42),
     promisify = _require.promisify;
 
 var getAsync = promisify(redisClient.get).bind(redisClient);
@@ -110,11 +110,11 @@ var getAsync = promisify(redisClient.get).bind(redisClient);
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_bcrypt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__);
 
 
@@ -164,10 +164,16 @@ userSchema.statics.authenticate = function (username, password, done) {
 /* 4 */
 /***/ function(module, exports) {
 
-module.exports = require("redis");
+module.exports = require("mongoose");
 
 /***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+module.exports = require("redis");
+
+/***/ },
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -175,15 +181,18 @@ module.exports = require("redis");
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_URL; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
 /* unused harmony export REDIS_KEY */
+/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return DATABASE_URL; });
 var MONGO_URI = void 0,
-    REDIS_URL = void 0;
+    REDIS_URL = void 0,
+    DATABASE_URL = void 0;
 
 if (false) {
 	MONGO_URI = process.env.MONGO_URL;
 	REDIS_URL = process.env.REDIS_URL;
+	DATABASE_URL = process.env.DATABASE_URL;
 } else {
 	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
-	REDIS_URL = 'redis://localhost:6379';
+	REDIS_URL = 'redis://localhost:6379', DATABASE_URL = 'postgres://postgres:6354825107@127.0.0.1:5432/postgres';
 }
 var REDIS_KEY = 'DRKlPeBHbgr0FUSs';
 var JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
@@ -191,19 +200,19 @@ var JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
 
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 module.exports = require("koa-passport");
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(6);
 
 
 
@@ -220,19 +229,36 @@ module.exports = require("koa-passport");
 };
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("sequelize");
 
 /***/ },
-/* 9 */
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(6);
+
+
+
+var sequelize = new __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a(__WEBPACK_IMPORTED_MODULE_1__config__["d" /* DATABASE_URL */], {
+	dialect: 'postgres'
+});
+sequelize.sync();
+/* harmony default export */ exports["a"] = sequelize;
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 module.exports = require("jsonwebtoken");
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports) {
 
 module.exports = {
@@ -244,6 +270,7 @@ module.exports = {
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: 'Nuxt.js project' }],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons|Roboto+Mono:500|Source+Sans+Pro:300,400,600,700&amp;subset=cyrillic' }]
   },
+  plugins: [{ src: '~/plugins/vue-notifications.js', ssr: false }],
   /*
   ** Global CSS
   */
@@ -256,6 +283,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    vendor: ['vue-notifications'],
     /*
      ** Run ESLINT on save
      */
@@ -278,11 +306,11 @@ module.exports = {
 };
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa2_formidable__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa2_formidable__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa2_formidable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa2_formidable__);
 
 
@@ -291,14 +319,14 @@ module.exports = {
 };
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
 
-var debug = __webpack_require__(0)('app:nuxt');
+var debug = __webpack_require__(1)('app:nuxt');
 
 __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Promise = Promise;
 
@@ -314,19 +342,19 @@ __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Promise = Promise;
 };
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_passport__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_passport__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_passport__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(3);
 
-var LocalStrategy = __webpack_require__(32);
+var LocalStrategy = __webpack_require__(38);
 
 
-var debug = __webpack_require__(0)('app:nuxt');
+var debug = __webpack_require__(1)('app:nuxt');
 
 function configure(passport) {
 	var strategyFunc = function strategyFunc(username, password, done) {
@@ -360,18 +388,20 @@ module.exports = {
 };
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controllers_user__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__handlers_checkUser__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__jwt__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controllers_user__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controllers_entry__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__handlers_checkUser__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__jwt__ = __webpack_require__(26);
 
 
 var _this = this;
@@ -379,14 +409,14 @@ var _this = this;
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
-var debug = __webpack_require__(0)('app:nuxt');
-var fs = __webpack_require__(26);
-var os = __webpack_require__(31);
-var path = __webpack_require__(33);
-var multer = __webpack_require__(27);
+var debug = __webpack_require__(1)('app:nuxt');
+var fs = __webpack_require__(32);
+var os = __webpack_require__(37);
+var path = __webpack_require__(39);
+var multer = __webpack_require__(33);
 var upload = multer({ dest: 'uploads/' });
 
-var cloudinary = __webpack_require__(25);
+var cloudinary = __webpack_require__(31);
 
 cloudinary.config({
 	cloud_name: 'rastibolshoi',
@@ -400,12 +430,15 @@ cloudinary.config({
 
 
 
+
+
+
 var router = new __WEBPACK_IMPORTED_MODULE_1_koa_router___default.a();
 
 router.post('/user', __WEBPACK_IMPORTED_MODULE_2__controllers_user__["a" /* default */].signUp);
 router.post('/login', __WEBPACK_IMPORTED_MODULE_2__controllers_user__["a" /* default */].signIn);
 //	router.get('/admin', putToken(), checkUser())
-router.get('/custom', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__handlers_checkUser__["a" /* default */])(), function () {
+router.get('/custom', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__handlers_checkUser__["a" /* default */])(), function () {
 	var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
 		return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
 			while (1) {
@@ -427,15 +460,20 @@ router.get('/custom', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__handler
 	};
 }());
 
-router.post('/addcartoon', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].add);
-router.get('/getcartoons', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getAll);
-router.get('/cartoon/:slug', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getOne);
-router.get('/redis', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getRedis);
-router.get('/mongo', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getMongo);
-router.get('/getcats', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getCategories);
-router.get('/gettags', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getTags);
-router.post('/addcat', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].addAgeCategory);
-router.post('/addtag', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].addTag);
+router.post('/addcartoon', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].add);
+router.get('/getcartoons', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getAll);
+router.get('/cartoon/:slug', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getOne);
+router.get('/redis', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getRedis);
+router.get('/mongo', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getMongo);
+router.get('/getcats', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getCategories);
+router.get('/getcat', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getcats);
+router.get('/carts', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getCartoons);
+router.get('/gettags', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getTags);
+router.post('/add', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].add);
+router.post('/addt', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].addCategory);
+router.post('/addcat', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].addAgeCategory);
+router.post('/addtag', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].addTag);
+router.get('/getmultiseries', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getMultiseries);
 router.post('/up', function () {
 	var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
 		var file, reader, stream;
@@ -491,15 +529,17 @@ router.post('/upload', function () {
 		return _ref3.apply(this, arguments);
 	};
 }());
+// Entries routes
+router.post('/addentry', __WEBPACK_IMPORTED_MODULE_3__controllers_entry__["a" /* default */].addEntry);
 
 /* harmony default export */ exports["a"] = router;
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_socket_io__);
 
 
@@ -520,33 +560,185 @@ router.post('/upload', function () {
 };
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports) {
 
 module.exports = require("http");
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
 module.exports = require("koa");
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sequelize__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sequelize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_cartoon__ = __webpack_require__(27);
+
+
+var _this = this;
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+/* harmony default export */ exports["a"] = {
+	getCartoons: function () {
+		var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+			var cartoons;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+				while (1) {
+					switch (_context.prev = _context.next) {
+						case 0:
+							_context.next = 2;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].findAll({
+								include: [{
+									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */],
+									through: {
+										attributes: ['tag_id']
+									}
+								}]
+							});
+
+						case 2:
+							cartoons = _context.sent;
+
+							console.log(cartoons);
+							ctx.body = cartoons;
+
+						case 5:
+						case 'end':
+							return _context.stop();
+					}
+				}
+			}, _callee, _this);
+		}));
+
+		function getCartoons(_x, _x2) {
+			return _ref.apply(this, arguments);
+		}
+
+		return getCartoons;
+	}(),
+	addCategory: function () {
+		var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+				while (1) {
+					switch (_context2.prev = _context2.next) {
+						case 0:
+							_context2.next = 2;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */].create(ctx.request.body);
+
+						case 2:
+						case 'end':
+							return _context2.stop();
+					}
+				}
+			}, _callee2, _this);
+		}));
+
+		function addCategory(_x3, _x4) {
+			return _ref2.apply(this, arguments);
+		}
+
+		return addCategory;
+	}(),
+	getcats: function () {
+		var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
+			var cats;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+				while (1) {
+					switch (_context3.prev = _context3.next) {
+						case 0:
+							_context3.next = 2;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */].findAll({
+								attributes: ['name'],
+								includeIgnoreAttributes: false,
+								raw: true,
+								group: ['name'],
+								include: {
+									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */],
+									attributes: []
+								}
+							});
+
+						case 2:
+							cats = _context3.sent;
+
+							console.log(cats);
+							ctx.body = cats;
+
+						case 5:
+						case 'end':
+							return _context3.stop();
+					}
+				}
+			}, _callee3, _this);
+		}));
+
+		function getcats(_x5, _x6) {
+			return _ref3.apply(this, arguments);
+		}
+
+		return getcats;
+	}(),
+	add: function () {
+		var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
+			var cartoon;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+				while (1) {
+					switch (_context4.prev = _context4.next) {
+						case 0:
+							_context4.next = 2;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].create(ctx.request.body, {
+								include: [__WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */], __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */]]
+							});
+
+						case 2:
+							cartoon = _context4.sent;
+
+							ctx.body = cartoon;
+
+						case 4:
+						case 'end':
+							return _context4.stop();
+					}
+				}
+			}, _callee4, _this);
+		}));
+
+		function add(_x7, _x8) {
+			return _ref4.apply(this, arguments);
+		}
+
+		return add;
+	}()
+};
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redis__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_cartoon__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_cartoon__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handlers_redis__ = __webpack_require__(2);
 
 
@@ -556,25 +748,30 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-var debug = __webpack_require__(0)('app:nuxt');
+var debug = __webpack_require__(1)('app:nuxt');
 
 
 /* harmony default export */ exports["a"] = {
-	getTags: function () {
+	getMultiseries: function () {
 		var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-			var tags;
+			var multiseries;
 			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
 				while (1) {
 					switch (_context.prev = _context.next) {
 						case 0:
 							_context.prev = 0;
 							_context.next = 3;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Tag */].find();
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].find({ isMultiseries: true });
 
 						case 3:
-							tags = _context.sent;
+							multiseries = _context.sent;
 
-							ctx.body = tags;
+							ctx.body = multiseries.map(function (item) {
+								return {
+									_id: item._id,
+									title: item.title
+								};
+							});
 							_context.next = 10;
 							break;
 
@@ -592,51 +789,103 @@ var debug = __webpack_require__(0)('app:nuxt');
 			}, _callee, _this, [[0, 7]]);
 		}));
 
-		function getTags(_x, _x2) {
+		function getMultiseries(_x, _x2) {
 			return _ref.apply(this, arguments);
+		}
+
+		return getMultiseries;
+	}(),
+	getTags: function () {
+		var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+			var tags;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+				while (1) {
+					switch (_context2.prev = _context2.next) {
+						case 0:
+							_context2.prev = 0;
+							_context2.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */].find().distinct('_id');
+
+						case 3:
+							tags = _context2.sent;
+
+							ctx.body = tags;
+							_context2.next = 10;
+							break;
+
+						case 7:
+							_context2.prev = 7;
+							_context2.t0 = _context2['catch'](0);
+
+							console.log(_context2.t0);
+
+						case 10:
+						case 'end':
+							return _context2.stop();
+					}
+				}
+			}, _callee2, _this, [[0, 7]]);
+		}));
+
+		function getTags(_x3, _x4) {
+			return _ref2.apply(this, arguments);
 		}
 
 		return getTags;
 	}(),
 	addTag: function () {
-		var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
-			var tag;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+		var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
+			var tags, i, tag;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
 				while (1) {
-					switch (_context2.prev = _context2.next) {
+					switch (_context3.prev = _context3.next) {
 						case 0:
-							try {
-								tag = new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Tag */](ctx.request.body);
+							tags = [];
+							_context3.prev = 1;
 
-								tag.save();
-								ctx.body = tag;
-							} catch (e) {
-								console.log(e);
+							for (i in ctx.request.body) {
+								tags.push({ name: ctx.request.body[i] });
 							}
+							console.log(tags);
+							_context3.next = 6;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */].create(tags);
 
-						case 1:
+						case 6:
+							tag = _context3.sent;
+
+							ctx.body = tag;
+							_context3.next = 13;
+							break;
+
+						case 10:
+							_context3.prev = 10;
+							_context3.t0 = _context3['catch'](1);
+
+							console.log(_context3.t0);
+
+						case 13:
 						case 'end':
-							return _context2.stop();
+							return _context3.stop();
 					}
 				}
-			}, _callee2, _this);
+			}, _callee3, _this, [[1, 10]]);
 		}));
 
-		function addTag(_x3, _x4) {
-			return _ref2.apply(this, arguments);
+		function addTag(_x5, _x6) {
+			return _ref3.apply(this, arguments);
 		}
 
 		return addTag;
 	}(),
 	addAgeCategory: function () {
-		var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
+		var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
 			var category;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
 				while (1) {
-					switch (_context3.prev = _context3.next) {
+					switch (_context4.prev = _context4.next) {
 						case 0:
 							try {
-								category = new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* AgeCategory */](ctx.request.body);
+								category = new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* AgeCategory */](ctx.request.body);
 								// name: 'half',
 								// slug: 'half',
 								// description: 'halfdesc'
@@ -649,112 +898,112 @@ var debug = __webpack_require__(0)('app:nuxt');
 
 						case 1:
 						case 'end':
-							return _context3.stop();
+							return _context4.stop();
 					}
 				}
-			}, _callee3, _this);
+			}, _callee4, _this);
 		}));
 
-		function addAgeCategory(_x5, _x6) {
-			return _ref3.apply(this, arguments);
+		function addAgeCategory(_x7, _x8) {
+			return _ref4.apply(this, arguments);
 		}
 
 		return addAgeCategory;
 	}(),
 	getCategories: function () {
-		var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
-			var categories;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
-				while (1) {
-					switch (_context4.prev = _context4.next) {
-						case 0:
-							_context4.prev = 0;
-							_context4.next = 3;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* AgeCategory */].find();
-
-						case 3:
-							categories = _context4.sent;
-
-							ctx.body = categories;
-							_context4.next = 10;
-							break;
-
-						case 7:
-							_context4.prev = 7;
-							_context4.t0 = _context4['catch'](0);
-
-							console.log(_context4.t0);
-
-						case 10:
-						case 'end':
-							return _context4.stop();
-					}
-				}
-			}, _callee4, _this, [[0, 7]]);
-		}));
-
-		function getCategories(_x7, _x8) {
-			return _ref4.apply(this, arguments);
-		}
-
-		return getCategories;
-	}(),
-	add: function () {
 		var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(ctx, next) {
-			var cartoon;
+			var categories;
 			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
 				while (1) {
 					switch (_context5.prev = _context5.next) {
 						case 0:
 							_context5.prev = 0;
 							_context5.next = 3;
-							return new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Cartoon */](ctx.request.body);
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* AgeCategory */].find();
 
 						case 3:
-							cartoon = _context5.sent;
+							categories = _context5.sent;
 
-							cartoon.save();
-							ctx.body = cartoon;
-							_context5.next = 8;
-							return __WEBPACK_IMPORTED_MODULE_3__handlers_redis__["a" /* redisClient */].set('cartoon', cartoon._id.toString(), __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
-
-						case 8:
-							_context5.next = 13;
+							ctx.body = categories;
+							_context5.next = 10;
 							break;
 
-						case 10:
-							_context5.prev = 10;
+						case 7:
+							_context5.prev = 7;
 							_context5.t0 = _context5['catch'](0);
 
 							console.log(_context5.t0);
 
-						case 13:
+						case 10:
 						case 'end':
 							return _context5.stop();
 					}
 				}
-			}, _callee5, _this, [[0, 10]]);
+			}, _callee5, _this, [[0, 7]]);
 		}));
 
-		function add(_x9, _x10) {
+		function getCategories(_x9, _x10) {
 			return _ref5.apply(this, arguments);
+		}
+
+		return getCategories;
+	}(),
+	add: function () {
+		var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee6(ctx, next) {
+			var cartoon;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee6$(_context6) {
+				while (1) {
+					switch (_context6.prev = _context6.next) {
+						case 0:
+							_context6.prev = 0;
+							_context6.next = 3;
+							return new __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */](ctx.request.body);
+
+						case 3:
+							cartoon = _context6.sent;
+
+							cartoon.save();
+							ctx.body = cartoon;
+							_context6.next = 8;
+							return __WEBPACK_IMPORTED_MODULE_3__handlers_redis__["a" /* redisClient */].set('cartoon', cartoon._id.toString(), __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
+
+						case 8:
+							_context6.next = 13;
+							break;
+
+						case 10:
+							_context6.prev = 10;
+							_context6.t0 = _context6['catch'](0);
+
+							console.log(_context6.t0);
+
+						case 13:
+						case 'end':
+							return _context6.stop();
+					}
+				}
+			}, _callee6, _this, [[0, 10]]);
+		}));
+
+		function add(_x11, _x12) {
+			return _ref6.apply(this, arguments);
 		}
 
 		return add;
 	}(),
 	getAll: function () {
-		var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee6(ctx, next) {
+		var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee7(ctx, next) {
 			var cartoons;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee6$(_context6) {
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
 				while (1) {
-					switch (_context6.prev = _context6.next) {
+					switch (_context7.prev = _context7.next) {
 						case 0:
 							debug('start getting');
-							_context6.next = 3;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Cartoon */].find({});
+							_context7.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].find({});
 
 						case 3:
-							cartoons = _context6.sent;
+							cartoons = _context7.sent;
 
 							if (cartoons) {
 								ctx.body = cartoons;
@@ -765,101 +1014,62 @@ var debug = __webpack_require__(0)('app:nuxt');
 
 						case 6:
 						case 'end':
-							return _context6.stop();
-					}
-				}
-			}, _callee6, _this);
-		}));
-
-		function getAll(_x11, _x12) {
-			return _ref6.apply(this, arguments);
-		}
-
-		return getAll;
-	}(),
-	getOne: function () {
-		var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee7(ctx, next) {
-			var cartoon;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
-				while (1) {
-					switch (_context7.prev = _context7.next) {
-						case 0:
-							_context7.next = 2;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Cartoon */].find({ slug: ctx.params.slug });
-
-						case 2:
-							cartoon = _context7.sent;
-
-							ctx.body = cartoon;
-
-						case 4:
-						case 'end':
 							return _context7.stop();
 					}
 				}
 			}, _callee7, _this);
 		}));
 
-		function getOne(_x13, _x14) {
+		function getAll(_x13, _x14) {
 			return _ref7.apply(this, arguments);
+		}
+
+		return getAll;
+	}(),
+	getOne: function () {
+		var _ref8 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee8(ctx, next) {
+			var cartoon;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee8$(_context8) {
+				while (1) {
+					switch (_context8.prev = _context8.next) {
+						case 0:
+							_context8.next = 2;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].find({ slug: ctx.params.slug });
+
+						case 2:
+							cartoon = _context8.sent;
+
+							ctx.body = cartoon;
+
+						case 4:
+						case 'end':
+							return _context8.stop();
+					}
+				}
+			}, _callee8, _this);
+		}));
+
+		function getOne(_x15, _x16) {
+			return _ref8.apply(this, arguments);
 		}
 
 		return getOne;
 	}(),
 	getRedis: function () {
-		var _ref8 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee8(ctx, next) {
-			var el;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee8$(_context8) {
-				while (1) {
-					switch (_context8.prev = _context8.next) {
-						case 0:
-							_context8.prev = 0;
-							_context8.next = 3;
-							return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__handlers_redis__["b" /* getAsync */])('cartoon');
-
-						case 3:
-							el = _context8.sent;
-
-							ctx.body = el;
-							_context8.next = 11;
-							break;
-
-						case 7:
-							_context8.prev = 7;
-							_context8.t0 = _context8['catch'](0);
-
-							console.log(_context8.t0);
-							ctx.body = _context8.t0;
-
-						case 11:
-						case 'end':
-							return _context8.stop();
-					}
-				}
-			}, _callee8, _this, [[0, 7]]);
-		}));
-
-		function getRedis(_x15, _x16) {
-			return _ref8.apply(this, arguments);
-		}
-
-		return getRedis;
-	}(),
-	getMongo: function () {
 		var _ref9 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee9(ctx, next) {
-			var cartoon;
+			var el;
 			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee9$(_context9) {
 				while (1) {
 					switch (_context9.prev = _context9.next) {
 						case 0:
 							_context9.prev = 0;
 							_context9.next = 3;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Cartoon */].find({ _id: '5a74e75c180fa800bba8fe3e' });
+							return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__handlers_redis__["b" /* getAsync */])('cartoon');
 
 						case 3:
-							cartoon = _context9.sent;
+							el = _context9.sent;
 
-							ctx.body = cartoon;
+							ctx.body = el;
 							_context9.next = 11;
 							break;
 
@@ -878,8 +1088,47 @@ var debug = __webpack_require__(0)('app:nuxt');
 			}, _callee9, _this, [[0, 7]]);
 		}));
 
-		function getMongo(_x17, _x18) {
+		function getRedis(_x17, _x18) {
 			return _ref9.apply(this, arguments);
+		}
+
+		return getRedis;
+	}(),
+	getMongo: function () {
+		var _ref10 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee10(ctx, next) {
+			var cartoon;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee10$(_context10) {
+				while (1) {
+					switch (_context10.prev = _context10.next) {
+						case 0:
+							_context10.prev = 0;
+							_context10.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].find({ _id: '5a74e75c180fa800bba8fe3e' });
+
+						case 3:
+							cartoon = _context10.sent;
+
+							ctx.body = cartoon;
+							_context10.next = 11;
+							break;
+
+						case 7:
+							_context10.prev = 7;
+							_context10.t0 = _context10['catch'](0);
+
+							console.log(_context10.t0);
+							ctx.body = _context10.t0;
+
+						case 11:
+						case 'end':
+							return _context10.stop();
+					}
+				}
+			}, _callee10, _this, [[0, 7]]);
+		}));
+
+		function getMongo(_x19, _x20) {
+			return _ref10.apply(this, arguments);
 		}
 
 		return getMongo;
@@ -887,18 +1136,66 @@ var debug = __webpack_require__(0)('app:nuxt');
 };
 
 /***/ },
-/* 20 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_entry__ = __webpack_require__(29);
+
+
+var _this = this;
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+/* harmony default export */ exports["a"] = {
+	addEntry: function () {
+		var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+			var entry;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+				while (1) {
+					switch (_context.prev = _context.next) {
+						case 0:
+							try {
+								entry = new __WEBPACK_IMPORTED_MODULE_1__models_entry__["a" /* Entry */](ctx.request.body);
+
+								entry.save();
+								ctx.body = entry;
+							} catch (e) {
+								console.log(e);
+							}
+
+						case 1:
+						case 'end':
+							return _context.stop();
+					}
+				}
+			}, _callee, _this);
+		}));
+
+		function addEntry(_x, _x2) {
+			return _ref.apply(this, arguments);
+		}
+
+		return addEntry;
+	}()
+};
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redis__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_passport__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_passport__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_koa_passport__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_user__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_jwt_service__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_jwt_service__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__handlers_redis__ = __webpack_require__(2);
 
 
@@ -1039,15 +1336,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 };
 
 /***/ },
-/* 21 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redis__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_jwt_service__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_jwt_service__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_user__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__handlers_redis__ = __webpack_require__(2);
 
@@ -1061,7 +1358,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-var debug = __webpack_require__(0)('app:nuxt');
+var debug = __webpack_require__(1)('app:nuxt');
 
 /* harmony default export */ exports["a"] = function () {
 	return function () {
@@ -1159,14 +1456,14 @@ var debug = __webpack_require__(0)('app:nuxt');
 };
 
 /***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_jwt_service__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jsonwebtoken__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_jwt_service__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jsonwebtoken__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jsonwebtoken__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handlers_redis__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_user__ = __webpack_require__(3);
@@ -1182,7 +1479,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-var debug = __webpack_require__(0)('app:nuxt');
+var debug = __webpack_require__(1)('app:nuxt');
 
 /* unused harmony default export */ var _unused_webpack_default_export = function () {
 	return function () {
@@ -1255,15 +1552,112 @@ var debug = __webpack_require__(0)('app:nuxt');
 };
 
 /***/ },
-/* 23 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__postgres_connector__ = __webpack_require__(10);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Cartoon; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return Tag; });
+/* unused harmony export CartoonTags */
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return Categories; });
+
+
+
+var Cartoon = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('cartoon', {
+	cartoonId: {
+		allowNull: false,
+		primaryKey: true,
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+	},
+	title: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
+	unclear: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
+	video: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	year: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+	slug: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	thumbnail: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	author: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	isMultiseries: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.BOOLEAN,
+	parentTitleId: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+});
+
+var Tag = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('tags', {
+	id: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	name: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+	}
+});
+
+var Categories = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('categories', {
+	name: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+		primaryKey: true
+	}
+});
+
+var CartoonTags = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('cartoontags', {
+	id: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	tag_id: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+		unique: 'item_tag_taggable'
+	},
+	taggable: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+		unique: 'item_tag_taggable'
+	},
+	taggable_id: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+		unique: 'item_tag_taggable',
+		references: null
+	}
+});
+
+Cartoon.belongsTo(Categories);
+Categories.hasMany(Cartoon);
+
+Cartoon.belongsToMany(Tag, {
+	through: {
+		model: CartoonTags,
+		unique: false,
+		scope: {
+			taggable: 'cartoon'
+		}
+	},
+	foreignKey: 'taggable_id',
+	constraints: false
+});
+Tag.belongsToMany(Cartoon, {
+	through: {
+		model: CartoonTags,
+		unique: false
+	},
+	foreignKey: 'tag_id',
+	constraints: false
+});
+
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Tag; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return Cartoon; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return AgeCategory; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return Tag; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Cartoon; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return AgeCategory; });
 
 
 var ageCategorySchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"]({
@@ -1278,12 +1672,15 @@ var tagSchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"]({
 var cartoonSchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"]({
 	title: { type: String },
 	slug: { type: String },
+	isMultiseries: { type: Boolean },
 	thumbnail: { type: String },
 	year: { type: Number },
 	video: { type: String },
+	multiseriesTitle: { type: __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"].Types.ObjectId },
 	tags: { type: [__WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"].Types.ObjectId], ref: 'Tag' },
 	author: { type: String },
 	unclear: { type: String },
+	description: { type: String },
 	category: { type: __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"].Types.ObjectId, ref: 'AgeCategory' }
 });
 
@@ -1292,104 +1689,125 @@ var Cartoon = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('Cartoon', 
 var AgeCategory = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('AgeCategory', ageCategorySchema, 'Categories');
 
 /***/ },
-/* 24 */
-/***/ function(module, exports) {
-
-module.exports = require("bcrypt");
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-module.exports = require("cloudinary");
-
-/***/ },
-/* 26 */
-/***/ function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ },
-/* 27 */
-/***/ function(module, exports) {
-
-module.exports = require("koa-multer");
-
-/***/ },
-/* 28 */
-/***/ function(module, exports) {
-
-module.exports = require("koa-router");
-
-/***/ },
 /* 29 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = require("koa2-formidable");
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Entry; });
+
+
+var entrySchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose__["Schema"]({
+	title: { type: String },
+	thumbnail: { type: String },
+	category: { type: String },
+	content: { type: String },
+	slug: { type: String }
+});
+
+var Entry = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('Entry', entrySchema, 'Entries');
 
 /***/ },
 /* 30 */
 /***/ function(module, exports) {
 
-module.exports = require("mongoose-unique-validator");
+module.exports = require("bcrypt");
 
 /***/ },
 /* 31 */
 /***/ function(module, exports) {
 
-module.exports = require("os");
+module.exports = require("cloudinary");
 
 /***/ },
 /* 32 */
 /***/ function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("fs");
 
 /***/ },
 /* 33 */
 /***/ function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("koa-multer");
 
 /***/ },
 /* 34 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("koa-router");
 
 /***/ },
 /* 35 */
 /***/ function(module, exports) {
 
-module.exports = require("socket.io");
+module.exports = require("koa2-formidable");
 
 /***/ },
 /* 36 */
 /***/ function(module, exports) {
 
-module.exports = require("util");
+module.exports = require("mongoose-unique-validator");
 
 /***/ },
 /* 37 */
+/***/ function(module, exports) {
+
+module.exports = require("os");
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+module.exports = require("passport-local");
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+module.exports = require("path");
+
+/***/ },
+/* 40 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 41 */
+/***/ function(module, exports) {
+
+module.exports = require("socket.io");
+
+/***/ },
+/* 42 */
+/***/ function(module, exports) {
+
+module.exports = require("util");
+
+/***/ },
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_http__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_http__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_http___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_http__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_passport__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_passport__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mongoose_connection__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__handlers__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_socketio__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mongoose_connection__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__handlers__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_socketio__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__postgres_connector__ = __webpack_require__(10);
 
 
 var start = function () {
@@ -1407,7 +1825,7 @@ var start = function () {
 
 						// Import and Set Nuxt.js options
 
-						config = __webpack_require__(10);
+						config = __webpack_require__(12);
 
 						config.dev = !(app.env === 'production');
 
@@ -1428,7 +1846,7 @@ var start = function () {
 					case 10:
 						//  Passport
 						app.use(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a.initialize());
-						__webpack_require__(13).configure(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a);
+						__webpack_require__(15).configure(__WEBPACK_IMPORTED_MODULE_4_koa_passport___default.a);
 
 						// Initial handlers
 						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__handlers__["a" /* default */])(app);
@@ -1438,6 +1856,13 @@ var start = function () {
 
 						// Mongoose
 						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_8__config__["a" /* MONGO_URI */]);
+
+						// Postgres / Sequelize
+						__WEBPACK_IMPORTED_MODULE_10__postgres_connector__["a" /* default */].authenticate().then(function () {
+							console.log('Connection has been established successfully.');
+						}).catch(function (err) {
+							console.error('Unable to connect to the database:', err);
+						});
 
 						// Router
 						app.use(function () {
@@ -1504,7 +1929,7 @@ var start = function () {
 						server.listen(port, host);
 						debug('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-					case 20:
+					case 21:
 					case 'end':
 						return _context3.stop();
 				}
@@ -1524,7 +1949,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-var debug = __webpack_require__(0)('app:nuxt');
+var debug = __webpack_require__(1)('app:nuxt');
+
 
 
 

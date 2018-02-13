@@ -12,12 +12,15 @@ const tagSchema = new Schema({
 const cartoonSchema = new Schema({
 	title: { type: String },
 	slug: { type: String },
+	isMultiseries: { type: Boolean },
 	thumbnail: { type: String },
 	year: { type: Number },
 	video: { type: String },
+	multiseriesTitle: { type: Schema.Types.ObjectId },
 	tags: { type: [Schema.Types.ObjectId], ref: 'Tag' },
 	author: { type: String },
 	unclear: { type: String },
+	description: { type: String },
 	category: { type: Schema.Types.ObjectId, ref: 'AgeCategory' }
 })
 

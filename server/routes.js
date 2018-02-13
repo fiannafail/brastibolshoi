@@ -15,7 +15,10 @@ cloudinary.config({
 });
 
 import User from './controllers/user'
+import Entry from './controllers/entry'
 import Cartoon from './controllers/cartoon'
+
+import _Cartoon from './controllers/_cartoon'
 
 import checkUser from './handlers/checkUser'
 import putToken from './jwt'
@@ -38,9 +41,14 @@ router.get('/cartoon/:slug', Cartoon.getOne)
 router.get('/redis', Cartoon.getRedis)
 router.get('/mongo', Cartoon.getMongo)
 router.get('/getcats', Cartoon.getCategories)
+router.get('/getcat', _Cartoon.getcats)
+router.get('/carts', _Cartoon.getCartoons)
 router.get('/gettags', Cartoon.getTags)
+router.post('/add', _Cartoon.add)
+router.post('/addt', _Cartoon.addCategory)
 router.post('/addcat', Cartoon.addAgeCategory)
 router.post('/addtag', Cartoon.addTag)
+router.get('/getmultiseries', Cartoon.getMultiseries)
 router.post('/up', async (ctx, next) => {
 	const file = ctx.request.files.file
 	const reader = fs.createReadStream(file.path)
@@ -54,5 +62,7 @@ router.post('/upload', async (ctx, next) => {
 	console.log(image.secure_url) 
 	ctx.body = image.secure_url
 })
+// Entries routes
+router.post('/addentry', Entry.addEntry)
 
 export default router

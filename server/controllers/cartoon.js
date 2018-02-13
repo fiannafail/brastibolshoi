@@ -4,18 +4,35 @@ const debug = require('debug')('app:nuxt')
 import { redisClient, getAsync } from '../handlers/redis'
 
 export default {
+	getMultiseries: async (ctx, next) => {
+		try {
+			const multiseries = await Cartoon.find({ isMultiseries: true })
+			ctx.body = multiseries.map(item => {
+				return {
+					_id: item._id,
+					title: item.title
+				}
+			})
+		} catch (e) {
+			console.log(e)
+		}
+	},
 	getTags: async (ctx, next) => {
 		try {
-			const tags = await Tag.find()
+			const tags = await Tag.find().distinct('_id')
 			ctx.body = tags
 		} catch (e) {
 			console.log(e)
 		}
 	},
 	addTag: async (ctx, next) => {
+		let tags = []
 		try {
-			const tag = new Tag(ctx.request.body)
-			tag.save()
+			for (let i in ctx.request.body) {
+				tags.push({ name:  ctx.request.body[i]})
+			}
+			console.log(tags)
+			const tag = await Tag.create(tags)
 			ctx.body = tag
 		} catch (e) {
 			console.log(e)
