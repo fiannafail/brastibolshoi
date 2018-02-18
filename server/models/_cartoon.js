@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize'
+import SequelizeSlugify from 'sequelize-slugify'
 import sequelize from '../postgres-connector'
 
 const Cartoon = sequelize.define('cartoon', {
@@ -7,12 +8,15 @@ const Cartoon = sequelize.define('cartoon', {
 		primaryKey: true,
 		type: Sequelize.STRING
 	},
+	slug: {
+		type: Sequelize.STRING,
+		unique: true
+	},
 	title: Sequelize.STRING,
 	description: Sequelize.TEXT,
 	unclear: Sequelize.TEXT,
 	video: Sequelize.STRING,
 	year: Sequelize.INTEGER,
-	slug: Sequelize.STRING,
 	thumbnail: Sequelize.STRING,
 	author: Sequelize.STRING,
 	isMultiseries: Sequelize.BOOLEAN,
@@ -20,21 +24,34 @@ const Cartoon = sequelize.define('cartoon', {
 })
 
 const Tag = sequelize.define('tags', {
-	id : {
+	id: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
 		autoIncrement: true
 	},
 	name: {
 		type: Sequelize.STRING
-	}
+	},
+	slug: {
+		type: Sequelize.STRING
+	},
+	description: Sequelize.TEXT
 })
 
 const Categories = sequelize.define('categories', {
+	categoriesId: { 
+		primaryKey: true,
+		autoIncrement: true,
+		type: Sequelize.INTEGER
+	},
 	name: {
+		type: Sequelize.STRING
+	},
+	slug: {
 		type: Sequelize.STRING,
-		primaryKey: true
-	}
+		unique: true
+	},
+	description: Sequelize.TEXT
 })
 
 var CartoonTags = sequelize.define('cartoontags', {
@@ -58,10 +75,10 @@ var CartoonTags = sequelize.define('cartoontags', {
 	}
 })
 
-Cartoon.belongsTo(Categories)
-Categories.hasMany(Cartoon)
+Cartoon.belongsTo(Categories, { foreignKey: 'categoriesId' })
+Categories.hasMany(Cartoon, { foreignKey: 'categoriesId' })
 
-Cartoon.belongsToMany(Tag, { 
+Cartoon.belongsToMany(Tag, {
 	through: {
 		model: CartoonTags,
 		unique: false,
@@ -80,7 +97,15 @@ Tag.belongsToMany(Cartoon, {
 	foreignKey: 'tag_id',
 	constraints: false
 })
-
+SequelizeSlugify.slugifyModel(Categories, {
+	source: ['name']
+})
+SequelizeSlugify.slugifyModel(Cartoon, {
+	source: ['title']
+})
+SequelizeSlugify.slugifyModel(Tag, {
+	source: ['name']
+})
 export {
 	Cartoon,
 	Tag,

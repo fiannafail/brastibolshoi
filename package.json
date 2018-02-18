@@ -16,6 +16,8 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "animate.css": "^3.6.1",
+    "animated-vue": "^0.5.3",
     "aws-sdk": "^2.188.0",
     "axios": "^0.17.1",
     "bcrypt": "^1.0.3",
@@ -34,6 +36,7 @@
     "koa-router": "^7.3.0",
     "koa-sslify": "^2.1.2",
     "koa2-formidable": "^1.0.2",
+    "lodash": "^4.17.5",
     "mongoose": "^5.0.1",
     "mongoose-unique-validator": "^2.0.0",
     "nuxt": "latest",
@@ -45,16 +48,19 @@
     "recovery": "^0.2.6",
     "redis": "^2.8.0",
     "sequelize": "^4.33.2",
+    "sequelize-slugify": "^0.5.0",
     "slug-generator": "^1.0.6",
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4",
     "source-map-support": "^0.4.15",
     "tick-tock": "^1.0.0",
+    "uniqid": "^4.1.1",
     "url-parse": "^1.2.0",
     "vee-validate": "^2.0.3",
     "vue-animate": "0.0.4",
     "vue-multiselect": "^2.0.8",
     "vue-notifications": "^0.9.0",
+    "vue-youtube": "^1.2.5",
     "vue2-animate": "^1.0.4",
     "vue2-editor": "^2.4.2"
   },
@@ -79,6 +85,7 @@
     "pug-loader": "^2.3.0",
     "scmp": "^2.0.0",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1"
+    "stylus-loader": "^3.0.1",
+    "vue-lazyload": "^1.2.1"
   }
 }

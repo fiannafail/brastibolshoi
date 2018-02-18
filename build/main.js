@@ -65,14 +65,14 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 43);
+/******/ 	return __webpack_require__(__webpack_require__.s = 45);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(40);
+module.exports = __webpack_require__(41);
 
 
 /***/ },
@@ -86,9 +86,36 @@ module.exports = require("debug");
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis__ = __webpack_require__(5);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MONGO_URI; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_URL; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
+/* unused harmony export REDIS_KEY */
+/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return DATABASE_URL; });
+var MONGO_URI = void 0,
+    REDIS_URL = void 0,
+    DATABASE_URL = void 0;
+
+if (false) {
+	MONGO_URI = process.env.MONGO_URL;
+	REDIS_URL = process.env.REDIS_URL;
+	DATABASE_URL = process.env.DATABASE_URL;
+} else {
+	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
+	REDIS_URL = 'redis://localhost:6379', DATABASE_URL = 'postgres://postgres:6354825107@127.0.0.1:5432/postgres';
+}
+var REDIS_KEY = 'DRKlPeBHbgr0FUSs';
+var JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
+
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_redis__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return redisClient; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return getAsync; });
 
@@ -100,21 +127,21 @@ redisClient.on("error", function (err) {
     console.log("Error " + err);
 });
 
-var _require = __webpack_require__(42),
+var _require = __webpack_require__(44),
     promisify = _require.promisify;
 
 var getAsync = promisify(redisClient.get).bind(redisClient);
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_bcrypt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__);
 
 
@@ -161,43 +188,16 @@ userSchema.statics.authenticate = function (username, password, done) {
 /* harmony default export */ exports["a"] = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('user', userSchema);
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 module.exports = require("mongoose");
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 module.exports = require("redis");
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MONGO_URI; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_URL; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
-/* unused harmony export REDIS_KEY */
-/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return DATABASE_URL; });
-var MONGO_URI = void 0,
-    REDIS_URL = void 0,
-    DATABASE_URL = void 0;
-
-if (false) {
-	MONGO_URI = process.env.MONGO_URL;
-	REDIS_URL = process.env.REDIS_URL;
-	DATABASE_URL = process.env.DATABASE_URL;
-} else {
-	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
-	REDIS_URL = 'redis://localhost:6379', DATABASE_URL = 'postgres://postgres:6354825107@127.0.0.1:5432/postgres';
-}
-var REDIS_KEY = 'DRKlPeBHbgr0FUSs';
-var JWT_KEY = 'dFTvn3RxVsXE8ZJafmcQSi7fSAL4L9i8';
-
-
 
 /***/ },
 /* 7 */
@@ -212,7 +212,7 @@ module.exports = require("koa-passport");
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(2);
 
 
 
@@ -241,7 +241,7 @@ module.exports = require("sequelize");
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(2);
 
 
 
@@ -270,11 +270,11 @@ module.exports = {
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: 'Nuxt.js project' }],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons|Roboto+Mono:500|Source+Sans+Pro:300,400,600,700&amp;subset=cyrillic' }]
   },
-  plugins: [{ src: '~/plugins/vue-notifications.js', ssr: false }],
+  plugins: [{ src: '~/plugins/vue-notifications.js', ssr: false }, { src: '~/plugins/vue-lazyload.js', ssr: false }],
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css'],
+  css: ['~assets/css/main.css', { src: '~assets/css/app.styl', lang: 'stylus' }],
   /*
   ** Customize the progress-bar color
   */
@@ -284,6 +284,7 @@ module.exports = {
    */
   build: {
     vendor: ['vue-notifications'],
+    extractCSS: true,
     /*
      ** Run ESLINT on save
      */
@@ -323,7 +324,7 @@ module.exports = {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
 
 var debug = __webpack_require__(1)('app:nuxt');
@@ -349,9 +350,9 @@ __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Promise = Promise;
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_passport__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(4);
 
-var LocalStrategy = __webpack_require__(38);
+var LocalStrategy = __webpack_require__(39);
 
 
 var debug = __webpack_require__(1)('app:nuxt');
@@ -411,8 +412,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var debug = __webpack_require__(1)('app:nuxt');
 var fs = __webpack_require__(32);
-var os = __webpack_require__(37);
-var path = __webpack_require__(39);
+var os = __webpack_require__(38);
+var path = __webpack_require__(40);
 var multer = __webpack_require__(33);
 var upload = multer({ dest: 'uploads/' });
 
@@ -462,18 +463,24 @@ router.get('/custom', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__handler
 
 router.post('/addcartoon', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].add);
 router.get('/getcartoons', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getAll);
-router.get('/cartoon/:slug', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getOne);
+router.get('/api/cartoons/:slug', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getCategoryCartoons);
+//	router.get('/cartoon/:slug', Cartoon.getOne)
 router.get('/redis', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getRedis);
 router.get('/mongo', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getMongo);
 router.get('/getcats', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getCategories);
-router.get('/getcat', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getcats);
-router.get('/carts', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getCartoons);
-router.get('/gettags', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getTags);
+router.get('/getcategories', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getCategories);
+router.get('/api/cartoons/page/:id/:category', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getMoreCartoons);
+router.get('/api/cartoons', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getCartoons);
+router.get('/api/gettagbyname/:category/:tag', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getTagByName);
+router.get('/api/getcartoonbyslug/:cartoon', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getCartoonBySlug);
+router.get('/api/getcartoonsbytag/:tag', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getCartoonsByTag);
+router.get('/gettags', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getTags);
+router.post('/settag', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].setTag);
 router.post('/add', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].add);
-router.post('/addt', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].addCategory);
+router.post('/addcategory', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].addCategory);
 router.post('/addcat', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].addAgeCategory);
 router.post('/addtag', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].addTag);
-router.get('/getmultiseries', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getMultiseries);
+router.get('/getmultiseries', __WEBPACK_IMPORTED_MODULE_5__controllers_cartoon__["a" /* default */].getMultiseries);
 router.post('/up', function () {
 	var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
 		var file, reader, stream;
@@ -539,7 +546,7 @@ router.post('/addentry', __WEBPACK_IMPORTED_MODULE_3__controllers_entry__["a" /*
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_socket_io__);
 
 
@@ -591,141 +598,514 @@ module.exports = require("nuxt");
 
 var _this = this;
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
+var _ = __webpack_require__(36);
 
+var Op = __WEBPACK_IMPORTED_MODULE_1_sequelize___default.a.Op;
 
 /* harmony default export */ exports["a"] = {
-	getCartoons: function () {
+	getCartoonBySlug: function () {
 		var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-			var cartoons;
+			var cartoon;
 			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
 				while (1) {
 					switch (_context.prev = _context.next) {
 						case 0:
-							_context.next = 2;
+							_context.prev = 0;
+							_context.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].findOne({
+								where: {
+									slug: ctx.params.cartoon
+								},
+								include: [__WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */], __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */]]
+							});
+
+						case 3:
+							cartoon = _context.sent;
+
+							ctx.body = cartoon;
+							_context.next = 10;
+							break;
+
+						case 7:
+							_context.prev = 7;
+							_context.t0 = _context['catch'](0);
+
+							console.log(_context.t0);
+
+						case 10:
+						case 'end':
+							return _context.stop();
+					}
+				}
+			}, _callee, _this, [[0, 7]]);
+		}));
+
+		function getCartoonBySlug(_x, _x2) {
+			return _ref.apply(this, arguments);
+		}
+
+		return getCartoonBySlug;
+	}(),
+	getTagByName: function () {
+		var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+			var cartoons;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+				while (1) {
+					switch (_context2.prev = _context2.next) {
+						case 0:
+							_context2.prev = 0;
+							_context2.next = 3;
 							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].findAll({
+								include: [{
+									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */],
+									where: {
+										name: ctx.params.tag
+									}
+
+								}, {
+									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */],
+									where: {
+										slug: ctx.params.category
+									}
+								}]
+							});
+
+						case 3:
+							cartoons = _context2.sent;
+
+							ctx.body = cartoons;
+							_context2.next = 10;
+							break;
+
+						case 7:
+							_context2.prev = 7;
+							_context2.t0 = _context2['catch'](0);
+
+							console.log(_context2.t0);
+
+						case 10:
+						case 'end':
+							return _context2.stop();
+					}
+				}
+			}, _callee2, _this, [[0, 7]]);
+		}));
+
+		function getTagByName(_x3, _x4) {
+			return _ref2.apply(this, arguments);
+		}
+
+		return getTagByName;
+	}(),
+	getCartoonsByTag: function () {
+		var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
+			var cartoons;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+				while (1) {
+					switch (_context3.prev = _context3.next) {
+						case 0:
+							_context3.prev = 0;
+							_context3.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */].findOne({
+								where: {
+									name: ctx.params.tag
+								},
+								include: [{
+									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */],
+									include: [{
+										model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */]
+									}]
+								}]
+							});
+
+						case 3:
+							cartoons = _context3.sent;
+
+							ctx.body = cartoons;
+							_context3.next = 10;
+							break;
+
+						case 7:
+							_context3.prev = 7;
+							_context3.t0 = _context3['catch'](0);
+
+							console.log(_context3.t0);
+
+						case 10:
+						case 'end':
+							return _context3.stop();
+					}
+				}
+			}, _callee3, _this, [[0, 7]]);
+		}));
+
+		function getCartoonsByTag(_x5, _x6) {
+			return _ref3.apply(this, arguments);
+		}
+
+		return getCartoonsByTag;
+	}(),
+	getMultiseries: function () {
+		var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
+			var multiseries;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+				while (1) {
+					switch (_context4.prev = _context4.next) {
+						case 0:
+							_context4.prev = 0;
+							_context4.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].findAll({
+								where: { isMultiseries: true }
+							});
+
+						case 3:
+							multiseries = _context4.sent;
+
+							ctx.body = multiseries;
+							_context4.next = 10;
+							break;
+
+						case 7:
+							_context4.prev = 7;
+							_context4.t0 = _context4['catch'](0);
+
+							console.log(_context4.t0);
+
+						case 10:
+						case 'end':
+							return _context4.stop();
+					}
+				}
+			}, _callee4, _this, [[0, 7]]);
+		}));
+
+		function getMultiseries(_x7, _x8) {
+			return _ref4.apply(this, arguments);
+		}
+
+		return getMultiseries;
+	}(),
+	getCategoryCartoons: function () {
+		var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(ctx, next) {
+			var limit, category;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+				while (1) {
+					switch (_context5.prev = _context5.next) {
+						case 0:
+							limit = 5;
+							_context5.prev = 1;
+							_context5.next = 4;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].findAll({
+								limit: limit,
+								order: [['createdAt', 'DESC']],
+								where: { isMultiseries: true },
+								include: [{
+									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */],
+									where: {
+										slug: ctx.params.slug
+									}
+								}, __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */]]
+							});
+
+						case 4:
+							category = _context5.sent;
+
+							ctx.body = category;
+							_context5.next = 11;
+							break;
+
+						case 8:
+							_context5.prev = 8;
+							_context5.t0 = _context5['catch'](1);
+
+							console.log(_context5.t0);
+
+						case 11:
+						case 'end':
+							return _context5.stop();
+					}
+				}
+			}, _callee5, _this, [[1, 8]]);
+		}));
+
+		function getCategoryCartoons(_x9, _x10) {
+			return _ref5.apply(this, arguments);
+		}
+
+		return getCategoryCartoons;
+	}(),
+	getMoreCartoons: function () {
+		var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee6(ctx, next) {
+			var limit, offset, category, cartoons;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee6$(_context6) {
+				while (1) {
+					switch (_context6.prev = _context6.next) {
+						case 0:
+							limit = 5;
+							offset = parseInt(ctx.params.id);
+							category = ctx.params.category !== 'undefined' ? ctx.params.category : _defineProperty({}, Op.ne, null);
+
+							console.log(category);
+							_context6.next = 6;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].findAll({
+								offset: offset * limit,
+								limit: limit,
+								order: [['createdAt', 'DESC']],
 								include: [{
 									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */],
 									through: {
 										attributes: ['tag_id']
 									}
+								}, {
+									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */],
+									where: {
+										slug: category
+									}
 								}]
 							});
 
-						case 2:
-							cartoons = _context.sent;
+						case 6:
+							cartoons = _context6.sent;
 
-							console.log(cartoons);
 							ctx.body = cartoons;
 
-						case 5:
+						case 8:
 						case 'end':
-							return _context.stop();
+							return _context6.stop();
 					}
 				}
-			}, _callee, _this);
+			}, _callee6, _this);
 		}));
 
-		function getCartoons(_x, _x2) {
-			return _ref.apply(this, arguments);
+		function getMoreCartoons(_x11, _x12) {
+			return _ref6.apply(this, arguments);
+		}
+
+		return getMoreCartoons;
+	}(),
+	getCartoons: function () {
+		var _ref8 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee7(ctx, next) {
+			var cartoons;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
+				while (1) {
+					switch (_context7.prev = _context7.next) {
+						case 0:
+							_context7.next = 2;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].findAll({
+								limit: 5,
+								order: [['createdAt', 'DESC']],
+								where: {
+									isMultiseries: true
+								},
+								include: [{
+									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */],
+									through: {
+										attributes: ['tag_id']
+									}
+								}, __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */]]
+							});
+
+						case 2:
+							cartoons = _context7.sent;
+
+							ctx.body = cartoons;
+
+						case 4:
+						case 'end':
+							return _context7.stop();
+					}
+				}
+			}, _callee7, _this);
+		}));
+
+		function getCartoons(_x13, _x14) {
+			return _ref8.apply(this, arguments);
 		}
 
 		return getCartoons;
 	}(),
 	addCategory: function () {
-		var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+		var _ref9 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee8(ctx, next) {
+			var categories;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee8$(_context8) {
 				while (1) {
-					switch (_context2.prev = _context2.next) {
+					switch (_context8.prev = _context8.next) {
 						case 0:
-							_context2.next = 2;
+							_context8.prev = 0;
+							_context8.next = 3;
 							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */].create(ctx.request.body);
 
-						case 2:
+						case 3:
+							categories = _context8.sent;
+
+							ctx.body = categories;
+							_context8.next = 10;
+							break;
+
+						case 7:
+							_context8.prev = 7;
+							_context8.t0 = _context8['catch'](0);
+
+							console.log(_context8.t0);
+
+						case 10:
 						case 'end':
-							return _context2.stop();
+							return _context8.stop();
 					}
 				}
-			}, _callee2, _this);
+			}, _callee8, _this, [[0, 7]]);
 		}));
 
-		function addCategory(_x3, _x4) {
-			return _ref2.apply(this, arguments);
+		function addCategory(_x15, _x16) {
+			return _ref9.apply(this, arguments);
 		}
 
 		return addCategory;
 	}(),
-	getcats: function () {
-		var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
-			var cats;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+	getCategories: function () {
+		var _ref10 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee9(ctx, next) {
+			var categories;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee9$(_context9) {
 				while (1) {
-					switch (_context3.prev = _context3.next) {
+					switch (_context9.prev = _context9.next) {
 						case 0:
-							_context3.next = 2;
-							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */].findAll({
-								attributes: ['name'],
-								includeIgnoreAttributes: false,
-								raw: true,
-								group: ['name'],
-								include: {
-									model: __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */],
-									attributes: []
-								}
-							});
+							_context9.prev = 0;
+							_context9.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */].findAll({ order: ['createdAt'] });
 
-						case 2:
-							cats = _context3.sent;
+						case 3:
+							categories = _context9.sent;
 
-							console.log(cats);
-							ctx.body = cats;
+							ctx.body = categories;
+							_context9.next = 10;
+							break;
 
-						case 5:
+						case 7:
+							_context9.prev = 7;
+							_context9.t0 = _context9['catch'](0);
+
+							console.log(_context9.t0);
+
+						case 10:
 						case 'end':
-							return _context3.stop();
+							return _context9.stop();
 					}
 				}
-			}, _callee3, _this);
+			}, _callee9, _this, [[0, 7]]);
 		}));
 
-		function getcats(_x5, _x6) {
-			return _ref3.apply(this, arguments);
+		function getCategories(_x17, _x18) {
+			return _ref10.apply(this, arguments);
 		}
 
-		return getcats;
+		return getCategories;
+	}(),
+	getTags: function () {
+		var _ref11 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee10(ctx, next) {
+			var tags;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee10$(_context10) {
+				while (1) {
+					switch (_context10.prev = _context10.next) {
+						case 0:
+							_context10.prev = 0;
+							_context10.next = 3;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */].findAll({
+								attributes: ['name'],
+								group: ['name'],
+								raw: true
+							});
+
+						case 3:
+							tags = _context10.sent;
+
+							ctx.body = tags;
+							_context10.next = 10;
+							break;
+
+						case 7:
+							_context10.prev = 7;
+							_context10.t0 = _context10['catch'](0);
+
+							console.log(_context10.t0);
+
+						case 10:
+						case 'end':
+							return _context10.stop();
+					}
+				}
+			}, _callee10, _this, [[0, 7]]);
+		}));
+
+		function getTags(_x19, _x20) {
+			return _ref11.apply(this, arguments);
+		}
+
+		return getTags;
 	}(),
 	add: function () {
-		var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
+		var _ref12 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee11(ctx, next) {
 			var cartoon;
-			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee11$(_context11) {
 				while (1) {
-					switch (_context4.prev = _context4.next) {
+					switch (_context11.prev = _context11.next) {
 						case 0:
-							_context4.next = 2;
+							_context11.next = 2;
 							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].create(ctx.request.body, {
 								include: [__WEBPACK_IMPORTED_MODULE_2__models_cartoon__["b" /* Tag */], __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["c" /* Categories */]]
 							});
 
 						case 2:
-							cartoon = _context4.sent;
+							cartoon = _context11.sent;
 
 							ctx.body = cartoon;
 
 						case 4:
 						case 'end':
-							return _context4.stop();
+							return _context11.stop();
 					}
 				}
-			}, _callee4, _this);
+			}, _callee11, _this);
 		}));
 
-		function add(_x7, _x8) {
-			return _ref4.apply(this, arguments);
+		function add(_x21, _x22) {
+			return _ref12.apply(this, arguments);
 		}
 
 		return add;
+	}(),
+	setTag: function () {
+		var _ref13 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.mark(function _callee12(ctx, next) {
+			var tag;
+			return __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee12$(_context12) {
+				while (1) {
+					switch (_context12.prev = _context12.next) {
+						case 0:
+							_context12.next = 2;
+							return __WEBPACK_IMPORTED_MODULE_2__models_cartoon__["a" /* Cartoon */].setTags(['tag1', 'tag2']);
+
+						case 2:
+							tag = _context12.sent;
+
+							ctx.body = tag;
+
+						case 4:
+						case 'end':
+							return _context12.stop();
+					}
+				}
+			}, _callee12, _this);
+		}));
+
+		function setTag(_x23, _x24) {
+			return _ref13.apply(this, arguments);
+		}
+
+		return setTag;
 	}()
 };
 
@@ -736,10 +1116,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redis__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_cartoon__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handlers_redis__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handlers_redis__ = __webpack_require__(3);
 
 
 var _this = this;
@@ -1190,13 +1570,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redis__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_passport__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_koa_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_user__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_user__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_jwt_service__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__handlers_redis__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__handlers_redis__ = __webpack_require__(3);
 
 
 var _this = this;
@@ -1342,11 +1722,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_aliaksandr_documents_rastibolshoy_rastibolshoy_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redis__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_jwt_service__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_user__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__handlers_redis__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_user__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__handlers_redis__ = __webpack_require__(3);
 
 
 var _this = this;
@@ -1465,8 +1845,8 @@ var debug = __webpack_require__(1)('app:nuxt');
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_jwt_service__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jsonwebtoken__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jsonwebtoken__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handlers_redis__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_user__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handlers_redis__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_user__ = __webpack_require__(4);
 
 
 var _this = this;
@@ -1558,7 +1938,9 @@ var debug = __webpack_require__(1)('app:nuxt');
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__postgres_connector__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sequelize_slugify__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__postgres_connector__ = __webpack_require__(10);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Cartoon; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return Tag; });
 /* unused harmony export CartoonTags */
@@ -1566,25 +1948,29 @@ var debug = __webpack_require__(1)('app:nuxt');
 
 
 
-var Cartoon = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('cartoon', {
+
+var Cartoon = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('cartoon', {
 	cartoonId: {
 		allowNull: false,
 		primaryKey: true,
 		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+	},
+	slug: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+		unique: true
 	},
 	title: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
 	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
 	unclear: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
 	video: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
 	year: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-	slug: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
 	thumbnail: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
 	author: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
 	isMultiseries: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.BOOLEAN,
 	parentTitleId: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
 });
 
-var Tag = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('tags', {
+var Tag = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('tags', {
 	id: {
 		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
 		primaryKey: true,
@@ -1592,17 +1978,30 @@ var Tag = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].d
 	},
 	name: {
 		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
-	}
+	},
+	slug: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+	},
+	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT
 });
 
-var Categories = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('categories', {
+var Categories = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('categories', {
+	categoriesId: {
+		primaryKey: true,
+		autoIncrement: true,
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER
+	},
 	name: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+	},
+	slug: {
 		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-		primaryKey: true
-	}
+		unique: true
+	},
+	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT
 });
 
-var CartoonTags = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('cartoontags', {
+var CartoonTags = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('cartoontags', {
 	id: {
 		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
 		primaryKey: true,
@@ -1623,8 +2022,8 @@ var CartoonTags = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* defau
 	}
 });
 
-Cartoon.belongsTo(Categories);
-Categories.hasMany(Cartoon);
+Cartoon.belongsTo(Categories, { foreignKey: 'categoriesId' });
+Categories.hasMany(Cartoon, { foreignKey: 'categoriesId' });
 
 Cartoon.belongsToMany(Tag, {
 	through: {
@@ -1645,7 +2044,15 @@ Tag.belongsToMany(Cartoon, {
 	foreignKey: 'tag_id',
 	constraints: false
 });
-
+__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default.a.slugifyModel(Categories, {
+	source: ['name']
+});
+__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default.a.slugifyModel(Cartoon, {
+	source: ['title']
+});
+__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default.a.slugifyModel(Tag, {
+	source: ['name']
+});
 
 
 /***/ },
@@ -1653,7 +2060,7 @@ Tag.belongsToMany(Cartoon, {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return Tag; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Cartoon; });
@@ -1693,7 +2100,7 @@ var AgeCategory = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('AgeCat
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Entry; });
 
@@ -1748,46 +2155,58 @@ module.exports = require("koa2-formidable");
 /* 36 */
 /***/ function(module, exports) {
 
-module.exports = require("mongoose-unique-validator");
+module.exports = require("lodash");
 
 /***/ },
 /* 37 */
 /***/ function(module, exports) {
 
-module.exports = require("os");
+module.exports = require("mongoose-unique-validator");
 
 /***/ },
 /* 38 */
 /***/ function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("os");
 
 /***/ },
 /* 39 */
 /***/ function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("passport-local");
 
 /***/ },
 /* 40 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("path");
 
 /***/ },
 /* 41 */
 /***/ function(module, exports) {
 
-module.exports = require("socket.io");
+module.exports = require("regenerator-runtime");
 
 /***/ },
 /* 42 */
 /***/ function(module, exports) {
 
-module.exports = require("util");
+module.exports = require("sequelize-slugify");
 
 /***/ },
 /* 43 */
+/***/ function(module, exports) {
+
+module.exports = require("socket.io");
+
+/***/ },
+/* 44 */
+/***/ function(module, exports) {
+
+module.exports = require("util");
+
+/***/ },
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1805,7 +2224,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mongoose_connection__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__handlers__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_socketio__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__postgres_connector__ = __webpack_require__(10);
 

@@ -1,11 +1,14 @@
 <template lang="pug">
 	div(class="container")
 		Header
+		nuxt-child
 		main(class="main-section")
 			div(v-for="(item, index) in Cartoons" :key="index")
-				div(class="post-background" v-bind:style="{ backgroundImage: 'url(' + item.thumbnail + ')' }")
+				div(class="post-background" v-lazy:background-image="item.thumbnail")
 					p fdsfd
 					h1 {{ item.title }}
+		div
+			button(class="button" @click="getMore") Дальше
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -16,13 +19,17 @@ import Header from '../components/Header'
 export default {
 	asyncData ({ store }) {
 		return Promise.all([
-			store.dispatch('getcartoons')
+			store.dispatch('getСartoons')
 		])
 	},
-	created() {
-
-	},
+	data: () => ({
+		pagination: 1
+	}),
 	methods: {
+		getMore () {
+			this.$store.dispatch('getMoreItems', { pagination: this.pagination })
+			this.pagination++
+		},
 		send() {
 			socket.emit('send-message', 'kek')
 		},
@@ -55,7 +62,7 @@ export default {
 </script>
 
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 .container
 	width 1150px
 	margin 0 auto

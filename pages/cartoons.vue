@@ -2,29 +2,23 @@
 	div(class="container")
 		Header
 			div(v-for="(item, index) in cartoonCategories" :key="index")
-				span {{ item.name }}
-		p {{ $route.params }}
-		div {{ ContentItems }}
+				span
+					nuxt-link(:to="'/cartoons/' + item.slug" replace) {{ item.name }}
+		p {{ $route.params }} 44
+		nuxt-child
 </template>
 <script>
 import { mapState } from 'vuex'
-
 import Header from '../components/Header'
+import 'vue2-animate/dist/vue2-animate.min.css'
 
 export default {
 	name: 'slug',
 	fetch ({ params, store }) {
-		let items = ''
-		if (store.state[params.slug] === null) {
-			items = store.dispatch(`get${params.slug}`)
-		}
 		return Promise.all([
-			store.dispatch(`get${params.slug}Cats`),
-			items
+			store.dispatch('getcartoonsCats')
 		])
 	},
-	data: () => ({
-	}),
 	components: {
 		Header
 	},
@@ -37,6 +31,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+@import "~assets/css/app.styl"
 .container
 	width 1150px
 	margin 0 auto

@@ -15,12 +15,13 @@ module.exports = {
     ]
   },
   plugins: [
-    { src: '~/plugins/vue-notifications.js', ssr: false }
+    { src: '~/plugins/vue-notifications.js', ssr: false },
+    { src: '~/plugins/vue-lazyload.js', ssr: false }
   ],
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css'],
+  css: ['~assets/css/main.css', { src: '~assets/css/app.styl', lang: 'stylus' }],
   /*
   ** Customize the progress-bar color
   */
@@ -30,6 +31,7 @@ module.exports = {
    */
   build: {
     vendor: ['vue-notifications'],
+    extractCSS: true,
     /*
      ** Run ESLINT on save
      */

@@ -67,7 +67,7 @@
 				div(class="form-group")
 					label Тэги
 					multiselect(
-						v-model="preTags",
+						v-model="cartoon.tags",
 						:multiple="true",
 						track-by="name"
 						tag-placeholder="Add this as new tag",
@@ -101,12 +101,12 @@
 					label Возрастная категория
 					div
 						select(
-							v-model="cartoon.category"
+							v-model="cartoon.categoriesId"
 							:class="{'input': true, 'is-danger': errors.has('category') }"
 							v-validate="'required'"
 							name="category"
 							)
-							option(v-for="(item, index) in cartoonCategoriesArray" :value="item._id" :key="index") {{ item.name }}
+							option(v-for="(item, index) in cartoonCategoriesArray" :value="item.categoriesId" :key="index") {{ item.name }}
 						div(v-show="errors.has('category')" class="help is-danger") {{ errors.first('category') }}
 				div(class="form-group")
 					label Описание
@@ -140,8 +140,8 @@ import VeeValidate from 'vee-validate'
 import { mapState } from 'vuex'
 import Multiselect from 'vue-multiselect'
 import Dropzone from 'nuxt-dropzone'
+import uniqid from 'uniqid'
 import axios from '~/plugins/axios'
-import slugifier from 'slug-generator'
 import '~/assets/css/vue-select.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
 import 'nuxt-dropzone/dropzone.css'
@@ -159,16 +159,16 @@ export default {
 	data: () => ({
 		preTags: [],
 		cartoon: {
+			cartoonId: uniqid(),
 			title: '',
 			isMultiseries: false,
 			parentTitleId: '',
 			video: '',
 			year: null,
 			tags: [],
-			slug: '',
 			author: '',
 			thumbnail: '',
-			category: '',
+			categoriesId: '',
 			description: '',
 			unclear: ''
 		},
@@ -191,26 +191,16 @@ export default {
 	methods: {
 		addTag (newTag) {
 			const tag = {
-				name: newTag,
-				_id: 'new',
-				description: ''
+				name: newTag
 			}
 			this.cartoonTagsArray.push(tag)
-			this.preTags.push(tag)
+			this.cartoon.tags.push(tag)
 		},
 		async addCartoon () {
 			this.$validator.validateAll().then(async (result) => {
 				if (result) {
 					try {
-						console.log(typeof this.cartoon.isMultiseries)
-						this.cartoon.slug = this.slugify
-						const tags = this.preTags.filter(item => item._id !== 'new')
-						const { data } =  await axios.post('/addtag', this.newTags)
-						this.cartoon.tags = [
-							...tags,
-							...data
-						]
-						await axios.post('/addcartoon', this.cartoon)
+						await axios.post('/add', this.cartoon)
 						return
 					} catch (e) {
 						console.log(e)
@@ -224,18 +214,6 @@ export default {
 		}
 	},
 	computed: {
-		newTags () {
-			let tags = []
-			for (let i in this.preTags) {
-				if (this.preTags[i]._id === 'new') {
-					tags.push(this.preTags[i].name)
-				}
-			}
-			return tags
-		},
-		slugify () {
-			return slugifier(this.cartoon.title)
-		},
 		...mapState({
 			cartoonCategoriesArray: 'cartoonCategoriesArray',
 			cartoonCategoriesList: 'cartoonCategoriesList',
