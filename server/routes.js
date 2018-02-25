@@ -18,6 +18,8 @@ import User from './controllers/user'
 import Entry from './controllers/entry'
 import Cartoon from './controllers/cartoon'
 
+import Audio from './controllers/audio'
+
 import _Cartoon from './controllers/_cartoon'
 
 import checkUser from './handlers/checkUser'
@@ -34,6 +36,11 @@ router.get('/custom',
 		ctx.body = 'Hello!'
 		debug('page rendered')
 	})
+
+router.post('/addaudiocat', Audio.addCategory)
+router.get('/api/audios/getcategories', Audio.getCategories)
+router.post('/api/audios/addaudio', Audio.addAudio)
+router.get('/api/audios/getaudios', Audio.getAudios)
 
 router.post('/addcartoon', Cartoon.add)
 router.get('/getcartoons', Cartoon.getAll)
@@ -61,6 +68,7 @@ router.post('/up', async (ctx, next) => {
 	const stream = fs.createWriteStream(path.join('./uploads', file.name))
 	reader.pipe(stream)
 	console.log('uploading %s -> %s', file.name, stream.path)
+	ctx.body = stream.path
 })
 router.post('/upload', async (ctx, next) => {
 	const file = ctx.request.files.file.path

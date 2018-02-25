@@ -1,22 +1,13 @@
 <template lang="pug">
 div
-	h2 {{ $route.params }} 55
 	div(class="tags-container")
-		div(v-for="(item, index) in cartoonTags" :key="index") 
-			a(href="" @click.prevent="tag(item)") {{ item.name }}
-	main(class="main-section")
-		transition-group(name="zoomUp" tag="div" class="list-group")
-			div(v-for="(item, index) in ContentItems" :key="index")
-				div(class="post-background" v-lazy:background-image="item.thumbnail")
-					p 
-						nuxt-link(:to="'/cartoons/' + item.category.slug") {{ item.category.name }}
-					h1 
-						nuxt-link(:to="'/cartoon/' + item.slug") {{ item.title }}
-	div
-		button(class="button" @click="getMore") Дальше
+		div(v-for="(item, index) in cartoonTags" :key="index" v-bind:class="{ current: currentTag === index }") 
+			a(href="" @click.prevent="tag(item, index)") {{ item.name }}
+	Grid(:items="ContentItems")
 </template>
 <script>
 import { mapState } from 'vuex'
+import Grid from '../../components/Grid'
 
 export default {
 	name: 'tag',
@@ -28,16 +19,24 @@ export default {
 		])
 	},
 	data: () => ({
+		currentTag: null,
 		pagination: 1
 	}),
+	head: () => ({
+		title: `Мультики — ${process.env.siteTitle}`
+	}),
 	methods: {
-		async tag (item) {
+		async tag (item, index) {
 			await this.$store.dispatch('setCurrentTag', { category: this.$route.params.category, tag: item.name })
+			this.currentTag = index
 		},
 		getMore () {
 			this.$store.dispatch('getMoreItems', { pagination: this.pagination, category: this.$route.params.category })
 			this.pagination++
 		}
+	},
+	destroyed () {
+		console.log('up')
 	},
 	computed: {
 		...mapState({
@@ -45,12 +44,31 @@ export default {
 			cartoonTags: 'cartoonTagsArray',
 			cartoonCurrentTag: 'cartoonCurrentTag'
 		})
+	},
+	components: {
+		Grid
 	}
 }
 </script>
 <style lang="stylus" scoped>
+@import "~assets/css/app.styl"
 .tags-container
 	display flex
+	a	
+		display block
+		margin 15px
+		border-radius 3px
+		border solid 1px rgba(151, 151, 151, 0.35)
+		padding 10px 8px
+		color #595653
+		font-family 'PT Sans'
+		font-size 14px
+		transition .4s
+.current a
+	background-color $global-color
+	color white
+	border solid 1px $global-color
+	transition .4s
 .main-section
 	.list-group
 		display flex

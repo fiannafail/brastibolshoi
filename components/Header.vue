@@ -5,7 +5,8 @@ header(class="main-header")
 	nav(class="main-navigation")
 		div 
 			nuxt-link(to="/cartoons") Мультики
-		div Аудио
+		div
+			nuxt-link(to="/audios") Аудио
 		div Полезное
 	slot
 </template>
@@ -14,9 +15,14 @@ header(class="main-header")
 	width 100%
 	text-align center
 .main-navigation
+	margin 15px 0
 	display flex
 	justify-content center
 	& > div
 		padding 10px 25px
+	font-family 'PT Sans'
+	font-size 22px
+	color #595653
+	letter-spacing 2px
 </style>
 

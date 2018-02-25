@@ -1,0 +1,52 @@
+$red-color = #dc0101
+$blue-color = #0069d6
+
+.form-group
+	margin 18px 0
+	display flex
+	span
+		font-size 14px
+		font-weight 500
+		padding 0 10px
+label
+	display inline-block
+	padding 10px
+	width 150px
+	font-size 14px
+	font-weight 500
+	font-family: Roboto
+input[type="text"], select, textarea
+	width 325px
+	box-sizing border-box
+	background-color white
+	border 2px solid #3b8070
+	border-top none
+	padding 12px
+	font-size 14px
+	font-family: Roboto
+	letter-spacing 0.2px
+	font-weight 500
+	color #313131
+	&::placeholder
+		color #3b8070
+		font-weight 500
+	&.is-danger::placeholder
+		border-color #D50000
+		color #D50000
+	&:focus
+		outline none
+	&.is-danger
+		border-color #D50000
+		color #D50000
+.help.is-danger
+	color #D50000
+	font-size 12px
+	font-weight 500
+	margin-top: 6px
+#customdropzone
+	border 2px dashed #3b8070
+	margin 20px 0
+textarea 
+	min-height 175px
+select option 
+	padding 6px

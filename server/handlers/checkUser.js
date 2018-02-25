@@ -21,8 +21,8 @@ export default () => async (ctx, next) => {
 		if (e.name === 'TokenExpiredError' && confirmedRefreshToken === refreshToken) {
 			const newAccessToken = await jwtService.genToken({ id: decoded._id, username: decoded.username }, '2m')
 			const newRefreshToken = await jwtService.genToken({ username: decoded.username }, '30d')
-			await redisClient.set(`token_${decoded.username}`, newAccessToken, redis.print);
-			await redisClient.set(`refreshToken${decoded.username}`, newRefreshToken, redis.print);
+			await redisClient.set(`token_${decoded.username}`, newAccessToken, redis.print)
+			await redisClient.set(`refreshToken${decoded.username}`, newRefreshToken, redis.print)
 		}
 	}
 	debug('token recieved')

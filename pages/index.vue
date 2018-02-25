@@ -2,19 +2,14 @@
 	div(class="container")
 		Header
 		nuxt-child
-		main(class="main-section")
-			div(v-for="(item, index) in Cartoons" :key="index")
-				div(class="post-background" v-lazy:background-image="item.thumbnail")
-					p fdsfd
-					h1 {{ item.title }}
-		div
-			button(class="button" @click="getMore") Дальше
+		Grid(:items="Cartoons")
 </template>
 <script>
 import { mapState } from 'vuex'
 import socket from '~/plugins/global.js'
 import axios from '~/plugins/axios'
 
+import Grid from '../components/Grid'
 import Header from '../components/Header'
 export default {
 	asyncData ({ store }) {
@@ -56,7 +51,8 @@ export default {
 		})
 	},
 	components: {
-		Header
+		Header,
+		Grid
 	}
 }
 </script>
@@ -66,27 +62,5 @@ export default {
 .container
 	width 1150px
 	margin 0 auto
-
-.main-section
-	display flex
-	flex-wrap wrap
-	& > div
-		height 350px
-		margin 15px
-		border 1px solid #cccccc
-		width calc(100% / 3 - 34px)
-		&:first-child, &:nth-child(7n)
-			width calc(100% / 3 * 2 - 34px)
-.post-background
-	width 100%
-	height 100%
-	display flex
-	flex-direction column
-	justify-content flex-end
-	h1, p
-		color white
-		margin 0
-		padding 20px
-		padding-top 0
 </style>
 

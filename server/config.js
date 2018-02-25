@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 	DATABASE_URL = process.env.DATABASE_URL
 } else {
 	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin'
-	REDIS_URL = 'redis://localhost:6379',
+	REDIS_URL = 'redis://localhost:6379'
 	DATABASE_URL = 'postgres://postgres:6354825107@127.0.0.1:5432/postgres'
 }
 const REDIS_KEY = 'DRKlPeBHbgr0FUSs'

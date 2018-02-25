@@ -1,4 +1,6 @@
 import Sequelize from 'sequelize'
+import redis from 'redis'
+import { getAsync } from '../handlers/redis'
 var _ = require('lodash')
 import { Cartoon, Tag, Categories } from '../models/_cartoon'
 const Op = Sequelize.Op
@@ -19,7 +21,8 @@ export default {
 	},
 	getTagByName: async(ctx, next) => {
 		try {
-			const cartoons = await Cartoon.findAll({
+			const tag = getAsync(ctx.params.tag)
+			const cartoons = Cartoon.findAll({
 				include:[{
 					model: Tag,
 					where: {
@@ -33,25 +36,29 @@ export default {
 					}
 				}]
 			})
-			ctx.body = cartoons
+			const requests = await Promise.all([tag, cartoons])
+			console.log({ tag: requests[0], cartoons: requests[1] })
+			ctx.body = { tag: requests[0], cartoons: requests[1] }
 		} catch (e) {
 			console.log(e)
 		}
 	},
 	getCartoonsByTag: async (ctx, next) => {
+		ctx.set('Content-Type', 'text/plain; charset=utf-8')
+		console.log('tag', ctx.params)
 		try {
-			const cartoons = await Tag.findOne({
-				where: {
-					name: ctx.params.tag
-				},
+			const tagRequest = await getAsync(ctx.params.tag)
+			const tag = tagRequest.split(', ')
+			const cartoons = await Cartoon.findAll({
 				include: [{
-					model: Cartoon,
-					include: [{
-						model: Tag
-					}]
-				}]
+					model: Tag,
+					where: {
+						name: tag[1]
+					}
+				}, Categories]
 			})
-			ctx.body = cartoons
+			console.log(tag[1], cartoons)
+			ctx.body = { tag: tagRequest, cartoons: cartoons }
 		} catch (e) {
 			console.log(e)
 		}
@@ -110,11 +117,7 @@ export default {
 	},
 	getCartoons: async (ctx, next) => {
 		const cartoons = await Cartoon.findAll({
-			limit: 5,
 			order: [['createdAt', 'DESC']],
-			where: {
-				isMultiseries: true
-			},
 			include: [{
 				model: Tag,
 				through: {

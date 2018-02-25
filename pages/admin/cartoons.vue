@@ -1,4 +1,6 @@
 <template lang="pug">
+div(class="section-container")
+	Tags(class="tags-container" :items="cartoonTagsArray")
 	div
 		h2 Мультики
 		div
@@ -132,7 +134,16 @@
 							name="unclear"
 							)
 						div(v-show="errors.has('unclear')" class="help is-danger") {{ errors.first('unclear') }}
-				button(class="button") Добавить
+				div(v-if="isEditing")
+					button(class="button") Сохранить
+					button(class="button" @click.prevent="cancel") Прервать редактирование
+				button(class="button" v-else) Добавить
+	aside(class="aside-list")
+		h2 Список мультиков
+		ItemsList(
+			@editItem="setEditingItem"
+			:items="ContentItems"
+			)
 </template>
 <script>
 import Vue from 'vue'
@@ -142,6 +153,11 @@ import Multiselect from 'vue-multiselect'
 import Dropzone from 'nuxt-dropzone'
 import uniqid from 'uniqid'
 import axios from '~/plugins/axios'
+
+import eventBus from '../../components/event-bus'
+import ItemsList from '../../components/admin/ItemsList'
+import Tags from '../../components/admin/Tags'
+
 import '~/assets/css/vue-select.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
 import 'nuxt-dropzone/dropzone.css'
@@ -149,15 +165,18 @@ import 'nuxt-dropzone/dropzone.css'
 Vue.use(VeeValidate)
 
 export default {
-	asyncData ({ store }) {
+	fetch ({ store, route }) {
+		console.log(route)
 		return Promise.all([
 			store.dispatch('getcartoonsCats'),
 			store.dispatch('getCartoonsTags'),
-			store.dispatch('getMultiseries')
+			store.dispatch('getMultiseries'),
+			store.dispatch('getСartoons')
 		])
 	},
 	data: () => ({
 		preTags: [],
+		isEditing: false,
 		cartoon: {
 			cartoonId: uniqid(),
 			title: '',
@@ -178,17 +197,35 @@ export default {
 		}
 	}),
 	notifications: {
-		showLoginError: { // You can have any name you want instead of 'showLoginError'
+		showLoginSuccess: {
+			title: 'Пост успешно добавлен!',
+			message: 'Заполнены все поля',
+			type: 'success'
+		},
+		showLoginError: {
 			title: 'Ошибка отправки данных',
 			message: 'Заполнены не все поля',
-			type: 'error' // You also can use 'VueNotifications.types.error' instead of 'error'
+			type: 'error'
 		}
 	},
 	mounted () {
 		const instance = this.$refs.el.dropzone
 		console.log(instance)
+		eventBus.$on('close-editing', payload => {
+			this.isEditing = payload
+			this.cancel()
+		})
 	},
 	methods: {
+		cancel () {
+			this.cartoon = this.$options.data().cartoon
+		},
+		setEditingItem (item) {
+			eventBus.$emit('show-editing')
+			this.isEditing = true
+			this.cartoon = item
+			console.log(item)
+		},
 		addTag (newTag) {
 			const tag = {
 				name: newTag
@@ -201,7 +238,7 @@ export default {
 				if (result) {
 					try {
 						await axios.post('/add', this.cartoon)
-						return
+						return this.showLoginSuccess()
 					} catch (e) {
 						console.log(e)
 					}
@@ -211,10 +248,14 @@ export default {
 		},
 		imageUploaded (file) {
 			this.cartoon.thumbnail = file.xhr.response
+		},
+		cleanForm () {
+			this.cartoon = null
 		}
 	},
 	computed: {
 		...mapState({
+			ContentItems: 'cartoons',
 			cartoonCategoriesArray: 'cartoonCategoriesArray',
 			cartoonCategoriesList: 'cartoonCategoriesList',
 			cartoonTagsArray: 'cartoonTagsArray',
@@ -223,62 +264,22 @@ export default {
 	},
 	components: {
 		Dropzone,
-		Multiselect
+		Multiselect,
+		ItemsList,
+		Tags
 	}
 }
 </script>
 <style lang="stylus" scoped>
-.form-group
-	margin 18px 0
+@import "~assets/css/admin.styl"
+
+.tags-container
+	width 100%
+.section-container
 	display flex
-	span
-		font-size 14px
-		font-weight 500
-		padding 0 10px
-label
-	display inline-block
-	padding 10px
-	width 150px
-	font-size 14px
-	font-weight 500
-	font-family: Roboto
-input[type="text"], select, textarea
-	width 300px
-	box-sizing border-box
-	background-color white
-	border 2px solid #3b8070
-	border-top none
-	padding 12px
-	font-size 14px
-	font-family: Roboto
-	letter-spacing 0.2px
-	font-weight 500
-	color #313131
-	&::placeholder
-		color #3b8070
-		font-weight 500
-	&.is-danger::placeholder
-		border-color #D50000
-		color #D50000
-	&:focus
-		outline none
-	&.is-danger
-		border-color #D50000
-		color #D50000
-textarea 
-	min-height 100px
-select option 
-	padding 6px
-#customdropzone
-	border 2px dashed #3b8070
-	margin 20px 0
+	flex-wrap: wrap
 .dz-message
 	color #8c8c8c
 	font-family: Roboto
-.help.is-danger
-	color #D50000
-	font-size 12px
-	font-weight 500
-	margin-top: 6px
 </style>
 

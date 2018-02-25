@@ -16,14 +16,15 @@ li {
 }
 .button,
 .button:visited {
-	display: inline-block;
+	margin: 0 auto;
+	display: block;
 	color: #3b8070;
 	letter-spacing: 1px;
 	background-color: #fff;
 	border: 2px solid #3b8070;
 	text-decoration: none;
 	text-transform: uppercase;
-	padding: 15px 45px;
+	padding: 15px 25px;
 }
 
 .button:hover,

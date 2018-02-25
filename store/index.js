@@ -5,10 +5,12 @@ const createStore = () => {
 	return new Vuex.Store({
 		state: {
 			cartoons: null,
+			currentEditing: false,
 			cartoonCategoriesArray: [],
 			cartoonCategoriesList: [],
 			cartoonMultiseries: [],
 			cartoonTagsArray: [],
+			editingItem: null,
 			cartoonCurrentTag: null
 		},
 		mutations: {
@@ -18,10 +20,13 @@ const createStore = () => {
 		},
 		actions: {
 			async setCurrentTag ({ commit }, payload) {
+				const empty = []
+				commit('set', { type: 'cartoons', items: empty })
 				try {
 					const { data } = await axios.get(`/api/gettagbyname/${payload.category}/${payload.tag}`)
 					console.log(data)
-					commit('set', { type: 'cartoons', items: data })
+					commit('set', { type: 'cartoons', items: data.cartoons })
+					commit('set', { type: 'cartoonCurrentTag', items: data.tag })
 				} catch (e) {
 					console.log(e)
 				}
@@ -56,9 +61,10 @@ const createStore = () => {
 				}
 			},
 			async getItems ({ commit }, payload) {
+				const empty = []
+				commit('set', { type: 'cartoons', items: empty })
 				const url = payload.category
 				try {
-					console.log(url)
 					const { data } = await axios.get(`/api/cartoons/${url}`)
 					commit('set', { type: 'cartoons', items: data })
 				} catch (e) {
