@@ -4,9 +4,7 @@ import { Nuxt, Builder } from 'nuxt'
 import passport from 'koa-passport'
 import router from './routes'
 const debug = require('debug')('app:nuxt')
-import mongooseConnector from './mongoose-connection'
 import initHandlers from './handlers'
-import { MONGO_URI } from './config'
 import websockets from './services/socketio'
 import sequelize from './postgres-connector'
 
@@ -36,9 +34,6 @@ async function start () {
 
 	// JWT Handler
 	//  app.use(jwtHandler())
-
-	// Mongoose
-	mongooseConnector(MONGO_URI)
 
 	// Postgres / Sequelize
 	sequelize
@@ -70,7 +65,6 @@ async function start () {
 
 	// socket.io
 	const server = http.createServer(app.callback())
-	websockets(server)
 
 	// listen
 	server.listen(port, host)

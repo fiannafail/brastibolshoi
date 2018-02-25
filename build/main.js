@@ -85,7 +85,7 @@ module.exports = require("debug");
 
 
 
-const redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient(__WEBPACK_IMPORTED_MODULE_1__config__["b" /* REDIS_URL */]);
+const redisClient = __WEBPACK_IMPORTED_MODULE_0_redis___default.a.createClient(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* REDIS_URL */]);
 /* harmony export (immutable) */ exports["a"] = redisClient;
 
 
@@ -109,10 +109,10 @@ module.exports = require("redis");
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_URL; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return REDIS_URL; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return JWT_KEY; });
 /* unused harmony export REDIS_KEY */
-/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return DATABASE_URL; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return DATABASE_URL; });
 let REDIS_URL, DATABASE_URL;
 
 if (false) {
@@ -205,7 +205,7 @@ module.exports = require("sequelize");
 
 
 
-const sequelize = new __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a(__WEBPACK_IMPORTED_MODULE_1__config__["d" /* DATABASE_URL */], {
+const sequelize = new __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a(__WEBPACK_IMPORTED_MODULE_1__config__["c" /* DATABASE_URL */], {
 	dialect: 'postgres'
 });
 sequelize.sync();
@@ -230,13 +230,13 @@ module.exports = require("koa-passport");
 
 /* harmony default export */ exports["a"] = {
   genToken(data, expiration) {
-    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.sign(data, __WEBPACK_IMPORTED_MODULE_1__config__["c" /* JWT_KEY */], { expiresIn: expiration });
+    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.sign(data, __WEBPACK_IMPORTED_MODULE_1__config__["b" /* JWT_KEY */], { expiresIn: expiration });
   },
   verify(token) {
-    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["c" /* JWT_KEY */]);
+    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["b" /* JWT_KEY */]);
   },
   verifyNoExp(token) {
-    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["c" /* JWT_KEY */], { ignoreExpiration: true });
+    return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, __WEBPACK_IMPORTED_MODULE_1__config__["b" /* JWT_KEY */], { ignoreExpiration: true });
   }
 };
 
@@ -322,29 +322,7 @@ const koaDecodedQuerystring = __webpack_require__(35);
 };
 
 /***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
-
-const debug = __webpack_require__(0)('app:nuxt');
-
-__WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Promise = Promise;
-
-/* harmony default export */ exports["a"] = mongoUri => {
-	if (!mongoUri) {
-		throw Error('Mongo uri is undefinded');
-	}
-	return __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.connect(mongoUri).then(mongodb => {
-		debug('Mongo connected');
-
-		return mongodb;
-	});
-};
-
-/***/ },
+/* 14 */,
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -524,7 +502,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-/* harmony default export */ exports["a"] = server => {
+/* unused harmony default export */ var _unused_webpack_default_export = server => {
 	const io = __WEBPACK_IMPORTED_MODULE_0_socket_io___default()(server);
 
 	io.sockets.on('connection', socket => {
@@ -1608,9 +1586,9 @@ module.exports = require("util");
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
-Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_http__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(20);
@@ -1618,11 +1596,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_passport__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_passport__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mongoose_connection__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__handlers__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__config__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_socketio__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__postgres_connector__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__handlers__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_socketio__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__postgres_connector__ = __webpack_require__(7);
 let start = (() => {
 	var _ref = _asyncToGenerator(function* () {
 		const app = new __WEBPACK_IMPORTED_MODULE_0_koa___default.a();
@@ -1646,16 +1622,13 @@ let start = (() => {
 		__webpack_require__(15).configure(__WEBPACK_IMPORTED_MODULE_3_koa_passport___default.a);
 
 		// Initial handlers
-		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__handlers__["a" /* default */])(app);
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__handlers__["a" /* default */])(app);
 
 		// JWT Handler
 		//  app.use(jwtHandler())
 
-		// Mongoose
-		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_7__config__["MONGO_URI"]);
-
 		// Postgres / Sequelize
-		__WEBPACK_IMPORTED_MODULE_9__postgres_connector__["a" /* default */].authenticate().then(function () {
+		__WEBPACK_IMPORTED_MODULE_7__postgres_connector__["a" /* default */].authenticate().then(function () {
 			console.log('Connection has been established successfully.');
 		}).catch(function (err) {
 			console.error('Unable to connect to the database:', err);
@@ -1693,7 +1666,6 @@ let start = (() => {
 
 		// socket.io
 		const server = __WEBPACK_IMPORTED_MODULE_1_http___default.a.createServer(app.callback());
-		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__services_socketio__["a" /* default */])(server);
 
 		// listen
 		server.listen(port, host);
@@ -1713,8 +1685,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 const debug = __webpack_require__(0)('app:nuxt');
-
-
 
 
 
