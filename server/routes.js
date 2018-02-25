@@ -71,10 +71,15 @@ router.post('/up', async (ctx, next) => {
 	ctx.body = stream.path
 })
 router.post('/upload', async (ctx, next) => {
-	const file = ctx.request.files.file.path
-	const image = await cloudinary.uploader.upload(file)
-	console.log(image.secure_url) 
-	ctx.body = image.secure_url
+	try {
+		const file = ctx.request.files.file.path
+		const image = await cloudinary.uploader.upload(file)
+		console.log(image.secure_url) 
+		ctx.body = image.secure_url
+	} catch (e) {
+		console.log(e)
+	}
+
 })
 // Entries routes
 router.post('/addentry', Entry.addEntry)

@@ -468,10 +468,14 @@ router.post('/up', (() => {
 })());
 router.post('/upload', (() => {
 	var _ref3 = _asyncToGenerator(function* (ctx, next) {
-		const file = ctx.request.files.file.path;
-		const image = yield cloudinary.uploader.upload(file);
-		console.log(image.secure_url);
-		ctx.body = image.secure_url;
+		try {
+			const file = ctx.request.files.file.path;
+			const image = yield cloudinary.uploader.upload(file);
+			console.log(image.secure_url);
+			ctx.body = image.secure_url;
+		} catch (e) {
+			console.log(e);
+		}
 	});
 
 	return function (_x5, _x6) {
