@@ -109,19 +109,16 @@ module.exports = require("redis");
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MONGO_URI; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return REDIS_URL; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return JWT_KEY; });
 /* unused harmony export REDIS_KEY */
 /* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return DATABASE_URL; });
-let MONGO_URI, REDIS_URL, DATABASE_URL;
+let REDIS_URL, DATABASE_URL;
 
 if (false) {
-	MONGO_URI = process.env.MONGO_URL;
 	REDIS_URL = process.env.REDIS_URL;
 	DATABASE_URL = process.env.DATABASE_URL;
 } else {
-	MONGO_URI = 'mongodb://fiannafail:loOhdsdFom5nYCiR@cluster0-shard-00-00-y7wbs.mongodb.net:27017,cluster0-shard-00-01-y7wbs.mongodb.net:27017,cluster0-shard-00-02-y7wbs.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
 	REDIS_URL = 'redis://localhost:6379';
 	DATABASE_URL = 'postgres://postgres:6354825107@127.0.0.1:5432/postgres';
 }
@@ -1655,7 +1652,7 @@ let start = (() => {
 		//  app.use(jwtHandler())
 
 		// Mongoose
-		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_7__config__["a" /* MONGO_URI */]);
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__mongoose_connection__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_7__config__["MONGO_URI"]);
 
 		// Postgres / Sequelize
 		__WEBPACK_IMPORTED_MODULE_9__postgres_connector__["a" /* default */].authenticate().then(function () {
