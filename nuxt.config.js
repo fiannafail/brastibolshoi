@@ -1,3 +1,5 @@
+const nodeExternals = require('webpack-node-externals')
+
 module.exports = {
 	/*
 	** Headers of the page
@@ -51,6 +53,13 @@ module.exports = {
 					loader: 'eslint-loader',
 					exclude: /(node_modules)/,
 			})
+			}
+			if (ctx.isServer) {
+				config.externals = [
+					nodeExternals ({
+						whitelist: [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i, /^vue-audio/]
+					})
+				]
 			}
 		}
 	}

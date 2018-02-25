@@ -6,7 +6,8 @@
 			div(class="content")
 				p {{ item.audiocategory.name }}
 				h2 {{ item.title }}
-				vue-audio(:file="'/' + item.audio")
+				no-ssr
+					vue-audio(:file="'/' + item.audio")
 </template>
 <script>
 import VueAudio from 'vue-audio'
