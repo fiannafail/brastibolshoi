@@ -44,15 +44,10 @@ module.exports = {
 			if (ctx.isClient) {
 				config.module.rules.push({
 					enforce: 'pre',
-					test: /\.js$/,
+					test: /\.(js|vue)$/,
 					loader: 'eslint-loader',
-					exclude: /(node_modules)/,
-			},{
-					enforce: 'pre',
-					test: /\.vue$/,
-					loader: 'eslint-loader',
-					exclude: /(node_modules)/,
-			})
+					exclude: /(node_modules)/
+				})
 			}
 			if (ctx.isServer) {
 				config.externals = [
