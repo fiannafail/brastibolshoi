@@ -6,8 +6,6 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import socket from '~/plugins/global.js'
-import axios from '~/plugins/axios'
 
 import Grid from '../components/Grid'
 import Header from '../components/Header'
@@ -24,25 +22,6 @@ export default {
 		getMore () {
 			this.$store.dispatch('getMoreItems', { pagination: this.pagination })
 			this.pagination++
-		},
-		send() {
-			socket.emit('send-message', 'kek')
-		},
-		async redis () {
-			try {
-				const data = await axios.get('/redis')
-				console.log(data)
-			} catch (e) {
-				console.log(e)
-			}
-		},
-		async mongo () {
-			try {
-				const data = await axios.get('/mongo')
-				console.log(data)
-			} catch (e) {
-				console.log(e)
-			}
 		}
 	},
 	computed: {

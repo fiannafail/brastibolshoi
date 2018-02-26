@@ -483,61 +483,7 @@ router.post('/addentry', __WEBPACK_IMPORTED_MODULE_2__controllers_entry__["a" /*
 /* harmony default export */ exports["a"] = router;
 
 /***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_socket_io__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redis__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_slug_generator__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_slug_generator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_slug_generator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handlers_redis__ = __webpack_require__(1);
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-
-
-
-
-
-/* unused harmony default export */ var _unused_webpack_default_export = server => {
-	const io = __WEBPACK_IMPORTED_MODULE_0_socket_io___default()(server);
-
-	io.sockets.on('connection', socket => {
-		console.log('a user connected');
-		socket.on('setTag', (() => {
-			var _ref = _asyncToGenerator(function* (msg) {
-				console.log(msg.name, msg.description + ', ' + __WEBPACK_IMPORTED_MODULE_2_slug_generator___default()(msg.name) + ', ' + msg.name);
-				const tag = yield __WEBPACK_IMPORTED_MODULE_3__handlers_redis__["a" /* redisClient */].set(__WEBPACK_IMPORTED_MODULE_2_slug_generator___default()(msg.name), msg.description + ', ' + msg.name, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
-				console.log(tag);
-			});
-
-			return function (_x) {
-				return _ref.apply(this, arguments);
-			};
-		})());
-		socket.on('getTag', (() => {
-			var _ref2 = _asyncToGenerator(function* (msg) {
-				console.log('MESSAGE', msg);
-				const tag = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__handlers_redis__["b" /* getAsync */])(msg);
-				io.emit('tag', tag);
-			});
-
-			return function (_x2) {
-				return _ref2.apply(this, arguments);
-			};
-		})());
-		socket.on('chat message', function (msg) {
-			io.emit('chat message', msg);
-		});
-		socket.on('disconnect', () => {
-			console.log('user disconnected');
-		});
-	});
-};
-
-/***/ },
+/* 17 */,
 /* 18 */
 /***/ function(module, exports) {
 
@@ -1369,12 +1315,7 @@ module.exports = require("path");
 module.exports = require("slug-generator");
 
 /***/ },
-/* 45 */
-/***/ function(module, exports) {
-
-module.exports = require("socket.io");
-
-/***/ },
+/* 45 */,
 /* 46 */
 /***/ function(module, exports) {
 
@@ -1385,9 +1326,9 @@ module.exports = require("util");
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
+Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_http__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(20);
@@ -1396,8 +1337,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_passport__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__handlers__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_socketio__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__postgres_connector__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__postgres_connector__ = __webpack_require__(7);
 let start = (() => {
 	var _ref = _asyncToGenerator(function* () {
 		const app = new __WEBPACK_IMPORTED_MODULE_0_koa___default.a();
@@ -1427,7 +1367,7 @@ let start = (() => {
 		//  app.use(jwtHandler())
 
 		// Postgres / Sequelize
-		__WEBPACK_IMPORTED_MODULE_7__postgres_connector__["a" /* default */].authenticate().then(function () {
+		__WEBPACK_IMPORTED_MODULE_6__postgres_connector__["a" /* default */].authenticate().then(function () {
 			console.log('Connection has been established successfully.');
 		}).catch(function (err) {
 			console.error('Unable to connect to the database:', err);
@@ -1463,7 +1403,6 @@ let start = (() => {
 			};
 		})());
 
-		// socket.io
 		const server = __WEBPACK_IMPORTED_MODULE_1_http___default.a.createServer(app.callback());
 
 		// listen
@@ -1484,7 +1423,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 const debug = __webpack_require__(0)('app:nuxt');
-
 
 
 

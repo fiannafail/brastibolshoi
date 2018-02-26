@@ -18,6 +18,7 @@
 						span(@click.prevent="getTag(item)") {{ item.name }}
 </template>
 <script>
+import slugify from 'slug-generator'
 import axios from '~/plugins/axios'
 import '~/plugins/vue-youtube'
 
@@ -29,9 +30,9 @@ export default {
 	methods: {
 		async getTag (item) {
 			try {
-				const { data } = await axios.get(`/api/cartoons/gettag/${item.name}`)
-				const tag = data.split(', ')
-				this.$router.replace({ path: `/cartoons/tag/${tag[1]}` })
+				// const { data } = await axios.get(`/api/cartoons/gettag/${item.name}`)
+				// const tag = data.split(', ')
+				this.$router.replace({ path: `/cartoons/tag/${slugify(item.name)}` })
 			} catch (e) {
 				console.log(e)
 			}

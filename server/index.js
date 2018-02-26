@@ -5,7 +5,6 @@ import passport from 'koa-passport'
 import router from './routes'
 const debug = require('debug')('app:nuxt')
 import initHandlers from './handlers'
-import websockets from './services/socketio'
 import sequelize from './postgres-connector'
 
 async function start () {
@@ -63,7 +62,6 @@ async function start () {
 		})
 	})
 
-	// socket.io
 	const server = http.createServer(app.callback())
 
 	// listen
