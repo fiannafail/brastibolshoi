@@ -1,7 +1,8 @@
 <template lang="pug">
 header(class="main-header")
 	h1 
-		nuxt-link(to="/") Растибольшой.ком
+		nuxt-link(to="/") Растибольшой
+			span(class="black") .ком
 	nav(class="main-navigation")
 		div 
 			nuxt-link(to="/cartoons") Мультики
@@ -11,6 +12,10 @@ header(class="main-header")
 	slot
 </template>
 <style lang="stylus" scoped>
+h1
+	font-size: 42px
+.black
+	color #1a1512
 .main-header 
 	width 100%
 	text-align center

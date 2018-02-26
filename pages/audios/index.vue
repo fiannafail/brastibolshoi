@@ -30,6 +30,6 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-@import "~assets/css/app.styl"
+
 </style>
 

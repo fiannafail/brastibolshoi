@@ -4,18 +4,27 @@
 			youtube(:video-id="videoId" :player-vars="playerVars" width="100%" height="480")
 		aside(class="post-aside")
 			div
+				div(class="head")
 				h2 Глазами ребенка
-				p Что может быть непонятно
+				p(class="underheader") Что может быть непонятно
 				p {{ post.unclear }}
-			div
+			div(class="block-2")
+				div(class="head second")
 				h2 Сводка
-				p {{ post.title }}
-				p Для возраста: {{ post.category.name }}
-				p Год: {{ post.year }}
-				p Автор: {{ post.author }}
-				p О чем:
+				p(class="underheader") {{ post.title }}
+				p
+					span(class="bold") Для возраста: 
+					span {{ post.category.name }}
+				p 
+					span(class="bold") Год: 
+					span {{ post.year }}
+				p
+					span(class="bold") Автор: 
+					span {{ post.author }}
+				p 
+					span(class="bold") О чем: 
 					span(v-for="(item, index) in post.tags" :key="index")
-							nuxt-link(:to="`/cartoons/tag/${slugify(item.name)}`") {{ item.name }}
+							nuxt-link(:to="`/cartoons/tag/${slugify(item.name)}`") {{ item.name }}, 
 </template>
 <script>
 import slugify from 'slug-generator'
@@ -57,16 +66,42 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+@import "~assets/css/app.styl"
 .post-container
  	display flex
 	&:first-child
 		flex 2
 	&:nth-child(2)
 		flex 1
+	&>div
+		margin 15px
 .post-aside
  	&>div
-	 	padding 20px
+	 	margin-bottom: 30px
+	 	padding 30px
 	 	border-radius 10px
-	 	border 1px #ccc solid
-		box-sizing border-box
+	 	border: 1px #cccccc solid
+		p
+			margin 4px 0
+			line-height: 1.8
+		h2
+			margin 6px 0
+			color: #1a1512
+			margin-top 12px
+		.underheader, h2
+			text-align center
+		.underheader
+			font-size: 14px
+		.head
+			background-image: url('../../assets/img/hat.svg')
+			display block
+			width 41px
+			height 36px
+			margin 0 auto
+			&.second
+				background-image: url('../../assets/img/building.svg')
+		.bold
+			font-weight: 700
+.block-2
+	margin-bottom: 4px
 </style>

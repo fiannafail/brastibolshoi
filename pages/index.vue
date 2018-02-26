@@ -38,6 +38,7 @@ export default {
 
 
 <style lang="stylus">
+@import "~assets/css/app.styl"
 .container
 	width 1150px
 	margin 0 auto
