@@ -14,8 +14,8 @@
 				p Год: {{ post.year }}
 				p Автор: {{ post.author }}
 				p О чем:
-					span(v-for="(item, index) in post.tags" :key="index") 
-						span(@click.prevent="getTag(item)") {{ item.name }}
+					span(v-for="(item, index) in post.tags" :key="index")
+							nuxt-link(:to="`/cartoons/tag/${slugify(item.name)}`") {{ item.name }}
 </template>
 <script>
 import slugify from 'slug-generator'
@@ -28,6 +28,9 @@ export default {
 		return { post: data }
 	},
 	methods: {
+		slugify (item) {
+			return slugify(item)
+		},
 		async getTag (item) {
 			try {
 				// const { data } = await axios.get(`/api/cartoons/gettag/${item.name}`)
