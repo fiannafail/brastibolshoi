@@ -20,8 +20,6 @@ import Cartoon from './controllers/cartoon'
 
 import Audio from './controllers/audio'
 
-import _Cartoon from './controllers/_cartoon'
-
 import checkUser from './handlers/checkUser'
 import putToken from './jwt'
 
@@ -42,26 +40,24 @@ router.get('/api/audios/getcategories', Audio.getCategories)
 router.post('/api/audios/addaudio', Audio.addAudio)
 router.get('/api/audios/getaudios', Audio.getAudios)
 
-router.post('/addcartoon', Cartoon.add)
-router.get('/getcartoons', Cartoon.getAll)
-router.get('/api/cartoons/:slug', _Cartoon.getCategoryCartoons)
+router.get('/api/cartoons/gettag/:name', Cartoon.getTag)
+router.post('/api/cartoons/settag', Cartoon.setTag)
+
+router.get('/api/cartoons/:slug', Cartoon.getCategoryCartoons)
 //	router.get('/cartoon/:slug', Cartoon.getOne)
-router.get('/redis', Cartoon.getRedis)
-router.get('/mongo', Cartoon.getMongo)
-router.get('/getcats', Cartoon.getCategories)
-router.get('/getcategories', _Cartoon.getCategories)
-router.get('/api/cartoons/page/:id/:category', _Cartoon.getMoreCartoons)
-router.get('/api/cartoons', _Cartoon.getCartoons)
-router.get('/api/gettagbyname/:category/:tag', _Cartoon.getTagByName)
-router.get('/api/getcartoonbyslug/:cartoon', _Cartoon.getCartoonBySlug)
-router.get('/api/getcartoonsbytag/:tag', _Cartoon.getCartoonsByTag)
-router.get('/gettags', _Cartoon.getTags)
-router.post('/settag', _Cartoon.setTag)
-router.post('/add', _Cartoon.add)
-router.post('/addcategory', _Cartoon.addCategory)
-router.post('/addcat', Cartoon.addAgeCategory)
-router.post('/addtag', Cartoon.addTag)
-router.get('/getmultiseries', _Cartoon.getMultiseries)
+
+
+router.get('/getcategories', Cartoon.getCategories)
+router.get('/api/cartoons/page/:id/:category', Cartoon.getMoreCartoons)
+router.get('/api/cartoons', Cartoon.getCartoons)
+router.get('/api/gettagbyname/:category/:tag', Cartoon.getTagByName)
+router.get('/api/getcartoonbyslug/:cartoon', Cartoon.getCartoonBySlug)
+router.get('/api/getcartoonsbytag/:tag', Cartoon.getCartoonsByTag)
+router.get('/gettags', Cartoon.getTags)
+router.post('/settag', Cartoon.setTag)
+router.post('/add', Cartoon.add)
+router.post('/addcategory', Cartoon.addCategory)
+router.get('/getmultiseries', Cartoon.getMultiseries)
 router.post('/up', async (ctx, next) => {
 	const file = ctx.request.files.file
 	const reader = fs.createReadStream(file.path)

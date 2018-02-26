@@ -1,29 +1,107 @@
-import mongoose, { Schema } from 'mongoose'
+import Sequelize from 'sequelize'
+import SequelizeSlugify from 'sequelize-slugify'
+import sequelize from '../postgres-connector'
 
-const ageCategorySchema = new Schema({
-	name: String,
-	slug: String,
-	description: String
-})
-const tagSchema = new Schema({
-	name: { type: String }
-})
-
-const cartoonSchema = new Schema({
-	title: { type: String },
-	slug: { type: String },
-	isMultiseries: { type: Boolean },
-	thumbnail: { type: String },
-	year: { type: Number },
-	video: { type: String },
-	multiseriesTitle: { type: Schema.Types.ObjectId },
-	tags: { type: [Schema.Types.ObjectId], ref: 'Tag' },
-	author: { type: String },
-	unclear: { type: String },
-	description: { type: String },
-	category: { type: Schema.Types.ObjectId, ref: 'AgeCategory' }
+const Cartoon = sequelize.define('cartoon', {
+	cartoonId: { 
+		allowNull: false,
+		primaryKey: true,
+		type: Sequelize.STRING
+	},
+	slug: {
+		type: Sequelize.STRING,
+		unique: true
+	},
+	title: Sequelize.STRING,
+	description: Sequelize.TEXT,
+	unclear: Sequelize.TEXT,
+	video: Sequelize.STRING,
+	year: Sequelize.INTEGER,
+	thumbnail: Sequelize.STRING,
+	author: Sequelize.STRING,
+	isMultiseries: Sequelize.BOOLEAN,
+	parentTitleId: Sequelize.STRING
 })
 
-export const Tag = mongoose.model('Tag', tagSchema, 'Tags')
-export const Cartoon = mongoose.model('Cartoon', cartoonSchema, 'Cartoons')
-export const AgeCategory = mongoose.model('AgeCategory', ageCategorySchema, 'Categories')
+const Tag = sequelize.define('tags', {
+	id: {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	name: {
+		type: Sequelize.STRING
+	}
+})
+
+const Categories = sequelize.define('categories', {
+	categoriesId: { 
+		primaryKey: true,
+		autoIncrement: true,
+		type: Sequelize.INTEGER
+	},
+	name: {
+		type: Sequelize.STRING
+	},
+	slug: {
+		type: Sequelize.STRING,
+		unique: true
+	},
+	description: Sequelize.TEXT
+})
+
+var CartoonTags = sequelize.define('cartoontags', {
+	id : {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	tag_id: {
+		type: Sequelize.INTEGER,
+		unique: 'item_tag_taggable'
+	},
+	taggable: {
+		type: Sequelize.STRING,
+		unique: 'item_tag_taggable'
+	},
+	taggable_id: {
+		type: Sequelize.INTEGER,
+		unique: 'item_tag_taggable',
+		references: null
+	}
+})
+
+Cartoon.belongsTo(Categories, { foreignKey: 'categoriesId' })
+Categories.hasMany(Cartoon, { foreignKey: 'categoriesId' })
+
+Cartoon.belongsToMany(Tag, {
+	through: {
+		model: CartoonTags,
+		unique: false,
+		scope: {
+			taggable: 'cartoon'
+		}
+	},
+	foreignKey: 'taggable_id',
+	constraints: false
+})
+Tag.belongsToMany(Cartoon, { 
+	through: {
+		model: CartoonTags,
+		unique: false
+	},
+	foreignKey: 'tag_id',
+	constraints: false
+})
+SequelizeSlugify.slugifyModel(Categories, {
+	source: ['name']
+})
+SequelizeSlugify.slugifyModel(Cartoon, {
+	source: ['title']
+})
+export {
+	Cartoon,
+	Tag,
+	CartoonTags,
+	Categories
+}

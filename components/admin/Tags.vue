@@ -16,25 +16,22 @@ section(class="tags-modal")
 
 </template>
 <script>
-import socket from '~/plugins/global.js'
+import axios from '~/plugins/axios'
 
 export default {
 	props: ['items'],
 	methods: {
 		async setCurrent (item, index) {
-			await socket.emit('getTag', item.name)
+			const { data } = await axios.get(`/api/cartoons/gettag/${item.name}`)
+			const tag = data.split(', ')
+			this.current.description = tag[0]
 			this.current.name = item.name
 			this.selected = index
 		},
 		async save () {
-			socket.emit('setTag', this.current)
+			const { data } = await axios.post('/api/cartoons/settag', this.current)
+			console.log(data)
 		}
-	},
-	mounted () {
-		socket.on('tag', (msg) => {
-			const tag = msg.split(', ')
-			this.current.description = tag[0]
-		})
 	},
 	data: () => ({
 		selected: null,

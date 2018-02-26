@@ -20,7 +20,6 @@
 <script>
 import axios from '~/plugins/axios'
 import '~/plugins/vue-youtube'
-import socket from '~/plugins/global.js'
 
 export default {
 	async asyncData ({ params }) {
@@ -29,12 +28,13 @@ export default {
 	},
 	methods: {
 		async getTag (item) {
-			await socket.emit('getTag', item.name)
-			console.log(item.name)
-			socket.on('tag', (msg) => {
-				const tag = msg.split(', ')
+			try {
+				const { data } = await axios.get(`/api/cartoons/gettag/${item.name}`)
+				const tag = data.split(', ')
 				this.$router.replace({ path: `/cartoons/tag/${tag[1]}` })
-			})
+			} catch (e) {
+				console.log(e)
+			}
 		}
 	},
 	data: () => ({
