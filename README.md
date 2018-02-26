@@ -2,7 +2,7 @@
 
 > Nuxt.js project
 
-## Build Setup
+# WORK IN PROGRESS...
 
 ``` bash
 # install dependencies
