@@ -656,9 +656,10 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 	setTag: (() => {
 		var _ref = _asyncToGenerator(function* (ctx, next) {
 			try {
-				console.log(ctx.request.body);
-				// const tag = await redisClient.set(slugify(body.name), body.description + ', ' + body.name, redis.print)
-				// ctx.body = tag
+				const { body } = ctx.request;
+				const tag = yield __WEBPACK_IMPORTED_MODULE_2__handlers_redis__["a" /* redisClient */].set(__WEBPACK_IMPORTED_MODULE_3_slug_generator___default()(body.name), body.description + ', ' + body.name, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
+				console.log(tag);
+				ctx.body = tag;
 			} catch (e) {
 				console.log(e);
 			}
@@ -901,16 +902,6 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 
 		return function add(_x25, _x26) {
 			return _ref13.apply(this, arguments);
-		};
-	})(),
-	setTag: (() => {
-		var _ref14 = _asyncToGenerator(function* (ctx, next) {
-			const tag = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["a" /* Cartoon */].setTags(['tag1', 'tag2']);
-			ctx.body = tag;
-		});
-
-		return function setTag(_x27, _x28) {
-			return _ref14.apply(this, arguments);
 		};
 	})()
 };

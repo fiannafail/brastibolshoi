@@ -16,13 +16,14 @@ section(class="tags-modal")
 
 </template>
 <script>
+import slugify from 'slug-generator'
 import axios from '~/plugins/axios'
 
 export default {
 	props: ['items'],
 	methods: {
 		async setCurrent (item, index) {
-			const { data } = await axios.get(`/api/cartoons/gettag/${item.name}`)
+			const { data } = await axios.get(`/api/cartoons/gettag/${slugify(item.name)}`)
 			const tag = data.split(', ')
 			this.current.description = tag[0]
 			this.current.name = item.name

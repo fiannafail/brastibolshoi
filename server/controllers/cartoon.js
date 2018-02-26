@@ -9,9 +9,10 @@ const Op = Sequelize.Op
 export default {
 	setTag: async (ctx, next) => {
 		try {
-			console.log(ctx.request.body)
-			// const tag = await redisClient.set(slugify(body.name), body.description + ', ' + body.name, redis.print)
-			// ctx.body = tag
+			const { body } = ctx.request
+			const tag = await redisClient.set(slugify(body.name), body.description + ', ' + body.name, redis.print)
+			console.log(tag)
+			ctx.body = tag
 		} catch (e) {
 			console.log(e)
 		}
@@ -180,9 +181,5 @@ export default {
 			include: [Tag, Categories]
 		})
 		ctx.body = cartoon
-	},
-	setTag: async (ctx, next) => {
-		const tag = await Cartoon.setTags(['tag1', 'tag2'])
-		ctx.body = tag
 	}
 }
