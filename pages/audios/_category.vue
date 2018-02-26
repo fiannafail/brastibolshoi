@@ -1,15 +1,15 @@
 <template lang="pug">
-AudiosList(:items="audios")
+	AudiosList(:items="audios")
 </template>
 <script>
 import axios from '~/plugins/axios'
 import AudiosList from '../../components/AudiosList'
 
 export default {
-	async asyncData () {
+	async asyncData ({ params }) {
 		try {
 			const data = await Promise.all([
-				axios.get('/api/audios/getaudios')
+				axios.get(`/api/audios/category/${params.category}`)
 			])
 			console.log(data)
 			return {
@@ -23,4 +23,5 @@ export default {
 		AudiosList
 	}
 }
+
 </script>

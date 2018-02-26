@@ -35,6 +35,7 @@ router.get('/custom',
 		debug('page rendered')
 	})
 
+router.get('/api/audios/category/:category', Audio.getByCategory)
 router.post('/addaudiocat', Audio.addCategory)
 router.get('/api/audios/getcategories', Audio.getCategories)
 router.post('/api/audios/addaudio', Audio.addAudio)

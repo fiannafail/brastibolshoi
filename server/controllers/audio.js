@@ -1,6 +1,21 @@
 import { Audio, Category } from '../models/audio'
 
 export default {
+	getByCategory: async (ctx, next) => {
+		try {
+			const audios = await Audio.findAll({
+				include: [{
+					model: Category,
+					where: {
+						slug: ctx.params.category
+					}
+				}]
+			})
+			ctx.body = audios
+		} catch (e) {
+			console.log(e)
+		}
+	},
 	getAudios: async (ctx, next) => {
 		try {
 			const audios = await Audio.findAll({

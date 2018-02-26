@@ -423,6 +423,7 @@ router.get('/custom', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__handler
 	};
 })());
 
+router.get('/api/audios/category/:category', __WEBPACK_IMPORTED_MODULE_4__controllers_audio__["a" /* default */].getByCategory);
 router.post('/addaudiocat', __WEBPACK_IMPORTED_MODULE_4__controllers_audio__["a" /* default */].addCategory);
 router.get('/api/audios/getcategories', __WEBPACK_IMPORTED_MODULE_4__controllers_audio__["a" /* default */].getCategories);
 router.post('/api/audios/addaudio', __WEBPACK_IMPORTED_MODULE_4__controllers_audio__["a" /* default */].addAudio);
@@ -510,8 +511,29 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 /* harmony default export */ exports["a"] = {
-	getAudios: (() => {
+	getByCategory: (() => {
 		var _ref = _asyncToGenerator(function* (ctx, next) {
+			try {
+				const audios = yield __WEBPACK_IMPORTED_MODULE_0__models_audio__["a" /* Audio */].findAll({
+					include: [{
+						model: __WEBPACK_IMPORTED_MODULE_0__models_audio__["b" /* Category */],
+						where: {
+							slug: ctx.params.category
+						}
+					}]
+				});
+				ctx.body = audios;
+			} catch (e) {
+				console.log(e);
+			}
+		});
+
+		return function getByCategory(_x, _x2) {
+			return _ref.apply(this, arguments);
+		};
+	})(),
+	getAudios: (() => {
+		var _ref2 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const audios = yield __WEBPACK_IMPORTED_MODULE_0__models_audio__["a" /* Audio */].findAll({
 					include: [__WEBPACK_IMPORTED_MODULE_0__models_audio__["b" /* Category */]]
@@ -522,12 +544,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function getAudios(_x, _x2) {
-			return _ref.apply(this, arguments);
+		return function getAudios(_x3, _x4) {
+			return _ref2.apply(this, arguments);
 		};
 	})(),
 	getCategories: (() => {
-		var _ref2 = _asyncToGenerator(function* (ctx, next) {
+		var _ref3 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const categories = yield __WEBPACK_IMPORTED_MODULE_0__models_audio__["b" /* Category */].findAll();
 				ctx.body = categories;
@@ -536,12 +558,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function getCategories(_x3, _x4) {
-			return _ref2.apply(this, arguments);
+		return function getCategories(_x5, _x6) {
+			return _ref3.apply(this, arguments);
 		};
 	})(),
 	addAudio: (() => {
-		var _ref3 = _asyncToGenerator(function* (ctx, next) {
+		var _ref4 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const audio = yield __WEBPACK_IMPORTED_MODULE_0__models_audio__["a" /* Audio */].create(ctx.request.body, {
 					include: [__WEBPACK_IMPORTED_MODULE_0__models_audio__["b" /* Category */]]
@@ -552,12 +574,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function addAudio(_x5, _x6) {
-			return _ref3.apply(this, arguments);
+		return function addAudio(_x7, _x8) {
+			return _ref4.apply(this, arguments);
 		};
 	})(),
 	addCategory: (() => {
-		var _ref4 = _asyncToGenerator(function* (ctx, next) {
+		var _ref5 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const category = yield __WEBPACK_IMPORTED_MODULE_0__models_audio__["b" /* Category */].create(ctx.request.body);
 				ctx.body = category;
@@ -566,8 +588,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function addCategory(_x7, _x8) {
-			return _ref4.apply(this, arguments);
+		return function addCategory(_x9, _x10) {
+			return _ref5.apply(this, arguments);
 		};
 	})()
 };
