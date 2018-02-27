@@ -18,6 +18,11 @@ export default {
 	data: () => ({
 		pagination: 1
 	}),
+	head () {
+		return {
+			title: process.env.siteTitle
+		}
+	},
 	methods: {
 		getMore () {
 			this.$store.dispatch('getMoreItems', { pagination: this.pagination })

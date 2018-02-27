@@ -1,14 +1,21 @@
 <template lang="pug">
 	main(class="post-container")
 		div
-			youtube(:video-id="videoId" :player-vars="playerVars" width="100%" height="480")
+			div(class="video")
+				youtube(:video-id="videoId" :player-vars="playerVars" width="100%" height="480")
+			div(class="description block")
+				p {{ post.description }}
+			div(class="tags block")
+				h2 Сборники мультфильмам по темам
+				span(v-for="(item, index) in tags" :key="index") 
+					nuxt-link(:to="`/cartoons/tag/${slugify(item.name)}`") {{ item.name }}
 		aside(class="post-aside")
-			div
+			div(class="block")
 				div(class="head")
 				h2 Глазами ребенка
 				p(class="underheader") Что может быть непонятно
 				p {{ post.unclear }}
-			div(class="block-2")
+			div(class="block-2 block")
 				div(class="head second")
 				h2 Сводка
 				p(class="underheader") {{ post.title }}
@@ -33,8 +40,19 @@ import '~/plugins/vue-youtube'
 
 export default {
 	async asyncData ({ params }) {
-		const { data } = await axios.get(`/api/getcartoonbyslug/${params.cartoon}`)
-		return { post: data }
+		const data = await Promise.all([
+			axios.get('/gettags'),
+			axios.get(`/api/getcartoonbyslug/${params.cartoon}`)
+		])
+		return {
+			tags: data[0].data,
+			post: data[1].data
+		}
+	},
+	head () {
+		return {
+			title: this.post.title + ' - ' + process.env.siteTitle
+		}
 	},
 	methods: {
 		slugify (item) {
@@ -73,14 +91,10 @@ export default {
 		flex 2
 	&:nth-child(2)
 		flex 1
-	&>div
-		margin 15px
 .post-aside
  	&>div
 	 	margin-bottom: 30px
-	 	padding 30px
 	 	border-radius 10px
-	 	border: 1px #cccccc solid
 		p
 			margin 4px 0
 			line-height: 1.8
@@ -104,4 +118,29 @@ export default {
 			font-weight: 700
 .block-2
 	margin-bottom: 4px
+.description
+	line-height: 26px
+	letter-spacing: 0.6px
+.tags
+	h2
+		padding-left: 7px
+		color #1a1512
+	span
+		padding 10px 18px
+		display inline-block
+		border-radius: 3px
+		font-size: 14px
+		border 1px solid rgba(151, 151, 151, 0.35)
+		margin 7.5px
+		a
+			color #595653
+.block
+	padding 20px
+	margin 15px
+	border 1px #ccc solid
+	border-radius: 10px
+	margin-bottom: 30px
+.video
+	margin 15px
+	margin-bottom: 30px
 </style>

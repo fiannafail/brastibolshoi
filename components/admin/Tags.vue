@@ -98,7 +98,7 @@ ul
 	background-color: #4cb982
 	font-weight: 700
 	color white
-	line-height: 1.5
+	line-height: 1.4
 	border-radius: 5px
 	padding 16px 18px
 	p
