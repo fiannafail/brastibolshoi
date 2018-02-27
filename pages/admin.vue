@@ -62,7 +62,7 @@ h1
 	z-index: 9
 .main-container
 	position relative
-	left aside-width
+	margin-left: aside-width
 	padding 20px
 .container
 	display flex

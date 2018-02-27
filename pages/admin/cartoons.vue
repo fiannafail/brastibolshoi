@@ -1,6 +1,7 @@
 <template lang="pug">
 div(class="section-container")
 	Tags(class="tags-container" :items="cartoonTagsArray")
+	Categories(class="categories-container" :items="cartoonCategoriesArray")
 	div
 		h2 Мультики
 		div
@@ -157,6 +158,7 @@ import axios from '~/plugins/axios'
 import eventBus from '../../components/event-bus'
 import ItemsList from '../../components/admin/ItemsList'
 import Tags from '../../components/admin/Tags'
+import Categories from '../../components/admin/Categories'
 
 import '~/assets/css/vue-select.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
@@ -266,15 +268,16 @@ export default {
 		Dropzone,
 		Multiselect,
 		ItemsList,
-		Tags
+		Tags,
+		Categories
 	}
 }
 </script>
 <style lang="stylus" scoped>
 @import "~assets/css/admin.styl"
 
-.tags-container
-	width 100%
+.tags-container, .categories-container
+	width 50%
 .section-container
 	display flex
 	flex-wrap: wrap

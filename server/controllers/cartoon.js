@@ -7,6 +7,19 @@ import { Cartoon, Tag, Categories } from '../models/cartoon'
 const Op = Sequelize.Op
 
 export default {
+	updateCategory: async (ctx, next) => {
+		try {
+			const category = await Categories.findOne({
+				where: {
+					categoriesId: ctx.params.id
+				}
+			})
+			const updates = await category.updateAttributes(ctx.request.body)
+			ctx.body = updates
+		} catch (e) {
+			console.log(e)
+		}
+	},
 	setTag: async (ctx, next) => {
 		try {
 			const { body } = ctx.request
