@@ -5,15 +5,15 @@ div
 			div(v-for="(item, index) in items" :key="index")
 				div(class="post-background" v-lazy:background-image="item.thumbnail")
 					p 
-						nuxt-link(:to="'/cartoons/' + item.category.slug") {{ item.category.name }}
+						nuxt-link(:to="`/${name}s/` + item[categoryName].slug") {{ item[categoryName].name }}
 					h1 
-						nuxt-link(:to="'/cartoon/' + item.slug") {{ item.title }}
+						nuxt-link(:to="`/${name}/` + item.slug") {{ item.title }}
 	div(class="button-container")
 		button(class="button" @click="getMore") Дальше
 </template>
 <script>
 export default {
-	props: ['items'],
+	props: ['items', 'name', 'categoryName'],
 	data: () => ({
 		pagination: 1
 	}),

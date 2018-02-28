@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-	Grid(:items="ContentItems")
+	Grid(:items="ContentItems" name="cartoon")
 </template>
 <script>
 import { mapState } from 'vuex'

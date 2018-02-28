@@ -421,6 +421,7 @@ router.post('/api/others/addcategory', __WEBPACK_IMPORTED_MODULE_4__controllers_
 router.get('/api/others/getcategories', __WEBPACK_IMPORTED_MODULE_4__controllers_others__["a" /* default */].getCategories);
 router.post('/api/others/addother', __WEBPACK_IMPORTED_MODULE_4__controllers_others__["a" /* default */].addOther);
 router.get('/api/others/getothers', __WEBPACK_IMPORTED_MODULE_4__controllers_others__["a" /* default */].getOthers);
+router.get('/api/others/:slug', __WEBPACK_IMPORTED_MODULE_4__controllers_others__["a" /* default */].getOther);
 
 router.get('/api/audios/category/:category', __WEBPACK_IMPORTED_MODULE_3__controllers_audio__["a" /* default */].getByCategory);
 router.post('/addaudiocat', __WEBPACK_IMPORTED_MODULE_3__controllers_audio__["a" /* default */].addCategory);
@@ -898,8 +899,27 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 /* harmony default export */ exports["a"] = {
-	getOthers: (() => {
+	getOther: (() => {
 		var _ref = _asyncToGenerator(function* (ctx, next) {
+			try {
+				const other = yield __WEBPACK_IMPORTED_MODULE_0__models_others__["a" /* Other */].findOne({
+					where: {
+						slug: ctx.params.slug
+					},
+					include: [__WEBPACK_IMPORTED_MODULE_0__models_others__["b" /* Category */]]
+				});
+				ctx.body = other;
+			} catch (e) {
+				console.log(e);
+			}
+		});
+
+		return function getOther(_x, _x2) {
+			return _ref.apply(this, arguments);
+		};
+	})(),
+	getOthers: (() => {
+		var _ref2 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const others = yield __WEBPACK_IMPORTED_MODULE_0__models_others__["a" /* Other */].findAll({
 					include: [__WEBPACK_IMPORTED_MODULE_0__models_others__["b" /* Category */]]
@@ -910,12 +930,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function getOthers(_x, _x2) {
-			return _ref.apply(this, arguments);
+		return function getOthers(_x3, _x4) {
+			return _ref2.apply(this, arguments);
 		};
 	})(),
 	addOther: (() => {
-		var _ref2 = _asyncToGenerator(function* (ctx, next) {
+		var _ref3 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const other = yield __WEBPACK_IMPORTED_MODULE_0__models_others__["a" /* Other */].create(ctx.request.body, {
 					include: [__WEBPACK_IMPORTED_MODULE_0__models_others__["b" /* Category */]]
@@ -926,12 +946,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function addOther(_x3, _x4) {
-			return _ref2.apply(this, arguments);
+		return function addOther(_x5, _x6) {
+			return _ref3.apply(this, arguments);
 		};
 	})(),
 	addCategory: (() => {
-		var _ref3 = _asyncToGenerator(function* (ctx, next) {
+		var _ref4 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const category = yield __WEBPACK_IMPORTED_MODULE_0__models_others__["b" /* Category */].create(ctx.request.body);
 				ctx.body = category;
@@ -940,12 +960,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function addCategory(_x5, _x6) {
-			return _ref3.apply(this, arguments);
+		return function addCategory(_x7, _x8) {
+			return _ref4.apply(this, arguments);
 		};
 	})(),
 	getCategories: (() => {
-		var _ref4 = _asyncToGenerator(function* (ctx, next) {
+		var _ref5 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const categories = yield __WEBPACK_IMPORTED_MODULE_0__models_others__["b" /* Category */].findAll();
 				ctx.body = categories;
@@ -954,8 +974,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function getCategories(_x7, _x8) {
-			return _ref4.apply(this, arguments);
+		return function getCategories(_x9, _x10) {
+			return _ref5.apply(this, arguments);
 		};
 	})()
 };
