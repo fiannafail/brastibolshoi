@@ -22,8 +22,10 @@ export default {
 	mounted () {
 		console.log(this.data)
 	},
-	head: {
-		title: `Мультики - ${process.env.siteTitle}`
+	head () {
+		return {
+			title: `Мультики - ${process.env.siteTitle}`
+		}
 	},
 	components: {
 		Grid

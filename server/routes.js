@@ -15,10 +15,10 @@ cloudinary.config({
 });
 
 import User from './controllers/user'
-import Entry from './controllers/entry'
 import Cartoon from './controllers/cartoon'
 
 import Audio from './controllers/audio'
+import Others from './controllers/others'
 
 import checkUser from './handlers/checkUser'
 import putToken from './jwt'
@@ -35,6 +35,9 @@ router.get('/custom',
 		debug('page rendered')
 	})
 
+router.post('/api/others/addcategory', Others.addCategory)
+router.get('/api/others/getcategories', Others.getCategories)
+
 router.get('/api/audios/category/:category', Audio.getByCategory)
 router.post('/addaudiocat', Audio.addCategory)
 router.get('/api/audios/getcategories', Audio.getCategories)
@@ -46,7 +49,6 @@ router.post('/api/cartoons/settag', Cartoon.setTag)
 
 router.get('/api/cartoons/:slug', Cartoon.getCategoryCartoons)
 //	router.get('/cartoon/:slug', Cartoon.getOne)
-
 
 router.get('/getcategories', Cartoon.getCategories)
 router.get('/api/cartoons/page/:id/:category', Cartoon.getMoreCartoons)
@@ -77,9 +79,6 @@ router.post('/upload', async (ctx, next) => {
 	} catch (e) {
 		console.log(e)
 	}
-
 })
-// Entries routes
-router.post('/addentry', Entry.addEntry)
 
 export default router

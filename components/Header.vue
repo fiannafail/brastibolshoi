@@ -8,7 +8,8 @@ header(class="main-header")
 			nuxt-link(to="/cartoons") Мультики
 		div
 			nuxt-link(to="/audios") Аудио
-		div Полезное
+		div
+			nuxt-link(to="/others") Полезное
 	ul(v-if="$route.params.tag === undefined && categories")
 		li(
 			v-for="(item, index) in categories" 
@@ -47,11 +48,11 @@ ul
 	padding 25px
 	box-sizing border-box
 	width 500px
+	justify-content: space-around
 	display flex
 	flex-wrap: wrap
 	border solid 1px rgba(151, 151, 151, 0.3)
 li
-	width 33.3%
 	list-style-type unset
 	list-style-position inside
 	color #01b4bc
