@@ -8,7 +8,7 @@ div
 			li
 				nuxt-link(to="/admin/audios") Аудио
 			li
-				nuxt-link(to="/admin/entries") Полезности
+				nuxt-link(to="/admin/others") Полезности
 		transition(name="fadeUp")
 			div(class="panel" v-if="currentEditing" @click="closeEditing")
 				span Отменить редактирование

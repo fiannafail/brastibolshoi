@@ -6,10 +6,6 @@ div
 		Aside(v-bind:class="{ scrolled: top > 50 }" class="aside-container")
 		main(class="main-container")
 			nuxt-child
-			no-ssr
-				form(action="/up" method="post" enctype="multipart/form-data")
-					input(type="file" name="file" id="fileToUpload")
-					input(type="submit" value="Upload Image" name="submit")
 </template>
 <script>
 import '~/plugins/vue-scroll'

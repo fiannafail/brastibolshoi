@@ -23,8 +23,8 @@ const Category = sequelize.define('otherscategories', {
 Other.belongsTo(Category, { foreignKey: 'otherscategoriesId' })
 Category.hasMany(Other, { foreignKey: 'otherscategoriesId' })
 
-SequelizeSlugify.slugifyModel(Category, {
-	source: ['name']
+SequelizeSlugify.slugifyModel(Other, {
+	source: ['title']
 })
 
 export {

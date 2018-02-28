@@ -35,7 +35,7 @@ module.exports = {
 	 ** Build configuration
 	 */
 	build: {
-		vendor: ['vue-notifications'],
+		vendor: ['vue-notifications', 'vue2-editor'],
 		extractCSS: true,
 		/*
 		 ** Run ESLINT on save
