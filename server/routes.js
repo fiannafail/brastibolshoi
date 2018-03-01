@@ -22,6 +22,7 @@ import Others from './controllers/others'
 
 import checkUser from './handlers/checkUser'
 import putToken from './jwt'
+import { Other } from './models/others';
 
 const router = new Router()
 
@@ -41,6 +42,7 @@ router.post('/api/others/addother', Others.addOther)
 router.get('/api/others/getothers', Others.getOthers)
 router.get('/api/others/:slug', Others.getOther)
 router.get('/api/others/getbycategory/:category', Others.getOthersByCategory)
+router.patch('/api/others/updateother', Others.updateOther)
 
 router.get('/api/audios/category/:category', Audio.getByCategory)
 router.post('/addaudiocat', Audio.addCategory)

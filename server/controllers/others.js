@@ -1,6 +1,19 @@
 import { Other, Category } from '../models/others'
 
 export default {
+	updateOther: async (ctx, body) => {
+		try {
+			const other = await Other.findOne({
+				where: {
+					id: ctx.request.body.id
+				}
+			})
+			const updates = await other.updateAttributes(ctx.request.body)
+			ctx.body = updates
+		} catch (e) {
+			console.log(e)
+		}
+	},
 	getOthersByCategory: async (ctx, body) => {
 		try {
 			const others = await Other.findAll({

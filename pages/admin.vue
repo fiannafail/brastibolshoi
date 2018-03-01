@@ -1,5 +1,7 @@
 <template lang="pug">
 div
+	transition(name="fade")
+		div(class="overlay" v-if="overlay" @click="closeOverlay")
 	h1(class="header-bar") 
 		nuxt-link(to="/admin") Admin Page
 	div(class="container")
@@ -10,6 +12,7 @@ div
 <script>
 import '~/plugins/vue-scroll'
 import Aside from '../components/admin/Aside'
+import eventBus from '../components/event-bus'
 
 export default {
 	head () {
@@ -18,14 +21,23 @@ export default {
 		}
 	},
 	data: () => ({
-		top: null
+		top: null,
+		overlay: false
 	}),
 	mounted () {
 		if (process.browser) {
 			window.addEventListener('scroll', this.onScroll)
 		}
+		eventBus.$on('overlay', payload => {
+			console.log(payload)
+			this.overlay = payload
+		})
 	},
 	methods: {
+		closeOverlay () {
+			this.overlay = false
+			eventBus.$emit('close-modal')
+		},
 		onScroll () {
 			if (process.browser) {
 				this.top = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -64,5 +76,11 @@ h1
 	padding 20px
 .container
 	display flex
+.overlay
+	position fixed
+	width 100%
+	height 100%
+	background-color: rgba(0, 0, 0, 0.75)
+	z-index: 10
 </style>
 

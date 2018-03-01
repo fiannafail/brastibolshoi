@@ -87,7 +87,9 @@ label
 	background-color: #4cb982
 	font-weight: 700
 	color white
+	font-size: 14px
 	line-height: 1.5
+	font-family: Roboto
 	border-radius: 5px
 	margin-top: 25px
 	padding 16px 18px

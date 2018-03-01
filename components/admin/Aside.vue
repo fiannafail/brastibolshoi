@@ -21,15 +21,25 @@ import eventBus from '../event-bus'
 export default {
 	methods: {
 		closeEditing () {
-			eventBus.$emit('close-editing', false)
-			this.currentEditing = false
+			if (this.type === 'others') {
+				eventBus.$emit('close-other-edit', false)
+				this.currentEditing = false
+			}
 		}
 	},
 	data: () => ({
-		currentEditing: false
+		currentEditing: null,
+		type: null
 	}),
 	mounted () {
-		eventBus.$on('show-editing', () => { this.currentEditing = true })
+		eventBus.$on('show-editing', () => {
+			this.currentEditing = true
+			this.type = 'cartoons'
+		})
+		eventBus.$on('other-editing', () => {
+			this.currentEditing = true
+			this.type = 'others'
+		})
 	}
 }
 </script>
@@ -41,8 +51,11 @@ aside-width = 235px
 	justify-content: space-around 
 	align-items: center
 	padding 15px 0
+	color white
 	font-weight: 500
-	background-color: rgba(0,0,0,0.07)
+	font-family: Roboto
+	font-size: 14px
+	background-color: rgba(0,0,0,0.25)
 	cursor pointer
 
 	i

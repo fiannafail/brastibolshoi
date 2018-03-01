@@ -98,7 +98,9 @@ ul
 	background-color: #4cb982
 	font-weight: 700
 	color white
-	line-height: 1.4
+	font-size: 14px
+	line-height: 1.5
+	font-family: Roboto
 	border-radius: 5px
 	padding 16px 18px
 	p

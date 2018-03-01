@@ -1,5 +1,6 @@
 $red-color = #dc0101
 $blue-color = #0069d6
+$light-green = #4cb982
 
 a, a:hover, a:focus, a:visited
 	color #41B883
@@ -30,6 +31,7 @@ input[type="text"], select, textarea
 	font-family: Roboto
 	letter-spacing 0.2px
 	font-weight 500
+	border 2px solid #fff
 	color #313131
 	&::placeholder
 		color #a5a5a5
@@ -40,7 +42,7 @@ input[type="text"], select, textarea
 	&:focus
 		outline none
 	&.is-danger
-		border-color #D50000
+		border 2px solid #D50000
 		color #D50000
 .help.is-danger
 	color #D50000
@@ -54,3 +56,25 @@ textarea
 	min-height 175px
 select option 
 	padding 6px
+.btn
+	padding: 15px 25px
+	cursor pointer
+	border none
+	font-size: 16px
+	font-family: Roboto
+	color #3c3c3c
+	background-color: white
+	border: 2px solid $red-color
+	font-weight: 500
+	box-shadow: 1px 1px 6px rgba(0,0,0,0.4)
+	transition: .3s
+	&:hover
+		background-color: rgba(0,0,0,0.05)
+		transition: .3s
+	&.red
+		color white
+		background-color: $red-color
+		&:hover
+			background-color: rgba(221, 61, 0, 0.75)
+			transition: .3s
+		
