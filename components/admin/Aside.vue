@@ -35,7 +35,7 @@ export default {
 </script>
 <style lang="stylus" scoped>
 @import "~assets/css/admin.styl"
-aside-width = 275px
+aside-width = 235px
 .panel
 	display flex
 	justify-content: space-around 
@@ -51,24 +51,28 @@ aside-width = 275px
 	&:hover i
 		transition .4s
 		transform: scale(1.5)
-h2
-	font-weight 300
-	font-size 18px
-	padding 8px
+
 .main-aside
 	margin-top: -60px
 	padding-top: 60px
 	position fixed
 	height 100%
 	width aside-width
-	background-color: #f9f9f9
+	background-color: #31373e
 	border-right 1px solid #ddd
+	h2
+		font-weight 500
+		font-family: Roboto
+		font-size 18px
+		padding 8px
+		color white
 	& ul 
 		padding-left 0px
 		li 
 			padding 16px
 			cursor pointer
-			font-weight 400 
+			font-weight 500
+			font-family: Roboto
 			&:hover
 				background-color #f3f3f3
 </style>

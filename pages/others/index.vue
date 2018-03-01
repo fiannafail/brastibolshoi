@@ -1,33 +1,30 @@
 <template lang="pug">
-div(class="container")
-	Header(:categories="categories" name="others" class="header")
-	div(class="container")
-		nuxt-child
+div
+	Grid(:items="others" name="other" categoryName="otherscategory")
 </template>
 <script>
 import axios from '~/plugins/axios'
-import Header from '../components/Header'
+import Grid from '../../components/Grid'
 
 export default {
 	async asyncData () {
 		try {
 			const data = await Promise.all([
-				axios.get('/api/others/getcategories')
+				axios.get('/api/others/getothers')
 			])
 			return {
-				categories: data[0].data
+				others: data[0].data
 			}
 		} catch (e) {
 			console.log(e)
 		}
 	},
 	components: {
-		Header
+		Grid
 	}
 }
 </script>
 <style lang="stylus" scoped>
-@import "~assets/css/app.styl"
 .header
 	li
 		width 25%

@@ -29,8 +29,9 @@ div
 					:include-styling="false"
 					)
 		div(class="form-group")
-			label Содержание
-			vue-editor(v-model="other.content")
+			div
+				h3 Содержание
+				vue-editor(v-model="other.content")
 		button(class="button") Добавить
 </template>
 <script>
@@ -81,5 +82,6 @@ export default {
 <style lang="stylus" scoped>
 @import "~assets/css/admin.styl"
 .quillWrapper
-	padding-bottom: 50px
+	width: 670px;
+	padding-bottom: 10px
 </style>

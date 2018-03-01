@@ -59,8 +59,8 @@ ul
 			transition .3s
 			background-color: #f3f3f3
 .aside-block
-	min-width 415px
+	min-width 350px
 	margin-left: 45px
-	box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25)
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25)
 	border-radius: 5px
 </style>

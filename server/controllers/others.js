@@ -1,6 +1,21 @@
 import { Other, Category } from '../models/others'
 
 export default {
+	getOthersByCategory: async (ctx, body) => {
+		try {
+			const others = await Other.findAll({
+				include: [{
+					model: Category,
+					where: {
+						slug: ctx.params.category
+					}
+				}]
+			})
+			ctx.body = others
+		} catch (e) {
+			console.log(e)
+		}
+	},
 	getOther: async (ctx, next) => {
 		try {
 			const other = await Other.findOne({

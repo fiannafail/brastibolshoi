@@ -38,7 +38,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-aside-width = 275px
+aside-width = 235px
 .aside-container
 	transition .3s
 	position relative
@@ -49,11 +49,13 @@ h1
 	font-weight 400
 	font-size 24px
 	padding 8px
+	a
+		color white
 .header-bar 
 	box-shadow 0 0 20px rgba(0,0,0,0.3)
 	margin 0
 	padding 16px
-	background-color: #f9f9f9
+	background-color: #3b8070
 	position relative
 	z-index: 9
 .main-container

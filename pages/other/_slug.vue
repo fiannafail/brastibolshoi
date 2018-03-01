@@ -27,11 +27,14 @@ export default {
 	}
 }
 </script>
-<style lang="stylus" scoped>
+<style lang="stylus">
 .post-container
 	width 730px
 	margin 60px auto
-	padding 20px
+	padding 30px
 	border 1px #cccccc solid
+	box-sizing: border-box
 	border-radius: 10px
+	img
+		width 100%
 </style>
