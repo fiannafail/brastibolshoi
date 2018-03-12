@@ -10,7 +10,7 @@
 		OthersForm(:categories="categories")
 		div
 			h2 Список постов:
-			ItemsList(:items="items" class="item-list" @remove="remove")
+			ItemsList(:items="items" class="item-list" @remove="remove" @editing="editing")
 </template>
 <script>
 import axios from '~/plugins/axios'
@@ -34,6 +34,9 @@ export default {
 		remove (name) {
 			this.removedName = name
 			this.showModal = true
+		},
+		editing (item) {
+			eventBus.$emit('other-editing', item)
 		}
 	},
 	mounted () {

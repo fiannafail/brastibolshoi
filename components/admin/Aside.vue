@@ -21,9 +21,12 @@ import eventBus from '../event-bus'
 export default {
 	methods: {
 		closeEditing () {
+			this.currentEditing = false
 			if (this.type === 'others') {
 				eventBus.$emit('close-other-edit', false)
-				this.currentEditing = false
+			}
+			if (this.type === 'cartoons') {
+				eventBus.$emit('close-cartoon-edit', false)
 			}
 		}
 	},

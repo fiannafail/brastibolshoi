@@ -25,7 +25,8 @@ export default {
 			// console.log(this.items[index].removed)
 		},
 		edit (item) {
-			eventBus.$emit('other-editing', item)
+			//	eventBus.$emit('other-editing', item)
+			this.$emit('editing', item)
 		}
 	}
 }

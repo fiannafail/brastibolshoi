@@ -4,8 +4,7 @@ div
 		transition-group(name="slideLeft" tag="div" class="list-group")
 			div(v-for="(item, index) in items" :key="index")
 				div(class="post-background" v-lazy:background-image="item.thumbnail")
-					p 
-						nuxt-link(:to="`/${name}s/` + item[categoryName].slug") {{ item[categoryName].name }}
+					slot(name="category")
 					h1 
 						nuxt-link(:to="`/${name}/` + item.slug") {{ item.title }}
 	div(class="button-container")

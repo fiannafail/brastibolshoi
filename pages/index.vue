@@ -2,18 +2,23 @@
 	div(class="container")
 		Header
 		nuxt-child
-		Grid(:items="Cartoons")
+		Grid(:items="items")
+			p(slot="category") sfd
 </template>
 <script>
+import axios from '~/plugins/axios'
 import { mapState } from 'vuex'
 
 import Grid from '../components/Grid'
 import Header from '../components/Header'
 export default {
-	asyncData ({ store }) {
-		return Promise.all([
-			store.dispatch('getСartoons')
+	async asyncData () {
+		const data = await Promise.all([
+			axios.get('/api/all/items')
 		])
+		return {
+			items: data[0].data
+		}
 	},
 	data: () => ({
 		pagination: 1

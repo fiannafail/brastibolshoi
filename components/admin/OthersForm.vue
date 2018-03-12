@@ -77,8 +77,10 @@ export default {
 	methods: {
 		async editDone () {
 			try {
-				const other = await axios.patch('/api/others/updateother', this.other)
-				console.log(other)
+				const res = await axios.patch('/api/others/updateother', this.other)
+				if (res.status === 200) {
+					this.changingSuccess()
+				}
 			} catch (e) {
 				console.log(e)
 			}
@@ -136,6 +138,11 @@ export default {
 			title: 'При проверке найдены ошибки',
 			message: 'Проверьте выделенные поля',
 			type: 'error'
+		},
+		changingSuccess: {
+			title: 'Пост упешно обновлен',
+			message: '',
+			type: 'success'
 		}
 	},
 	components: {

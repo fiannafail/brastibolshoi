@@ -1,18 +1,16 @@
 import Router from 'koa-router'
+import sequelize from './postgres-connector'
 const debug = require('debug')('app:nuxt')
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
-const multer = require('koa-multer');
-const upload = multer({ dest: 'uploads/' });
+const fs = require('fs')
+const path = require('path')
 
-var cloudinary = require('cloudinary');
+var cloudinary = require('cloudinary')
 
-cloudinary.config({ 
-	cloud_name: 'rastibolshoi', 
-	api_key: '374329698237239', 
-	api_secret: 'Kax6e6xy_FakEfMUc61P_3XUS_I' 
-});
+cloudinary.config({
+	cloud_name: 'rastibolshoi',
+	api_key: '374329698237239',
+	api_secret: 'Kax6e6xy_FakEfMUc61P_3XUS_I'
+})
 
 import User from './controllers/user'
 import Cartoon from './controllers/cartoon'
@@ -21,8 +19,11 @@ import Audio from './controllers/audio'
 import Others from './controllers/others'
 
 import checkUser from './handlers/checkUser'
-import putToken from './jwt'
-import { Other } from './models/others';
+import { Other } from './models/others'
+
+const CartoonModel = require('./models/cartoon')
+const AudioModel = require('./models/audio')
+const OthersModel = require('./models/others')
 
 const router = new Router()
 
@@ -35,6 +36,43 @@ router.get('/custom',
 		ctx.body = 'Hello!'
 		debug('page rendered')
 	})
+
+router.get('/api/all/items', async (ctx, next) => {
+	try {
+		console.log(CartoonModel)
+		const cartoons = await CartoonModel.Cartoon.findAll({
+			order: [['createdAt', 'DESC']],
+			include: [{
+				model: CartoonModel.Tag,
+				through: {
+					attributes: ['tag_id']
+				}
+			}, CartoonModel.Categories]
+		})
+		const audios = await AudioModel.Audio.findAll({
+			include: [{
+				model: AudioModel.Category
+			}]
+		})
+		const others = await OthersModel.Other.findAll({
+			include: [OthersModel.Category]
+		})
+		const arr = [
+			...cartoons,
+			...audios,
+			...others
+		]
+		console.log(arr)
+		arr.sort(function compare(a, b) {
+			var dateA = new Date(a.createdAt)
+			var dateB = new Date(b.createdAt)
+			return dateB - dateA
+		})
+		ctx.body = arr
+	} catch (e) {
+		console.log(e)
+	}
+})
 
 router.post('/api/others/addcategory', Others.addCategory)
 router.get('/api/others/getcategories', Others.getCategories)

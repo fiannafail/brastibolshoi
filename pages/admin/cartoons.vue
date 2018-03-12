@@ -1,5 +1,12 @@
 <template lang="pug">
 div(class="section-container")
+	transition(name="fade")
+		Modal(class="modal-window" v-if="showModal")
+			h1(slot="header") Подтвердите действие
+			p(slot="body") Вы действительно хотите удалить пост 
+				span(class="bold") {{ removedName }}
+				|  ?
+			button(class="btn red" slot="buttons") Удалить
 	Tags(class="tags-container" :items="cartoonTagsArray")
 	Categories(class="categories-container" :items="cartoonCategoriesArray")
 	div
@@ -142,7 +149,8 @@ div(class="section-container")
 	aside(class="aside-list")
 		h2 Список мультиков
 		ItemsList(
-			@editItem="setEditingItem"
+			@editing="setEditingItem"
+			@remove="removeCartoon"
 			:items="ContentItems"
 			)
 </template>
@@ -159,6 +167,7 @@ import eventBus from '../../components/event-bus'
 import ItemsList from '../../components/admin/ItemsList'
 import Tags from '../../components/admin/Tags'
 import Categories from '../../components/admin/Categories'
+import Modal from '../../components/admin/Modal'
 
 import '~/assets/css/vue-select.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
@@ -178,6 +187,8 @@ export default {
 	},
 	data: () => ({
 		preTags: [],
+		removedName: null,
+		showModal: false,
 		isEditing: false,
 		cartoon: {
 			cartoonId: uniqid(),
@@ -213,12 +224,19 @@ export default {
 	mounted () {
 		const instance = this.$refs.el.dropzone
 		console.log(instance)
-		eventBus.$on('close-editing', payload => {
+		eventBus.$on('close-modal', () => {
+			this.showModal = false
+		})
+		eventBus.$on('close-cartoon-edit', payload => {
 			this.isEditing = payload
 			this.cancel()
 		})
 	},
 	methods: {
+		removeCartoon (name) {
+			this.removedName = name
+			this.showModal = true
+		},
 		cancel () {
 			this.cartoon = this.$options.data().cartoon
 		},
@@ -226,7 +244,6 @@ export default {
 			eventBus.$emit('show-editing')
 			this.isEditing = true
 			this.cartoon = item
-			console.log(item)
 		},
 		addTag (newTag) {
 			const tag = {
@@ -269,13 +286,15 @@ export default {
 		Multiselect,
 		ItemsList,
 		Tags,
-		Categories
+		Categories,
+		Modal
 	}
 }
 </script>
 <style lang="stylus" scoped>
 @import "~assets/css/admin.styl"
-
+.modal-window
+	position fixed
 .tags-container, .categories-container
 	width 50%
 .section-container

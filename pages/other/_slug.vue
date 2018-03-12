@@ -1,7 +1,7 @@
 <template lang="pug">
 div(class="container")
 	Header(:categories="categories" name="others")
-	article(class="post-container" v-html="post.content")
+	article(class="other-container" v-html="post.content")
 </template>
 <script>
 import axios from '~/plugins/axios'
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 <style lang="stylus">
-.post-container
+.other-container
 	width 730px
 	margin 60px auto
 	padding 30px
