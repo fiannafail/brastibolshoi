@@ -464,19 +464,17 @@ router.get('/api/all/items', (() => {
 			console.log(CartoonModel);
 			const cartoons = yield CartoonModel.Cartoon.findAll({
 				order: [['createdAt', 'DESC']],
-				include: [{
-					model: CartoonModel.Tag,
-					through: {
-						attributes: ['tag_id']
-					}
-				}, CartoonModel.Categories]
+				attributes: ['thumbnail', 'title', 'slug'],
+				include: [CartoonModel.Categories]
 			});
 			const audios = yield AudioModel.Audio.findAll({
+				attributes: ['thumbnail', 'title', 'slug'],
 				include: [{
 					model: AudioModel.Category
 				}]
 			});
 			const others = yield OthersModel.Other.findAll({
+				attributes: ['thumbnail', 'title', 'slug'],
 				include: [OthersModel.Category]
 			});
 			const arr = [...cartoons, ...audios, ...others];

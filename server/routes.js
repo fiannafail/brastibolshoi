@@ -42,19 +42,17 @@ router.get('/api/all/items', async (ctx, next) => {
 		console.log(CartoonModel)
 		const cartoons = await CartoonModel.Cartoon.findAll({
 			order: [['createdAt', 'DESC']],
-			include: [{
-				model: CartoonModel.Tag,
-				through: {
-					attributes: ['tag_id']
-				}
-			}, CartoonModel.Categories]
+			attributes: ['thumbnail', 'title', 'slug'],
+			include: [CartoonModel.Categories]
 		})
 		const audios = await AudioModel.Audio.findAll({
+			attributes: ['thumbnail', 'title', 'slug'],
 			include: [{
 				model: AudioModel.Category
 			}]
 		})
 		const others = await OthersModel.Other.findAll({
+			attributes: ['thumbnail', 'title', 'slug'],
 			include: [OthersModel.Category]
 		})
 		const arr = [

@@ -3,20 +3,27 @@ div
 	div(class="tags-container")
 		div(v-for="(item, index) in cartoonTags" :key="index" v-bind:class="{ current: currentTag === index }") 
 			a(href="" @click.prevent="tag(item, index)") {{ item.name }}
-	Grid(:items="ContentItems")
+	Grid(:items="visibleItems")
+		button(class="button" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Дальше
 </template>
 <script>
+import axios from '~/plugins/axios'
 import { mapState } from 'vuex'
 import Grid from '../../components/Grid'
 
 export default {
 	name: 'tag',
-	fetch ({ params, store }) {
-		console.log(params.tag)
-		return Promise.all([
-			store.dispatch(`getItems`, params),
-			store.dispatch('getCartoonsTags')
+	async asyncData ({ params }) {
+		console.log(params.category)
+		const data = await Promise.all([
+			axios.get(`/api/cartoons/${params.category}`)
 		])
+		const items = data[0].data
+		const visibleItems = data[0].data.slice(0, 10)
+		return {
+			items: items,
+			visibleItems: visibleItems
+		}
 	},
 	data: () => ({
 		currentTag: null,
@@ -31,7 +38,9 @@ export default {
 			this.currentTag = index
 		},
 		getMore () {
-			this.$store.dispatch('getMoreItems', { pagination: this.pagination, category: this.$route.params.category })
+			const items = this.items.slice(this.pagination * 10, this.pagination * 10 * 2)
+			console.log(items)
+			this.visibleItems = [...this.visibleItems, ...items]
 			this.pagination++
 		}
 	},

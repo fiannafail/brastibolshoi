@@ -2,12 +2,11 @@
 	div(class="container")
 		Header
 		nuxt-child
-		Grid(:items="items")
-			p(slot="category") sfd
+		Grid(:items="visibleItems")
+			button(class="button" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Дальше
 </template>
 <script>
 import axios from '~/plugins/axios'
-import { mapState } from 'vuex'
 
 import Grid from '../components/Grid'
 import Header from '../components/Header'
@@ -16,8 +15,11 @@ export default {
 		const data = await Promise.all([
 			axios.get('/api/all/items')
 		])
+		const items = data[0].data
+		const visibleItems = data[0].data.slice(0, 10)
 		return {
-			items: data[0].data
+			items: items,
+			visibleItems: visibleItems
 		}
 	},
 	data: () => ({
@@ -30,14 +32,11 @@ export default {
 	},
 	methods: {
 		getMore () {
-			this.$store.dispatch('getMoreItems', { pagination: this.pagination })
+			const items = this.items.slice(this.pagination * 10, this.pagination * 10 * 2)
+			console.log(items)
+			this.visibleItems = [...this.visibleItems, ...items]
 			this.pagination++
 		}
-	},
-	computed: {
-		...mapState({
-			Cartoons: 'cartoons'
-		})
 	},
 	components: {
 		Header,

@@ -39,7 +39,7 @@ div(class="section-container")
 					label Мультик-родитель
 					select(v-model="cartoon.parentTitleId")
 						option(disabled selected value="") Если нет, то оставить пустым
-						option(v-for="(item, index) in cartoonMultiseries" :key="index" :value="item._id") {{ item.title }}
+						option(v-for="(item, index) in cartoonMultiseries" :key="index" :value="item.cartoonId") {{ item.title }}
 				div(class="form-group")
 					label Видео
 					div

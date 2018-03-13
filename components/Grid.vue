@@ -4,11 +4,12 @@ div
 		transition-group(name="slideLeft" tag="div" class="list-group")
 			div(v-for="(item, index) in items" :key="index")
 				div(class="post-background" v-lazy:background-image="item.thumbnail")
-					slot(name="category")
+					p
+						nuxt-link(:to="item.category ? `/cartoons/` + item.category.slug : item.otherscategory ? '/others/' + item.otherscategory.slug : item.audioscategory ? '/audios/' + item.audioscategory.slug : 'undefined'") sadasd
 					h1 
-						nuxt-link(:to="`/${name}/` + item.slug") {{ item.title }}
+						nuxt-link(:to="item.category ? `/cartoon/` + item.slug : item.otherscategory ? '/other/' + item.slug : item.audioscategory ? '/audio/' + item.slug : 'undefined'") {{ item.title }}
 	div(class="button-container")
-		button(class="button" @click="getMore") Дальше
+		slot(name="getMore")
 </template>
 <script>
 export default {
