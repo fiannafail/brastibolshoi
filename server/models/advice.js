@@ -5,6 +5,6 @@ const Advice = sequelize.define('advice', {
 	content: Sequelize.TEXT
 })
 
-export default {
+export {
 	Advice
 }

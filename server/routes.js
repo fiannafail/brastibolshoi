@@ -12,6 +12,7 @@ cloudinary.config({
 	api_secret: 'Kax6e6xy_FakEfMUc61P_3XUS_I'
 })
 
+import Advice from './controllers/advice'
 import User from './controllers/user'
 import Cartoon from './controllers/cartoon'
 
@@ -71,6 +72,9 @@ router.get('/api/all/items', async (ctx, next) => {
 		console.log(e)
 	}
 })
+
+router.post('/api/advices/add', Advice.addAdvice)
+router.get('/api/advices', Advice.getAdvices)
 
 router.post('/api/others/addcategory', Others.addCategory)
 router.get('/api/others/getcategories', Others.getCategories)
