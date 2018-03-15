@@ -42,17 +42,17 @@ router.get('/api/all/items', async (ctx, next) => {
 		console.log(CartoonModel)
 		const cartoons = await CartoonModel.Cartoon.findAll({
 			order: [['createdAt', 'DESC']],
-			attributes: ['thumbnail', 'title', 'slug'],
+			attributes: ['thumbnail', 'title', 'slug', 'createdAt'],
 			include: [CartoonModel.Categories]
 		})
 		const audios = await AudioModel.Audio.findAll({
-			attributes: ['thumbnail', 'title', 'slug'],
+			attributes: ['thumbnail', 'title', 'slug', 'createdAt'],
 			include: [{
 				model: AudioModel.Category
 			}]
 		})
 		const others = await OthersModel.Other.findAll({
-			attributes: ['thumbnail', 'title', 'slug'],
+			attributes: ['thumbnail', 'title', 'slug', 'createdAt'],
 			include: [OthersModel.Category]
 		})
 		const arr = [
@@ -88,6 +88,7 @@ router.get('/api/audios/getaudios', Audio.getAudios)
 
 router.get('/api/cartoons/gettag/:name', Cartoon.getTag)
 router.post('/api/cartoons/settag', Cartoon.setTag)
+router.get('/api/cartoons/multiseries/:id', Cartoon.multiseries)
 
 router.get('/api/cartoons/:slug', Cartoon.getCategoryCartoons)
 //	router.get('/cartoon/:slug', Cartoon.getOne)

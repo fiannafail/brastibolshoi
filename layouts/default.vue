@@ -39,4 +39,15 @@ li {
 	font-size: 2.5em;
 	margin: 0;
 }
+.next-arrow {
+	background-image: url('~/assets/img/left-arrow.svg');
+	width: 24px;
+	height: 18px;
+	transform: rotate(180deg);
+}
+.prev-arrow {
+	background-image: url('~/assets/img/left-arrow.svg');
+	width: 24px;
+	height: 18px;
+}
 </style>

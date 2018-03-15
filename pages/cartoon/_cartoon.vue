@@ -3,6 +3,19 @@
 		div
 			div(class="video")
 				youtube(:video-id="videoId" :player-vars="playerVars" width="100%" height="480")
+			no-ssr
+				carousel(class="multiseries"
+					v-if="post.parentTitleId !== ''" 
+					:paginationEnabled="false" 
+					:perPage="4" 
+					:navigationEnabled="true"
+					:navigationNextLabel="nextLabel()"
+					:navigationPrevLabel="prevLabel()"
+					)
+					slide(v-for="(item, index) in multiseries" :key="index")
+						a(:href="`/cartoon/${item.slug}`")
+							div(class="thumbnail" v-bind:style="{ backgroundImage: `url(${item.thumbnail})` }")
+							p {{ item.title }}
 			div(class="description block")
 				p {{ post.description }}
 			div(class="tags block")
@@ -35,6 +48,7 @@
 </template>
 <script>
 import slugify from 'slug-generator'
+import { Carousel, Slide } from 'vue-carousel'
 import axios from '~/plugins/axios'
 import '~/plugins/vue-youtube'
 
@@ -44,9 +58,12 @@ export default {
 			axios.get('/gettags'),
 			axios.get(`/api/getcartoonbyslug/${params.cartoon}`)
 		])
+		const id = await axios.get(`/api/cartoons/multiseries/${data[1].data.parentTitleId}`)
+		console.log(id, 'asdsdd dsads')
 		return {
 			tags: data[0].data,
-			post: data[1].data
+			post: data[1].data,
+			multiseries: id.data
 		}
 	},
 	head () {
@@ -55,6 +72,12 @@ export default {
 		}
 	},
 	methods: {
+		nextLabel () {
+			return `<div class="next-arrow"></div>`
+		},
+		prevLabel () {
+			return `<div class="prev-arrow"></div>`
+		},
 		slugify (item) {
 			return slugify(item)
 		},
@@ -74,7 +97,9 @@ export default {
 			width: 800
 		}
 	}),
-	mounted () {
+	components: {
+		Carousel,
+		Slide
 	},
 	computed: {
 		videoId () {
@@ -143,4 +168,25 @@ export default {
 .video
 	margin 15px
 	margin-bottom: 30px
+.multiseries
+	display flex
+	height 210px
+	max-width: 640px
+	left 60px
+	padding 0 10px
+	a
+		color #595653
+	p
+		font-size: 14px
+		text-align: center
+.thumbnail
+	width 125px
+	height 125px
+	background-size: cover
+	background-repeat: no-repeat
+	border-radius: 100px
+	background-position: 50%
+.VueCarousel-slide
+	max-width: 125px
+	margin 15px
 </style>

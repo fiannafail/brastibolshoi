@@ -7,6 +7,19 @@ import { Cartoon, Tag, Categories } from '../models/cartoon'
 const Op = Sequelize.Op
 
 export default {
+	multiseries: async (ctx, next) => {
+		try {
+			const cartoons = await Cartoon.findAll({
+				attributes: ['thumbnail', 'title', 'slug'],
+				where: {
+					parentTitleId: ctx.params.id
+				}
+			})
+			ctx.body = cartoons
+		} catch (e) {
+			console.log(e)
+		}
+	},
 	updateCategory: async (ctx, next) => {
 		try {
 			const category = await Categories.findOne({

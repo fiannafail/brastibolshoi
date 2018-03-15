@@ -161,6 +161,50 @@ const getAsync = promisify(redisClient.get).bind(redisClient);
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__postgres_connector__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize_slugify__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize_slugify__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "Other", function() { return Other; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "Category", function() { return Category; });
+
+
+
+
+const Other = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('others', {
+	title: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	thumbnail: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	content: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
+	slug: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+});
+
+const Category = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('otherscategories', {
+	name: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+	},
+	slug: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+		unique: true
+	},
+	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT
+});
+
+Other.belongsTo(Category, { foreignKey: 'otherscategoriesId' });
+Category.hasMany(Other, { foreignKey: 'otherscategoriesId' });
+
+__WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default.a.slugifyModel(Other, {
+	source: ['title']
+});
+
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt__ = __webpack_require__(25);
@@ -212,13 +256,13 @@ userSchema.statics.authenticate = function (username, password, done) {
 /* harmony default export */ exports["a"] = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('user', userSchema);
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 module.exports = require("sequelize-slugify");
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -226,22 +270,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__postgres_connector__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize_slugify__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize_slugify__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize_slugify__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "Other", function() { return Other; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "Audio", function() { return Audio; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "Category", function() { return Category; });
 
 
 
 
-const Other = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('others', {
+const Audio = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('audio', {
 	title: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
 	thumbnail: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-	content: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
+	audio: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
 	slug: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
 });
 
-const Category = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('otherscategories', {
+const Category = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('audiocategories', {
 	name: {
 		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
 	},
@@ -252,17 +296,138 @@ const Category = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* defaul
 	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT
 });
 
-Other.belongsTo(Category, { foreignKey: 'otherscategoriesId' });
-Category.hasMany(Other, { foreignKey: 'otherscategoriesId' });
+Audio.belongsTo(Category, { foreignKey: 'audiocategoriesId' });
+Category.hasMany(Audio, { foreignKey: 'audiocategoriesId' });
 
-__WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default.a.slugifyModel(Other, {
+__WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default.a.slugifyModel(Category, {
+	source: ['name']
+});
+__WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default.a.slugifyModel(Audio, {
 	source: ['title']
 });
 
 
 
 /***/ },
-/* 10 */
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sequelize_slugify__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__postgres_connector__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "Cartoon", function() { return Cartoon; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "Tag", function() { return Tag; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "CartoonTags", function() { return CartoonTags; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "Categories", function() { return Categories; });
+
+
+
+
+const Cartoon = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('cartoon', {
+	cartoonId: {
+		allowNull: false,
+		primaryKey: true,
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+	},
+	slug: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+		unique: true
+	},
+	title: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
+	unclear: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
+	video: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	year: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+	thumbnail: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	author: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+	isMultiseries: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.BOOLEAN,
+	parentTitleId: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+});
+
+const Tag = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('tags', {
+	id: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	name: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+	}
+});
+
+const Categories = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('categories', {
+	categoriesId: {
+		primaryKey: true,
+		autoIncrement: true,
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER
+	},
+	name: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
+	},
+	slug: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+		unique: true
+	},
+	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT
+});
+
+var CartoonTags = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('cartoontags', {
+	id: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	tag_id: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+		unique: 'item_tag_taggable'
+	},
+	taggable: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+		unique: 'item_tag_taggable'
+	},
+	taggable_id: {
+		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+		unique: 'item_tag_taggable',
+		references: null
+	}
+});
+
+Cartoon.belongsTo(Categories, { foreignKey: 'categoriesId' });
+Categories.hasMany(Cartoon, { foreignKey: 'categoriesId' });
+
+Cartoon.belongsToMany(Tag, {
+	through: {
+		model: CartoonTags,
+		unique: false,
+		scope: {
+			taggable: 'cartoon'
+		}
+	},
+	foreignKey: 'taggable_id',
+	constraints: false
+});
+Tag.belongsToMany(Cartoon, {
+	through: {
+		model: CartoonTags,
+		unique: false
+	},
+	foreignKey: 'tag_id',
+	constraints: false
+});
+__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default.a.slugifyModel(Categories, {
+	source: ['name']
+});
+__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default.a.slugifyModel(Cartoon, {
+	source: ['title']
+});
+
+
+/***/ },
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -285,7 +450,7 @@ __WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default.a.slugifyModel(Other, {
 };
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 const nodeExternals = __webpack_require__(39);
@@ -339,7 +504,7 @@ module.exports = {
 };
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -354,14 +519,14 @@ const koaDecodedQuerystring = __webpack_require__(29);
 };
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_passport__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(8);
 
 const LocalStrategy = __webpack_require__(35);
 
@@ -400,19 +565,19 @@ module.exports = {
 };
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__postgres_connector__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controllers_user__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__controllers_audio__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controllers_others__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__handlers_checkUser__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_others__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controllers_user__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__controllers_audio__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controllers_others__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__handlers_checkUser__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_others__ = __webpack_require__(7);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
@@ -438,9 +603,9 @@ cloudinary.config({
 
 
 
-const CartoonModel = __webpack_require__(24);
-const AudioModel = __webpack_require__(23);
-const OthersModel = __webpack_require__(9);
+const CartoonModel = __webpack_require__(11);
+const AudioModel = __webpack_require__(10);
+const OthersModel = __webpack_require__(7);
 
 const router = new __WEBPACK_IMPORTED_MODULE_0_koa_router___default.a();
 
@@ -464,17 +629,17 @@ router.get('/api/all/items', (() => {
 			console.log(CartoonModel);
 			const cartoons = yield CartoonModel.Cartoon.findAll({
 				order: [['createdAt', 'DESC']],
-				attributes: ['thumbnail', 'title', 'slug'],
+				attributes: ['thumbnail', 'title', 'slug', 'createdAt'],
 				include: [CartoonModel.Categories]
 			});
 			const audios = yield AudioModel.Audio.findAll({
-				attributes: ['thumbnail', 'title', 'slug'],
+				attributes: ['thumbnail', 'title', 'slug', 'createdAt'],
 				include: [{
 					model: AudioModel.Category
 				}]
 			});
 			const others = yield OthersModel.Other.findAll({
-				attributes: ['thumbnail', 'title', 'slug'],
+				attributes: ['thumbnail', 'title', 'slug', 'createdAt'],
 				include: [OthersModel.Category]
 			});
 			const arr = [...cartoons, ...audios, ...others];
@@ -511,6 +676,7 @@ router.get('/api/audios/getaudios', __WEBPACK_IMPORTED_MODULE_4__controllers_aud
 
 router.get('/api/cartoons/gettag/:name', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getTag);
 router.post('/api/cartoons/settag', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].setTag);
+router.get('/api/cartoons/multiseries/:id', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].multiseries);
 
 router.get('/api/cartoons/:slug', __WEBPACK_IMPORTED_MODULE_3__controllers_cartoon__["a" /* default */].getCategoryCartoons);
 //	router.get('/cartoon/:slug', Cartoon.getOne)
@@ -561,29 +727,29 @@ router.post('/upload', (() => {
 /* harmony default export */ exports["a"] = router;
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports) {
 
 module.exports = require("http");
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports) {
 
 module.exports = require("koa");
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_audio__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_audio__ = __webpack_require__(10);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
@@ -673,7 +839,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 };
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -684,7 +850,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__handlers_redis__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_slug_generator__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_slug_generator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_slug_generator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_cartoon__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_cartoon__ = __webpack_require__(11);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
@@ -696,8 +862,27 @@ var _ = __webpack_require__(32);
 const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 
 /* harmony default export */ exports["a"] = {
-	updateCategory: (() => {
+	multiseries: (() => {
 		var _ref = _asyncToGenerator(function* (ctx, next) {
+			try {
+				const cartoons = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Cartoon"].findAll({
+					attributes: ['thumbnail', 'title', 'slug'],
+					where: {
+						parentTitleId: ctx.params.id
+					}
+				});
+				ctx.body = cartoons;
+			} catch (e) {
+				console.log(e);
+			}
+		});
+
+		return function multiseries(_x, _x2) {
+			return _ref.apply(this, arguments);
+		};
+	})(),
+	updateCategory: (() => {
+		var _ref2 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const category = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Categories"].findOne({
 					where: {
@@ -711,12 +896,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function updateCategory(_x, _x2) {
-			return _ref.apply(this, arguments);
+		return function updateCategory(_x3, _x4) {
+			return _ref2.apply(this, arguments);
 		};
 	})(),
 	setTag: (() => {
-		var _ref2 = _asyncToGenerator(function* (ctx, next) {
+		var _ref3 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const { body } = ctx.request;
 				const tag = yield __WEBPACK_IMPORTED_MODULE_2__handlers_redis__["a" /* redisClient */].set(__WEBPACK_IMPORTED_MODULE_3_slug_generator___default()(body.name), body.description + ', ' + body.name, __WEBPACK_IMPORTED_MODULE_1_redis___default.a.print);
@@ -727,12 +912,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function setTag(_x3, _x4) {
-			return _ref2.apply(this, arguments);
+		return function setTag(_x5, _x6) {
+			return _ref3.apply(this, arguments);
 		};
 	})(),
 	getTag: (() => {
-		var _ref3 = _asyncToGenerator(function* (ctx, next) {
+		var _ref4 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const tag = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__handlers_redis__["b" /* getAsync */])(ctx.params.name);
 				ctx.body = tag;
@@ -741,12 +926,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function getTag(_x5, _x6) {
-			return _ref3.apply(this, arguments);
+		return function getTag(_x7, _x8) {
+			return _ref4.apply(this, arguments);
 		};
 	})(),
 	getCartoonBySlug: (() => {
-		var _ref4 = _asyncToGenerator(function* (ctx, next) {
+		var _ref5 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const cartoon = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Cartoon"].findOne({
 					where: {
@@ -760,12 +945,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function getCartoonBySlug(_x7, _x8) {
-			return _ref4.apply(this, arguments);
+		return function getCartoonBySlug(_x9, _x10) {
+			return _ref5.apply(this, arguments);
 		};
 	})(),
 	getTagByName: (() => {
-		var _ref5 = _asyncToGenerator(function* (ctx, next) {
+		var _ref6 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const tag = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__handlers_redis__["b" /* getAsync */])(ctx.params.tag);
 				const cartoons = __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Cartoon"].findAll({
@@ -790,12 +975,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function getTagByName(_x9, _x10) {
-			return _ref5.apply(this, arguments);
+		return function getTagByName(_x11, _x12) {
+			return _ref6.apply(this, arguments);
 		};
 	})(),
 	getCartoonsByTag: (() => {
-		var _ref6 = _asyncToGenerator(function* (ctx, next) {
+		var _ref7 = _asyncToGenerator(function* (ctx, next) {
 			ctx.set('Content-Type', 'text/plain; charset=utf-8');
 			console.log('tag', ctx.params);
 			try {
@@ -816,12 +1001,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function getCartoonsByTag(_x11, _x12) {
-			return _ref6.apply(this, arguments);
+		return function getCartoonsByTag(_x13, _x14) {
+			return _ref7.apply(this, arguments);
 		};
 	})(),
 	getMultiseries: (() => {
-		var _ref7 = _asyncToGenerator(function* (ctx, next) {
+		var _ref8 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const multiseries = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Cartoon"].findAll({
 					where: { isMultiseries: true }
@@ -832,12 +1017,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function getMultiseries(_x13, _x14) {
-			return _ref7.apply(this, arguments);
+		return function getMultiseries(_x15, _x16) {
+			return _ref8.apply(this, arguments);
 		};
 	})(),
 	getCategoryCartoons: (() => {
-		var _ref8 = _asyncToGenerator(function* (ctx, next) {
+		var _ref9 = _asyncToGenerator(function* (ctx, next) {
 			const limit = 5;
 			try {
 				const category = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Cartoon"].findAll({
@@ -857,12 +1042,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function getCategoryCartoons(_x15, _x16) {
-			return _ref8.apply(this, arguments);
+		return function getCategoryCartoons(_x17, _x18) {
+			return _ref9.apply(this, arguments);
 		};
 	})(),
 	getMoreCartoons: (() => {
-		var _ref9 = _asyncToGenerator(function* (ctx, next) {
+		var _ref10 = _asyncToGenerator(function* (ctx, next) {
 			const limit = 5;
 			const offset = parseInt(ctx.params.id);
 			const category = ctx.params.category !== 'undefined' ? ctx.params.category : { [Op.ne]: null };
@@ -886,12 +1071,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			ctx.body = cartoons;
 		});
 
-		return function getMoreCartoons(_x17, _x18) {
-			return _ref9.apply(this, arguments);
+		return function getMoreCartoons(_x19, _x20) {
+			return _ref10.apply(this, arguments);
 		};
 	})(),
 	getCartoons: (() => {
-		var _ref10 = _asyncToGenerator(function* (ctx, next) {
+		var _ref11 = _asyncToGenerator(function* (ctx, next) {
 			const cartoons = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Cartoon"].findAll({
 				order: [['createdAt', 'DESC']],
 				include: [{
@@ -904,12 +1089,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			ctx.body = cartoons;
 		});
 
-		return function getCartoons(_x19, _x20) {
-			return _ref10.apply(this, arguments);
+		return function getCartoons(_x21, _x22) {
+			return _ref11.apply(this, arguments);
 		};
 	})(),
 	addCategory: (() => {
-		var _ref11 = _asyncToGenerator(function* (ctx, next) {
+		var _ref12 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const categories = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Categories"].create(ctx.request.body);
 				ctx.body = categories;
@@ -918,12 +1103,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function addCategory(_x21, _x22) {
-			return _ref11.apply(this, arguments);
+		return function addCategory(_x23, _x24) {
+			return _ref12.apply(this, arguments);
 		};
 	})(),
 	getCategories: (() => {
-		var _ref12 = _asyncToGenerator(function* (ctx, next) {
+		var _ref13 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const categories = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Categories"].findAll({ order: ['createdAt'] });
 				ctx.body = categories;
@@ -932,12 +1117,12 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function getCategories(_x23, _x24) {
-			return _ref12.apply(this, arguments);
+		return function getCategories(_x25, _x26) {
+			return _ref13.apply(this, arguments);
 		};
 	})(),
 	getTags: (() => {
-		var _ref13 = _asyncToGenerator(function* (ctx, next) {
+		var _ref14 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const tags = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Tag"].findAll({
 					attributes: ['name'],
@@ -950,30 +1135,30 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 			}
 		});
 
-		return function getTags(_x25, _x26) {
-			return _ref13.apply(this, arguments);
+		return function getTags(_x27, _x28) {
+			return _ref14.apply(this, arguments);
 		};
 	})(),
 	add: (() => {
-		var _ref14 = _asyncToGenerator(function* (ctx, next) {
+		var _ref15 = _asyncToGenerator(function* (ctx, next) {
 			const cartoon = yield __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Cartoon"].create(ctx.request.body, {
 				include: [__WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Tag"], __WEBPACK_IMPORTED_MODULE_4__models_cartoon__["Categories"]]
 			});
 			ctx.body = cartoon;
 		});
 
-		return function add(_x27, _x28) {
-			return _ref14.apply(this, arguments);
+		return function add(_x29, _x30) {
+			return _ref15.apply(this, arguments);
 		};
 	})()
 };
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_others__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_others__ = __webpack_require__(7);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
@@ -1101,7 +1286,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 };
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1109,8 +1294,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_redis__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_passport__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_user__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_jwt_service__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_user__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_jwt_service__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__handlers_redis__ = __webpack_require__(6);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -1172,14 +1357,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 };
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_redis__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_jwt_service__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_user__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_jwt_service__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_user__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handlers_redis__ = __webpack_require__(6);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -1225,171 +1410,6 @@ const debug = __webpack_require__(2)('app:nuxt');
 		return _ref.apply(this, arguments);
 	};
 })();
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__postgres_connector__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize_slugify__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize_slugify__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "Audio", function() { return Audio; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "Category", function() { return Category; });
-
-
-
-
-const Audio = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('audio', {
-	title: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-	thumbnail: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-	audio: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-	slug: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
-});
-
-const Category = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('audiocategories', {
-	name: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
-	},
-	slug: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-		unique: true
-	},
-	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT
-});
-
-Audio.belongsTo(Category, { foreignKey: 'audiocategoriesId' });
-Category.hasMany(Audio, { foreignKey: 'audiocategoriesId' });
-
-__WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default.a.slugifyModel(Category, {
-	source: ['name']
-});
-__WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default.a.slugifyModel(Audio, {
-	source: ['title']
-});
-
-
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sequelize_slugify__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__postgres_connector__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "Cartoon", function() { return Cartoon; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "Tag", function() { return Tag; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "CartoonTags", function() { return CartoonTags; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "Categories", function() { return Categories; });
-
-
-
-
-const Cartoon = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('cartoon', {
-	cartoonId: {
-		allowNull: false,
-		primaryKey: true,
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
-	},
-	slug: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-		unique: true
-	},
-	title: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
-	unclear: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT,
-	video: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-	year: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-	thumbnail: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-	author: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-	isMultiseries: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.BOOLEAN,
-	parentTitleId: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
-});
-
-const Tag = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('tags', {
-	id: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-		primaryKey: true,
-		autoIncrement: true
-	},
-	name: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
-	}
-});
-
-const Categories = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('categories', {
-	categoriesId: {
-		primaryKey: true,
-		autoIncrement: true,
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER
-	},
-	name: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING
-	},
-	slug: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-		unique: true
-	},
-	description: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT
-});
-
-var CartoonTags = __WEBPACK_IMPORTED_MODULE_2__postgres_connector__["a" /* default */].define('cartoontags', {
-	id: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-		primaryKey: true,
-		autoIncrement: true
-	},
-	tag_id: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-		unique: 'item_tag_taggable'
-	},
-	taggable: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-		unique: 'item_tag_taggable'
-	},
-	taggable_id: {
-		type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-		unique: 'item_tag_taggable',
-		references: null
-	}
-});
-
-Cartoon.belongsTo(Categories, { foreignKey: 'categoriesId' });
-Categories.hasMany(Cartoon, { foreignKey: 'categoriesId' });
-
-Cartoon.belongsToMany(Tag, {
-	through: {
-		model: CartoonTags,
-		unique: false,
-		scope: {
-			taggable: 'cartoon'
-		}
-	},
-	foreignKey: 'taggable_id',
-	constraints: false
-});
-Tag.belongsToMany(Cartoon, {
-	through: {
-		model: CartoonTags,
-		unique: false
-	},
-	foreignKey: 'tag_id',
-	constraints: false
-});
-__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default.a.slugifyModel(Categories, {
-	source: ['name']
-});
-__WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default.a.slugifyModel(Cartoon, {
-	source: ['title']
-});
-
 
 /***/ },
 /* 25 */
@@ -1486,17 +1506,17 @@ module.exports = require("webpack-node-externals");
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_http__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_passport__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__handlers__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__handlers__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__postgres_connector__ = __webpack_require__(0);
 let start = (() => {
 	var _ref = _asyncToGenerator(function* () {
@@ -1505,7 +1525,7 @@ let start = (() => {
 		const port = process.env.PORT || 3000;
 
 		// Import and Set Nuxt.js options
-		let config = __webpack_require__(11);
+		let config = __webpack_require__(13);
 		config.dev = !(app.env === 'production');
 
 		// Instantiate nuxt.js
@@ -1518,7 +1538,7 @@ let start = (() => {
 		}
 		//  Passport
 		app.use(__WEBPACK_IMPORTED_MODULE_3_koa_passport___default.a.initialize());
-		__webpack_require__(13).configure(__WEBPACK_IMPORTED_MODULE_3_koa_passport___default.a);
+		__webpack_require__(15).configure(__WEBPACK_IMPORTED_MODULE_3_koa_passport___default.a);
 
 		// Initial handlers
 		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__handlers__["a" /* default */])(app);

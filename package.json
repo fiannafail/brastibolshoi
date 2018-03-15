@@ -66,6 +66,7 @@
     "vee-validate": "^2.0.3",
     "vue-animate": "0.0.4",
     "vue-audio": "0.0.11",
+    "vue-carousel": "^0.6.9",
     "vue-multiselect": "^2.0.8",
     "vue-notifications": "^0.9.0",
     "vue-resource": "^1.4.0",
