@@ -3,7 +3,7 @@ div(class="aside-block")
 	div(class="overlay")
 	transition-group(name="fade" tag="ul" class="list-group")
 		li(v-for="(item, index) in items" :key="index" v-bind:class="{ removed: item.removed === true }") 
-			span {{ item.title }}
+			span {{ item.title ? item.title : item.content}}
 			span 
 				i(class="material-icons blue" @click="edit(item)") mode_edit
 				i(class="material-icons red" @click="remove(item, index)") delete

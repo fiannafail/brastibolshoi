@@ -664,6 +664,7 @@ router.get('/api/all/items', (() => {
 
 router.post('/api/advices/add', __WEBPACK_IMPORTED_MODULE_2__controllers_advice__["a" /* default */].addAdvice);
 router.get('/api/advices', __WEBPACK_IMPORTED_MODULE_2__controllers_advice__["a" /* default */].getAdvices);
+router.patch('/api/advices/edit', __WEBPACK_IMPORTED_MODULE_2__controllers_advice__["a" /* default */].updateAdvice);
 
 router.post('/api/others/addcategory', __WEBPACK_IMPORTED_MODULE_6__controllers_others__["a" /* default */].addCategory);
 router.get('/api/others/getcategories', __WEBPACK_IMPORTED_MODULE_6__controllers_others__["a" /* default */].getCategories);
@@ -1624,11 +1625,30 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 /* harmony default export */ exports["a"] = {
-	getAdvices: (() => {
+	updateAdvice: (() => {
 		var _ref = _asyncToGenerator(function* (ctx, next) {
 			try {
+				const advice = yield __WEBPACK_IMPORTED_MODULE_0__models_advice__["a" /* Advice */].findOne({
+					where: {
+						id: ctx.request.body.id
+					}
+				});
+				const updates = yield advice.updateAttributes(ctx.request.body);
+				ctx.body = updates;
+			} catch (e) {
+				console.log(e);
+			}
+		});
+
+		return function updateAdvice(_x, _x2) {
+			return _ref.apply(this, arguments);
+		};
+	})(),
+	getAdvices: (() => {
+		var _ref2 = _asyncToGenerator(function* (ctx, next) {
+			try {
 				const advices = yield __WEBPACK_IMPORTED_MODULE_0__models_advice__["a" /* Advice */].findAll({
-					attributes: ['id', 'content']
+					attributes: ['content', 'id']
 				});
 				ctx.body = advices;
 			} catch (e) {
@@ -1636,12 +1656,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function getAdvices(_x, _x2) {
-			return _ref.apply(this, arguments);
+		return function getAdvices(_x3, _x4) {
+			return _ref2.apply(this, arguments);
 		};
 	})(),
 	addAdvice: (() => {
-		var _ref2 = _asyncToGenerator(function* (ctx, next) {
+		var _ref3 = _asyncToGenerator(function* (ctx, next) {
 			try {
 				const advice = yield __WEBPACK_IMPORTED_MODULE_0__models_advice__["a" /* Advice */].create(ctx.request.body);
 				ctx.body = advice;
@@ -1650,8 +1670,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		});
 
-		return function addAdvice(_x3, _x4) {
-			return _ref2.apply(this, arguments);
+		return function addAdvice(_x5, _x6) {
+			return _ref3.apply(this, arguments);
 		};
 	})()
 };

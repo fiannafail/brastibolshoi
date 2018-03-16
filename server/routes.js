@@ -75,6 +75,7 @@ router.get('/api/all/items', async (ctx, next) => {
 
 router.post('/api/advices/add', Advice.addAdvice)
 router.get('/api/advices', Advice.getAdvices)
+router.patch('/api/advices/edit', Advice.updateAdvice)
 
 router.post('/api/others/addcategory', Others.addCategory)
 router.get('/api/others/getcategories', Others.getCategories)
