@@ -24,6 +24,7 @@ h1
 	color #1a1512
 .main-header 
 	width 100%
+	margin-bottom: 25px
 	text-align center
 .main-navigation
 	margin 15px 0
@@ -35,6 +36,9 @@ h1
 	font-size 22px
 	color #595653
 	letter-spacing 2px
+	a
+		color #595653
+		letter-spacing: 2.1px
 ul
 	margin 0 auto
 	padding 25px

@@ -17,6 +17,7 @@ export default {
 <style lang="stylus" scoped>
 ul
 	margin 0 auto
+	margin-bottom: 25px
 	padding 25px
 	box-sizing border-box
 	width 500px
@@ -62,7 +63,7 @@ li
 	color $global-color
 	transition .5s
 	a
-		color $global-color
+		color #fa8925
 		font-weight bold
 		transition .5s
 </style>

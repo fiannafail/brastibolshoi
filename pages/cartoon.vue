@@ -1,28 +1,29 @@
 <template lang="pug">
-div(class="container")
-	Header
+	div(class="container")
+		Categories(name="carttoons" :categories="categories")
 		div(v-for="(item, index) in cartoonCategories" :key="index")
 			nuxt-link(:to="'/cartoons/' + item.slug") {{ item.name }}
-	nuxt-child
+		nuxt-child
 </template>
 <script>
 import { mapState } from 'vuex'
-import Header from '../components/Header'
+import axios from '~/plugins/axios'
+import Categories from '../components/Categories'
 
 export default {
-	fetch ({ store }) {
-		return Promise.all([
-			store.dispatch('getcartoonsCats')
-		])
+	async asyncData () {
+		const { data } = await axios.get('/api/cartoons/categories')
+		return {
+			categories: data
+		}
 	},
 	computed: {
 		...mapState({
-			ContentItems: 'cartoons',
-			cartoonCategories: 'cartoonCategoriesArray'
+			ContentItems: 'cartoons'
 		})
 	},
 	components: {
-		Header
+		Categories
 	},
 	layout: 'blog'
 }

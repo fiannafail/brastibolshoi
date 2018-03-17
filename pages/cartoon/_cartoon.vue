@@ -55,11 +55,11 @@ import '~/plugins/vue-youtube'
 export default {
 	async asyncData ({ params }) {
 		const data = await Promise.all([
-			axios.get('/gettags'),
+			axios.get('/api/cartoons/tags'),
 			axios.get(`/api/getcartoonbyslug/${params.cartoon}`)
 		])
-		const id = await axios.get(`/api/cartoons/multiseries/${data[1].data.parentTitleId}`)
-		console.log(id, 'asdsdd dsads')
+		console.log(data[1].data)
+		const id = data[1].data.parentTitleId !== '' ? await axios.get(`/api/cartoons/multiseries/${data[1].data.parentTitleId}`) : ''
 		return {
 			tags: data[0].data,
 			post: data[1].data,
@@ -113,6 +113,7 @@ export default {
 @import "~assets/css/app.styl"
 .post-container
  	display flex
+	 margin-top: 45px
 	&:first-child
 		flex 2
 	&:nth-child(2)

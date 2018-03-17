@@ -1,7 +1,7 @@
 <template lang="pug">
 div
 	Grid(:items="visibleItems" name="cartoon" categoryName="category")
-		button(class="button" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Больше
+		button(class="getMore" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Больше
 </template>
 <script>
 import axios from '~/plugins/axios'
