@@ -1,15 +1,12 @@
 <template lang="pug">
 	div(class="container")
-		Header
 		nuxt-child
 		Grid(:items="visibleItems")
-			button(class="button" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Дальше
+			button(class="getMore" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Дальше
 </template>
 <script>
 import axios from '~/plugins/axios'
-
 import Grid from '../components/Grid'
-import Header from '../components/Header'
 export default {
 	async asyncData () {
 		const data = await Promise.all([
@@ -39,9 +36,9 @@ export default {
 		}
 	},
 	components: {
-		Header,
 		Grid
-	}
+	},
+	layout: 'blog'
 }
 </script>
 

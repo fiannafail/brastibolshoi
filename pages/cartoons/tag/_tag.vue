@@ -29,7 +29,8 @@ export default {
 	},
 	components: {
 		Grid
-	}
+	},
+	layout: 'blog'
 }
 </script>
 

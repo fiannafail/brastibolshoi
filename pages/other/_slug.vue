@@ -24,7 +24,8 @@ export default {
 	},
 	components: {
 		Header
-	}
+	},
+	layout: 'blog'
 }
 </script>
 <style lang="stylus">

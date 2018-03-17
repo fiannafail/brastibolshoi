@@ -23,7 +23,8 @@ export default {
 		return {
 			title: `About Page (${this.name}-side)`
 		}
-	}
+	},
+	layout: 'blog'
 }
 </script>
 

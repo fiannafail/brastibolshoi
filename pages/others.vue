@@ -1,12 +1,12 @@
 <template lang="pug">
 div(class="container")
-	Header(:categories="categories" name="others" class="header")
+	Categories(name="others" :categories="categories")
 	div(class="container")
 		nuxt-child
 </template>
 <script>
 import axios from '~/plugins/axios'
-import Header from '../components/Header'
+import Categories from '../components/Categories'
 
 export default {
 	async asyncData () {
@@ -22,8 +22,9 @@ export default {
 		}
 	},
 	components: {
-		Header
-	}
+		Categories
+	},
+	layout: 'blog'
 }
 </script>
 <style lang="stylus" scoped>

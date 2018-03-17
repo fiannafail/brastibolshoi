@@ -85,7 +85,7 @@ const createStore = () => {
 				commit('set', { type: 'cartoonTagsArray', items: data })
 			},
 			async getcartoonsCats ({ commit }) {
-				const { data } = await axios.get('/getcategories')
+				const { data } = await axios.get('api/cartoons/categories')
 				commit('set', { type: 'cartoonCategoriesArray', items: data })
 			}
 		}

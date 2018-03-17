@@ -105,7 +105,8 @@ export default {
 		videoId () {
 			return this.$youtube.getIdFromUrl(this.post.video)
 		}
-	}
+	},
+	layout: 'blog'
 }
 </script>
 <style lang="stylus" scoped>

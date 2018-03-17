@@ -10,14 +10,6 @@ header(class="main-header")
 			nuxt-link(to="/audios") Аудио
 		div
 			nuxt-link(to="/others") Полезное
-	ul(v-if="$route.params.tag === undefined && categories")
-		li(
-			v-for="(item, index) in categories" 
-			:key="index" 
-			v-bind:class="{ current: $route.params.category === item.slug }"
-			)
-			span
-				nuxt-link(:to="`/${name}/${item.slug}`" replace ) {{ item.name }}
 </template>
 <script>
 export default {

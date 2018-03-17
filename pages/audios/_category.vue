@@ -21,7 +21,8 @@ export default {
 	},
 	components: {
 		AudiosList
-	}
+	},
+	layout: 'blog'
 }
 
 </script>

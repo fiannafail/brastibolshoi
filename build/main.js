@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 42);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -151,7 +151,7 @@ redisClient.on('error', function (err) {
 	console.log('Error ' + err);
 });
 
-const { promisify } = __webpack_require__(38);
+const { promisify } = __webpack_require__(40);
 const getAsync = promisify(redisClient.get).bind(redisClient);
 /* harmony export (immutable) */ exports["b"] = getAsync;
 
@@ -205,11 +205,11 @@ __WEBPACK_IMPORTED_MODULE_2_sequelize_slugify___default.a.slugifyModel(Other, {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_bcrypt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_mongoose_unique_validator__);
 
 
@@ -431,7 +431,7 @@ __WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default.a.slugifyModel(Cartoon, 
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(5);
 
@@ -453,7 +453,7 @@ __WEBPACK_IMPORTED_MODULE_1_sequelize_slugify___default.a.slugifyModel(Cartoon, 
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-const nodeExternals = __webpack_require__(39);
+const nodeExternals = __webpack_require__(41);
 
 module.exports = {
 	/*
@@ -508,10 +508,10 @@ module.exports = {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa2_formidable__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa2_formidable__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa2_formidable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa2_formidable__);
 
-const koaDecodedQuerystring = __webpack_require__(29);
+const koaDecodedQuerystring = __webpack_require__(31);
 
 /* harmony default export */ exports["a"] = app => {
 	app.use(__WEBPACK_IMPORTED_MODULE_0_koa2_formidable___default()());
@@ -528,7 +528,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_passport__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(8);
 
-const LocalStrategy = __webpack_require__(35);
+const LocalStrategy = __webpack_require__(37);
 
 
 const debug = __webpack_require__(2)('app:nuxt');
@@ -569,25 +569,25 @@ module.exports = {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__postgres_connector__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controllers_advice__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controllers_user__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controllers_audio__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controllers_others__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__handlers_checkUser__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controllers_advice__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controllers_user__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controllers_audio__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controllers_others__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__handlers_checkUser__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__models_others__ = __webpack_require__(7);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
 
 const debug = __webpack_require__(2)('app:nuxt');
-const fs = __webpack_require__(27);
-const path = __webpack_require__(36);
+const fs = __webpack_require__(29);
+const path = __webpack_require__(38);
 
-var cloudinary = __webpack_require__(26);
+var cloudinary = __webpack_require__(28);
 
 cloudinary.config({
 	cloud_name: 'rastibolshoi',
@@ -684,17 +684,17 @@ router.get('/api/cartoons/gettag/:name', __WEBPACK_IMPORTED_MODULE_4__controller
 router.post('/api/cartoons/settag', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].setTag);
 router.get('/api/cartoons/multiseries/:id', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].multiseries);
 
-router.get('/api/cartoons/:slug', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getCategoryCartoons);
+router.get('/api/cartoons/category/:slug', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getCategoryCartoons);
 //	router.get('/cartoon/:slug', Cartoon.getOne)
 
-router.get('/getcategories', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getCategories);
+router.get('/api/cartoons/categories', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getCategories);
 router.get('/api/cartoons/page/:id/:category', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getMoreCartoons);
 router.get('/api/cartoons', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getCartoons);
 router.patch('/api/cartoons/updatecat/:id', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].updateCategory);
 router.get('/api/gettagbyname/:category/:tag', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getTagByName);
 router.get('/api/getcartoonbyslug/:cartoon', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getCartoonBySlug);
 router.get('/api/getcartoonsbytag/:tag', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getCartoonsByTag);
-router.get('/gettags', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getTags);
+router.get('/api/cartoons/tags', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getTags);
 router.post('/settag', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].setTag);
 router.post('/add', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].add);
 router.post('/addcategory', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].addCategory);
@@ -752,6 +752,68 @@ module.exports = require("nuxt");
 
 /***/ },
 /* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_advice__ = __webpack_require__(26);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+/* harmony default export */ exports["a"] = {
+	updateAdvice: (() => {
+		var _ref = _asyncToGenerator(function* (ctx, next) {
+			try {
+				const advice = yield __WEBPACK_IMPORTED_MODULE_0__models_advice__["a" /* Advice */].findOne({
+					where: {
+						id: ctx.request.body.id
+					}
+				});
+				const updates = yield advice.updateAttributes(ctx.request.body);
+				ctx.body = updates;
+			} catch (e) {
+				console.log(e);
+			}
+		});
+
+		return function updateAdvice(_x, _x2) {
+			return _ref.apply(this, arguments);
+		};
+	})(),
+	getAdvices: (() => {
+		var _ref2 = _asyncToGenerator(function* (ctx, next) {
+			try {
+				const advices = yield __WEBPACK_IMPORTED_MODULE_0__models_advice__["a" /* Advice */].findAll({
+					attributes: ['content', 'id']
+				});
+				ctx.body = advices;
+			} catch (e) {
+				console.log(e);
+			}
+		});
+
+		return function getAdvices(_x3, _x4) {
+			return _ref2.apply(this, arguments);
+		};
+	})(),
+	addAdvice: (() => {
+		var _ref3 = _asyncToGenerator(function* (ctx, next) {
+			try {
+				const advice = yield __WEBPACK_IMPORTED_MODULE_0__models_advice__["a" /* Advice */].create(ctx.request.body);
+				ctx.body = advice;
+			} catch (e) {
+				console.log(e);
+			}
+		});
+
+		return function addAdvice(_x5, _x6) {
+			return _ref3.apply(this, arguments);
+		};
+	})()
+};
+
+/***/ },
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -845,7 +907,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 };
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -854,7 +916,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redis__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__handlers_redis__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_slug_generator__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_slug_generator__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_slug_generator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_slug_generator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_cartoon__ = __webpack_require__(11);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -863,7 +925,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-var _ = __webpack_require__(32);
+var _ = __webpack_require__(34);
 
 const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 
@@ -1160,7 +1222,7 @@ const Op = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Op;
 };
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1292,7 +1354,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 };
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1363,7 +1425,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 };
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1418,97 +1480,115 @@ const debug = __webpack_require__(2)('app:nuxt');
 })();
 
 /***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-module.exports = require("bcrypt");
-
-/***/ },
 /* 26 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = require("cloudinary");
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__postgres_connector__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Advice; });
+
+
+
+const Advice = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('advice', {
+	content: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT
+});
+
+
 
 /***/ },
 /* 27 */
 /***/ function(module, exports) {
 
-module.exports = require("fs");
+module.exports = require("bcrypt");
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-module.exports = require("jsonwebtoken");
+module.exports = require("cloudinary");
 
 /***/ },
 /* 29 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-decoded-querystring");
+module.exports = require("fs");
 
 /***/ },
 /* 30 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-router");
+module.exports = require("jsonwebtoken");
 
 /***/ },
 /* 31 */
 /***/ function(module, exports) {
 
-module.exports = require("koa2-formidable");
+module.exports = require("koa-decoded-querystring");
 
 /***/ },
 /* 32 */
 /***/ function(module, exports) {
 
-module.exports = require("lodash");
+module.exports = require("koa-router");
 
 /***/ },
 /* 33 */
 /***/ function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("koa2-formidable");
 
 /***/ },
 /* 34 */
 /***/ function(module, exports) {
 
-module.exports = require("mongoose-unique-validator");
+module.exports = require("lodash");
 
 /***/ },
 /* 35 */
 /***/ function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("mongoose");
 
 /***/ },
 /* 36 */
 /***/ function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("mongoose-unique-validator");
 
 /***/ },
 /* 37 */
 /***/ function(module, exports) {
 
-module.exports = require("slug-generator");
+module.exports = require("passport-local");
 
 /***/ },
 /* 38 */
 /***/ function(module, exports) {
 
-module.exports = require("util");
+module.exports = require("path");
 
 /***/ },
 /* 39 */
 /***/ function(module, exports) {
 
-module.exports = require("webpack-node-externals");
+module.exports = require("slug-generator");
 
 /***/ },
 /* 40 */
+/***/ function(module, exports) {
+
+module.exports = require("util");
+
+/***/ },
+/* 41 */
+/***/ function(module, exports) {
+
+module.exports = require("webpack-node-externals");
+
+/***/ },
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1613,86 +1693,6 @@ const debug = __webpack_require__(2)('app:nuxt');
 
 
 start();
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_advice__ = __webpack_require__(42);
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-
-
-/* harmony default export */ exports["a"] = {
-	updateAdvice: (() => {
-		var _ref = _asyncToGenerator(function* (ctx, next) {
-			try {
-				const advice = yield __WEBPACK_IMPORTED_MODULE_0__models_advice__["a" /* Advice */].findOne({
-					where: {
-						id: ctx.request.body.id
-					}
-				});
-				const updates = yield advice.updateAttributes(ctx.request.body);
-				ctx.body = updates;
-			} catch (e) {
-				console.log(e);
-			}
-		});
-
-		return function updateAdvice(_x, _x2) {
-			return _ref.apply(this, arguments);
-		};
-	})(),
-	getAdvices: (() => {
-		var _ref2 = _asyncToGenerator(function* (ctx, next) {
-			try {
-				const advices = yield __WEBPACK_IMPORTED_MODULE_0__models_advice__["a" /* Advice */].findAll({
-					attributes: ['content', 'id']
-				});
-				ctx.body = advices;
-			} catch (e) {
-				console.log(e);
-			}
-		});
-
-		return function getAdvices(_x3, _x4) {
-			return _ref2.apply(this, arguments);
-		};
-	})(),
-	addAdvice: (() => {
-		var _ref3 = _asyncToGenerator(function* (ctx, next) {
-			try {
-				const advice = yield __WEBPACK_IMPORTED_MODULE_0__models_advice__["a" /* Advice */].create(ctx.request.body);
-				ctx.body = advice;
-			} catch (e) {
-				console.log(e);
-			}
-		});
-
-		return function addAdvice(_x5, _x6) {
-			return _ref3.apply(this, arguments);
-		};
-	})()
-};
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__postgres_connector__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Advice; });
-
-
-
-const Advice = __WEBPACK_IMPORTED_MODULE_1__postgres_connector__["a" /* default */].define('advice', {
-	content: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.TEXT
-});
-
-
 
 /***/ }
 /******/ ]);

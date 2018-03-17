@@ -21,7 +21,8 @@ export default {
 	},
 	components: {
 		Grid
-	}
+	},
+	layout: 'blog'
 }
 </script>
 <style lang="stylus" scoped>

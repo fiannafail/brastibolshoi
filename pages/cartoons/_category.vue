@@ -1,5 +1,9 @@
 <template lang="pug">
 div
+	div(class="meta")
+		h1 Мультики для детей 
+			span {{ items[0].category.name }}
+		p {{ items[0].category.description }}
 	div(class="tags-container")
 		div(v-for="(item, index) in cartoonTags" :key="index" v-bind:class="{ current: currentTag === index }") 
 			a(href="" @click.prevent="tag(item, index)") {{ item.name }}
@@ -16,13 +20,15 @@ export default {
 	async asyncData ({ params }) {
 		console.log(params.category)
 		const data = await Promise.all([
-			axios.get(`/api/cartoons/${params.category}`)
+			axios.get(`/api/cartoons/category/${params.category}`),
+			axios.get('/api/cartoons/tags')
 		])
 		const items = data[0].data
 		const visibleItems = data[0].data.slice(0, 10)
 		return {
 			items: items,
-			visibleItems: visibleItems
+			visibleItems: visibleItems,
+			cartoonTags: data[1].data
 		}
 	},
 	data: () => ({
@@ -34,8 +40,10 @@ export default {
 	}),
 	methods: {
 		async tag (item, index) {
-			await this.$store.dispatch('setCurrentTag', { category: this.$route.params.category, tag: item.name })
-			this.currentTag = index
+			console.log(item)
+			const { data } = await axios.get(`/api/gettagbyname/${this.$route.params.category}/${item.name}`)
+			console.log()
+			this.visibleItems = data.cartoons
 		},
 		getMore () {
 			const items = this.items.slice(this.pagination * 10, this.pagination * 10 * 2)
@@ -56,16 +64,33 @@ export default {
 	},
 	components: {
 		Grid
-	}
+	},
+	layout: 'blog'
 }
 </script>
 <style lang="stylus" scoped>
 @import "~assets/css/app.styl"
+.meta
+	padding 15px
+	h1
+		margin-bottom: 12px
+		margin-top: 35px
+	p
+		margin 10px 0
+		color #807b77
+		letter-spacing: 1.1px
+		font-size: 15px
+		line-height: 22px
+h1
+	color #1a1512
+	span
+		color $global-color
 .tags-container
+	padding 0 5px
 	display flex
 	a	
 		display block
-		margin 15px
+		margin 10px
 		border-radius 3px
 		border solid 1px rgba(151, 151, 151, 0.35)
 		padding 10px 8px

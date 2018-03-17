@@ -1,7 +1,7 @@
 <template lang="pug">
 div
 	main(class="main-section")
-		transition-group(name="slideLeft" tag="div" class="list-group")
+		div(class="list-group")
 			div(v-for="(item, index) in items" :key="index")
 				div(class="post-background" v-lazy:background-image="item.thumbnail")
 					p
