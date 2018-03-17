@@ -109,7 +109,7 @@ router.get('/api/cartoons/tags', Cartoon.getTags)
 router.post('/settag', Cartoon.setTag)
 router.post('/add', Cartoon.add)
 router.post('/addcategory', Cartoon.addCategory)
-router.get('/getmultiseries', Cartoon.getMultiseries)
+router.get('/api/cartoons/multiseries', Cartoon.getMultiseries)
 router.post('/up', async (ctx, next) => {
 	const file = ctx.request.files.file
 	const reader = fs.createReadStream(file.path)

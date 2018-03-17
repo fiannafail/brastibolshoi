@@ -698,7 +698,7 @@ router.get('/api/cartoons/tags', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoo
 router.post('/settag', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].setTag);
 router.post('/add', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].add);
 router.post('/addcategory', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].addCategory);
-router.get('/getmultiseries', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getMultiseries);
+router.get('/api/cartoons/multiseries', __WEBPACK_IMPORTED_MODULE_4__controllers_cartoon__["a" /* default */].getMultiseries);
 router.post('/up', (() => {
 	var _ref3 = _asyncToGenerator(function* (ctx, next) {
 		const file = ctx.request.files.file;

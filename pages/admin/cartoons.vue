@@ -7,8 +7,8 @@ div(class="section-container")
 				span(class="bold") {{ removedName }}
 				|  ?
 			button(class="btn red" slot="buttons") Удалить
-	Tags(class="tags-container" :items="cartoonTagsArray")
-	Categories(class="categories-container" :items="cartoonCategoriesArray")
+	Tags(class="tags-container" :items="Tags")
+	Categories(class="categories-container" :items="Categories")
 	div
 		h2 Мультики
 		div
@@ -39,7 +39,7 @@ div(class="section-container")
 					label Мультик-родитель
 					select(v-model="cartoon.parentTitleId")
 						option(disabled selected value="") Если нет, то оставить пустым
-						option(v-for="(item, index) in cartoonMultiseries" :key="index" :value="item.cartoonId") {{ item.title }}
+						option(v-for="(item, index) in Multiseries" :key="index" :value="item.cartoonId") {{ item.title }}
 				div(class="form-group")
 					label Видео
 					div
@@ -87,7 +87,7 @@ div(class="section-container")
 						selectLabel="Добавить"
 						selectedLabel="Выбрано"
 						deselectLabel="Удалить"
-						:options="cartoonTagsArray")
+						:options="Tags")
 				div(class="form-group")
 					label Изображение
 					div
@@ -116,7 +116,7 @@ div(class="section-container")
 							v-validate="'required'"
 							name="category"
 							)
-							option(v-for="(item, index) in cartoonCategoriesArray" :value="item.categoriesId" :key="index") {{ item.name }}
+							option(v-for="(item, index) in Categories" :value="item.categoriesId" :key="index") {{ item.name }}
 						div(v-show="errors.has('category')" class="help is-danger") {{ errors.first('category') }}
 				div(class="form-group")
 					label Описание
@@ -151,13 +151,12 @@ div(class="section-container")
 		ItemsList(
 			@editing="setEditingItem"
 			@remove="removeCartoon"
-			:items="ContentItems"
+			:items="Cartoons"
 			)
 </template>
 <script>
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
-import { mapState } from 'vuex'
 import Multiselect from 'vue-multiselect'
 import Dropzone from 'nuxt-dropzone'
 import uniqid from 'uniqid'
@@ -176,14 +175,23 @@ import 'nuxt-dropzone/dropzone.css'
 Vue.use(VeeValidate)
 
 export default {
-	fetch ({ store, route }) {
-		console.log(route)
-		return Promise.all([
-			store.dispatch('getcartoonsCats'),
-			store.dispatch('getCartoonsTags'),
-			store.dispatch('getMultiseries'),
-			store.dispatch('getСartoons')
-		])
+	async asyncData () {
+		try {
+			const data = await Promise.all([
+				axios.get('/api/cartoons/categories'),
+				axios.get('/api/cartoons/tags'),
+				axios.get('/api/cartoons'),
+				axios.get('/api/cartoons/multiseries')
+			])
+			return {
+				Categories: data[0].data,
+				Tags: data[1].data,
+				Cartoons: data[2].data,
+				Multiseries: data[3].data
+			}
+		} catch (e) {
+			console.log(e)
+		}
 	},
 	data: () => ({
 		preTags: [],
@@ -249,7 +257,7 @@ export default {
 			const tag = {
 				name: newTag
 			}
-			this.cartoonTagsArray.push(tag)
+			this.Tags.push(tag)
 			this.cartoon.tags.push(tag)
 		},
 		async addCartoon () {
@@ -271,15 +279,6 @@ export default {
 		cleanForm () {
 			this.cartoon = null
 		}
-	},
-	computed: {
-		...mapState({
-			ContentItems: 'cartoons',
-			cartoonCategoriesArray: 'cartoonCategoriesArray',
-			cartoonCategoriesList: 'cartoonCategoriesList',
-			cartoonTagsArray: 'cartoonTagsArray',
-			cartoonMultiseries: 'cartoonMultiseries'
-		})
 	},
 	components: {
 		Dropzone,
