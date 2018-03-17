@@ -2,7 +2,7 @@
 	div(class="container")
 		nuxt-child
 		Grid(:items="visibleItems")
-			button(class="getMore" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Дальше
+			button(class="getMore" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Больше
 </template>
 <script>
 import axios from '~/plugins/axios'

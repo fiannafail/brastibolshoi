@@ -33,7 +33,7 @@ export default {
 			setTimeout(() => {
 				this.reloading = false
 				this.adviceToShow = this.advices[random].content
-			}, 300)
+			}, 200)
 		},
 		async getAdvices () {
 			try {

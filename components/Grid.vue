@@ -63,4 +63,14 @@ export default {
 		padding-bottom 5px
 	a
 		color white
+.getMore
+	background-color: #fa8925;
+	font-size: 22px
+	font-weight: 700
+	cursor pointer
+	padding 17px 35px
+	color white
+	border none
+	border-radius: 100px
+	letter-spacing: 1px
 </style>

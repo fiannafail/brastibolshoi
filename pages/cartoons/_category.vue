@@ -8,7 +8,7 @@ div
 		div(v-for="(item, index) in cartoonTags" :key="index" v-bind:class="{ current: currentTag === index }") 
 			a(href="" @click.prevent="tag(item, index)") {{ item.name }}
 	Grid(:items="visibleItems")
-		button(class="button" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Дальше
+		button(class="button" @click="getMore" slot="getMore" v-if="visibleItems.length !== items.length") Больше
 </template>
 <script>
 import axios from '~/plugins/axios'
